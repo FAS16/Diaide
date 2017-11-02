@@ -22,8 +22,8 @@ public class ReminderTypeSelectorActivity extends AppCompatActivity implements V
 
     public void onClick(View v){
         if (v == medicinBT){
-            Intent intent = new Intent(this, MedicinReminderActivity.class);
-            startActivity(intent);
+          //  Intent intent = new Intent(this, MedicinReminderActivity.class);
+          //  startActivity(intent);
             }
         else if (v == doctorAppointmentBT){
         Intent intent = new Intent(this, DoctorsAppointmentActivity.class);
