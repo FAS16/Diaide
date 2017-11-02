@@ -19,7 +19,8 @@
         <activity
             android:name=".HomeMenuActivity"
             android:label="@string/title_activity_home_menu"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ReminderTypeSelectorActivity"></activity>
     </application>
 
 </manifest>
