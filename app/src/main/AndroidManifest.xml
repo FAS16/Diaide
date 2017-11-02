@@ -19,7 +19,13 @@
         <activity
             android:name=".HomeMenuActivity"
             android:label="@string/title_activity_home_menu"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BSugarOverviewActivity"
+            android:label="@string/title_activity_bsuger_overview" />
+        <activity android:name=".BSugarNotationActivity" />
+        <activity android:name=".ReminderTypeSelectorActivity" />
+        <activity android:name=".DoctorsAppointmentActivity"></activity>
     </application>
 
 </manifest>

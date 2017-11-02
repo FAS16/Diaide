@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.fahadali.diabetesapp.ReminderTypeSelectorActivity"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
+
+
+    <TextView
+        android:id="@+id/medicinTXT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Opret en alarm for medicin"
+        android:layout_marginStart="9dp"
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginTop="14dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/medicinBTN"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/medicinBTN"
+        android:layout_width="192dp"
+        android:layout_height="0dp"
+        android:background="@drawable/roundcorner"
+        android:text="MEDICIN"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="@+id/doctorAppointmentTXT"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="30dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/medicinTXT" />
+
+    <TextView
+        android:id="@+id/doctorAppointmentTXT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bliv påmindet om dine lægeaftaler"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/doctorAppointmentBTN"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/doctorAppointmentBTN"
+        android:layout_width="0dp"
+        android:layout_height="116dp"
+        android:background="@drawable/roundcorner"
+        android:text="Lægeaftaler"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/otherBTN"
+        app:layout_constraintRight_toRightOf="@+id/otherBTN"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="41dp"
+        app:layout_constraintLeft_toLeftOf="@+id/otherBTN" />
+
+    <TextView
+        android:id="@+id/otherTXT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lav dine egne påmindelser"
+        android:layout_marginStart="10dp"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="164dp"
+        app:layout_constraintLeft_toLeftOf="@+id/otherBTN" />
+
+    <Button
+        android:id="@+id/otherBTN"
+        android:layout_width="192dp"
+        android:layout_height="116dp"
+        android:background="@drawable/roundcorner"
+        android:text="Andre"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="25dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/otherTXT" />
+
+</android.support.constraint.ConstraintLayout>
