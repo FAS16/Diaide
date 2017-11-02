@@ -9,22 +9,22 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/cancel_BTN"
         android:layout_width="120dp"
         android:layout_height="0dp"
+        android:layout_marginStart="40dp"
         android:layout_weight="1"
         android:text="Cancel"
         android:textSize="18sp"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        android:layout_marginStart="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/button4"
-        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintBottom_toBottomOf="@+id/done_BTN"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button4" />
+        app:layout_constraintTop_toTopOf="@+id/done_BTN"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/done_BTN"
         android:layout_width="120dp"
         android:layout_height="60dp"
         android:layout_weight="1"
@@ -33,7 +33,7 @@
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="40dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginBottom="35dp" />
 

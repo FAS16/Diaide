@@ -1,5 +1,6 @@
 package com.example.fahadali.diabetesapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +24,8 @@ public class BSugarOverviewActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         if(v == addBloodSugar_BTN){
+            Intent intent = new Intent(this, BSugarNotationActivity.class);
+            startActivity(intent);
 
         }
 

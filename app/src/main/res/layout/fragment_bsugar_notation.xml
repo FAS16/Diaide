@@ -24,15 +24,65 @@
 
     <include layout="@layout/done_cancel_btns"
         tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
         android:layout_height="0dp"
         tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
         android:layout_width="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0" />
+
+    <EditText
+        android:id="@+id/firstNum_ET"
+        android:layout_width="59dp"
+        android:layout_height="108dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="0"
+        android:inputType="textPersonName"
+        android:textSize="80sp"
+        android:layout_marginStart="29dp"
+        tools:layout_editor_absoluteY="87dp"
+        tools:layout_editor_absoluteX="69dp" />
+
+    <EditText
+        android:id="@+id/editText11"
+        android:layout_width="59dp"
+        android:layout_height="108dp"
+        android:layout_marginStart="29dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="0"
+        android:inputType="textPersonName"
+        android:textSize="80sp"
+        tools:layout_editor_absoluteX="249dp"
+        tools:layout_editor_absoluteY="87dp" />
+
+    <EditText
+        android:id="@+id/editText10"
+        android:layout_width="59dp"
+        android:layout_height="108dp"
+        android:layout_marginStart="29dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="0"
+        android:inputType="textPersonName"
+        android:textSize="80sp"
+        tools:layout_editor_absoluteX="163dp"
+        tools:layout_editor_absoluteY="87dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=","
+        android:textSize="70sp"
+        tools:layout_editor_absoluteX="222dp"
+        tools:layout_editor_absoluteY="128dp" />
 
 
 </android.support.constraint.ConstraintLayout>

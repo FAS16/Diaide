@@ -9,5 +9,11 @@ public class BSugarNotationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bsugar_notation);
+
+        if(savedInstanceState == null){
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.BSnotation_frag_container,new BSugarNotationFrag())
+                    .commit();
+        }
     }
 }
