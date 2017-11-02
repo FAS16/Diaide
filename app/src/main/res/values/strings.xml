@@ -3,71 +3,14 @@
     <!--Removed: DiabetesApp - Fahad -->
     <string name="app_name"></string>
     <string name="title_activity_home_menu">Hovedmenu</string>
+    <string name="title_activity_bsuger_overview">Blodsukkermålinger</string>
+    <string name="title_activity_bsugar_notation">Ny blodsukkermåling</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
 
-    <!-- Medicin Reminders -->
-    <string name="MedicinReminderStep1">Hvilken medicin tager du?</string>
-    <string name="MedicinReminderStep2">Hvor ofte tager du din medicin?</string>
-    <string name="MedicinReminderStep3">Hvornår vil du påmindes?</string>
-    <string name="MedicinReminderStep4">Hvor lang tid inden vil du påmindes?</string>
-
-    <!-- Medicin Arrays -->
-    <string-array name="MedicinType">
-        <item>Medicin 1</item>
-        <item>Medicin 2</item>
-        <item>Medicin 3</item>
-        <item>Medicin 4</item>
-        <item>Medicin 5</item>
-        <item>Medicin 6</item>
-        <item>Medicin 7</item>
-        <item>Medicin 8</item>
-        <item>Medicin 9</item>
-        <item>Andet</item>
-    </string-array>
-
-    <string-array name="MedicineFrequency">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-    </string-array>
-
-    <string-array name="TimeForReminder">
-        <item></item>
-        <item>7:00</item>
-        <item>8:00</item>
-        <item>9:00</item>
-        <item>10:00</item>
-        <item>11:00</item>
-        <item>12:00</item>
-        <item>13:00</item>
-        <item>14:00</item>
-        <item>15:00</item>
-        <item>16:00</item>
-        <item>17:00</item>
-        <item>18:00</item>
-        <item>19:00</item>
-    </string-array>
-
-    <string-array name="ReminderForReminder">
-        <item>0 minutter før</item>
-        <item>5 minutter før</item>
-        <item>10 minutter før</item>
-        <item>15 minutter før</item>
-        <item>20 minutter før</item>
-        <item>25 minutter før</item>
-        <item>30 minutter før</item>
-    </string-array>
-
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
 </resources>
