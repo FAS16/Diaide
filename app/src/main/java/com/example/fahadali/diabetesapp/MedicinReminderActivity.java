@@ -56,7 +56,7 @@ public class MedicinReminderActivity extends AppCompatActivity implements View.O
                                getSupportFragmentManager().beginTransaction()
                                          .add(R.id.medicinReminder_FRM, step4)
                                         .commit();
-                   }
+                   }g
                }
 
 
