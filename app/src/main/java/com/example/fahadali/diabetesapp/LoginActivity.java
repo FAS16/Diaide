@@ -25,6 +25,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //Hides the action bar in current activity
+        getSupportActionBar().hide();
+
         userName_ET = (EditText) findViewById(R.id.userName_ET);
         password_ET = (EditText) findViewById(R.id.userName_ET);
         login_BTN = (Button) findViewById(R.id.login_BTN);
