@@ -1,8 +1,7 @@
 package com.example.fahadali.diabetesapp;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,9 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
-public class HomeMenuActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+
+
+    Button blodsukker_BTN;
+    Button påmindelser_BTN;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,12 @@ public class HomeMenuActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        blodsukker_BTN = (Button) findViewById(R.id.bloodsukker_BTN);
+        påmindelser_BTN = (Button) findViewById(R.id.påmindelser_BTN);
+
+        blodsukker_BTN.setOnClickListener(this);
+        påmindelser_BTN.setOnClickListener(this);
     }
 
     @Override
@@ -88,5 +98,18 @@ public class HomeMenuActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == blodsukker_BTN){
+            Intent intent = new Intent(this, BSugarOverviewActivity.class);
+            startActivity(intent);
+        }
+
+        if(v == påmindelser_BTN){
+
+        }
+
     }
 }
