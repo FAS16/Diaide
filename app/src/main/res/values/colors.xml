@@ -11,4 +11,5 @@
     <!--Other Colors-->
     <color name="hintColor">#808080</color>
     <color name="grey">#C8C8C8</color>
+    <color name="TextOnWhite">#232323</color>
 </resources>
