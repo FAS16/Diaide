@@ -1,88 +1,116 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/BSnotation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorSecondary"
     tools:context="com.example.fahadali.diabetesapp.BSugarNotationFrag">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        tools:text="kommentar..."
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="189dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
-
-    <include layout="@layout/done_cancel_btns"
-        tools:layout_constraintTop_creator="1"
-        android:layout_height="0dp"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+    <include
+        android:id="@+id/include"
+        layout="@layout/done_cancel_btns"
         android:layout_width="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <EditText
+        android:id="@+id/thirdNum_ET"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="71dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/edittext_borders"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="0"
+        android:inputType="numberDecimal"
+        android:maxLength="1"
+        android:textColor="@color/TextOnWhite"
+        android:textSize="80sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/secondNum_ET"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/secondNum_ET"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/edittext_borders"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="0"
+        android:inputType="number"
+        android:maxLength="1"
+        android:textColor="@color/TextOnWhite"
+        android:textSize="80sp"
+        app:layout_constraintBottom_toTopOf="@+id/comment_ET"
+        app:layout_constraintEnd_toStartOf="@+id/thirdNum_ET"
+        app:layout_constraintStart_toEndOf="@+id/firstNum_ET"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintHorizontal_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/firstNum_ET"
-        android:layout_width="59dp"
-        android:layout_height="108dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="71dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/edittext_borders"
         android:ems="10"
         android:gravity="center"
         android:hint="0"
-        android:inputType="textPersonName"
+        android:inputType="number"
+        android:maxLength="1"
+        android:textColor="@color/TextOnWhite"
         android:textSize="80sp"
-        android:layout_marginStart="29dp"
-        tools:layout_editor_absoluteY="87dp"
-        tools:layout_editor_absoluteX="69dp" />
+        app:layout_constraintEnd_toStartOf="@+id/secondNum_ET"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText11"
-        android:layout_width="59dp"
-        android:layout_height="108dp"
-        android:layout_marginStart="29dp"
+        android:id="@+id/comment_ET"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="85dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="92dp"
         android:ems="10"
-        android:gravity="center"
-        android:hint="0"
-        android:inputType="textPersonName"
-        android:textSize="80sp"
-        tools:layout_editor_absoluteX="249dp"
-        tools:layout_editor_absoluteY="87dp" />
-
-    <EditText
-        android:id="@+id/editText10"
-        android:layout_width="59dp"
-        android:layout_height="108dp"
-        android:layout_marginStart="29dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="0"
-        android:inputType="textPersonName"
-        android:textSize="80sp"
-        tools:layout_editor_absoluteX="163dp"
-        tools:layout_editor_absoluteY="87dp" />
+        android:hint="Kommentar..."
+        android:inputType="textLongMessage"
+        android:selectAllOnFocus="false"
+        android:singleLine="false"
+        android:textColor="@color/TextOnWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thirdNum_ET" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/comma_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="37dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="96dp"
+        android:gravity="left"
         android:text=","
-        android:textSize="70sp"
-        tools:layout_editor_absoluteX="222dp"
-        tools:layout_editor_absoluteY="128dp" />
+        android:textColor="#000000"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toStartOf="@+id/thirdNum_ET"
+        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintStart_toEndOf="@+id/secondNum_ET"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

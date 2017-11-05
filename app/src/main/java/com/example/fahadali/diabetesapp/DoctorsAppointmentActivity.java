@@ -13,10 +13,10 @@ public class DoctorsAppointmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctors_appointment);
 
-        cancel_BTN = (Button) findViewById(R.id.cancel_BTN);
+        cancel_BTN = findViewById(R.id.cancel_BTN);
         cancel_BTN.setText("ANNULLER");
 
-        add_BTN = (Button) findViewById(R.id.done_BTN);
+        add_BTN = findViewById(R.id.done_BTN);
         add_BTN.setText("NÆSTE");
 
 

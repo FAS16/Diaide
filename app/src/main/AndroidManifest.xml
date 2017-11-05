@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
         <activity
             android:name=".HomeMenuActivity"
             android:label="@string/title_activity_home_menu"
@@ -26,6 +28,10 @@
         <activity android:name=".BSugarNotationActivity" />
         <activity android:name=".ReminderTypeSelectorActivity" />
         <activity android:name=".DoctorsAppointmentActivity"></activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
