@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSecondary"
-    tools:context="com.example.fahadali.diabetesapp.BSugarNotationFrag">
+    tools:context="com.example.fahadali.diabetesapp.BSugarNotationFrag"
+    tools:layout_editor_absoluteY="81dp">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <include
         android:id="@+id/include"
         layout="@layout/done_cancel_btns"
-        android:layout_width="0dp"
+        android:layout_width="384dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,96 +21,92 @@
 
     <EditText
         android:id="@+id/thirdNum_ET"
-        android:layout_width="100dp"
+        android:layout_width="80dp"
         android:layout_height="100dp"
-        android:layout_marginEnd="71dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginTop="97dp"
         android:background="@drawable/edittext_borders"
         android:ems="10"
         android:gravity="center"
         android:hint="0"
         android:inputType="numberDecimal"
         android:maxLength="1"
+        android:selectAllOnFocus="true"
         android:textColor="@color/TextOnWhite"
+        android:textColorHint="@color/hintColor"
         android:textSize="80sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/secondNum_ET"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/secondNum_ET"
-        android:layout_width="100dp"
+        android:layout_width="81dp"
         android:layout_height="100dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="97dp"
         android:background="@drawable/edittext_borders"
         android:ems="10"
-        android:gravity="center"
+        android:gravity="center_vertical|center_horizontal"
         android:hint="0"
         android:inputType="number"
         android:maxLength="1"
+        android:selectAllOnFocus="true"
         android:textColor="@color/TextOnWhite"
+        android:textColorHint="@color/hintColor"
         android:textSize="80sp"
-        app:layout_constraintBottom_toTopOf="@+id/comment_ET"
-        app:layout_constraintEnd_toStartOf="@+id/thirdNum_ET"
         app:layout_constraintStart_toEndOf="@+id/firstNum_ET"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/firstNum_ET"
-        android:layout_width="100dp"
+        android:layout_width="80dp"
         android:layout_height="100dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="71dp"
-        android:layout_marginTop="64dp"
+
+
+
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="97dp"
         android:background="@drawable/edittext_borders"
         android:ems="10"
         android:gravity="center"
         android:hint="0"
         android:inputType="number"
         android:maxLength="1"
+        android:selectAllOnFocus="true"
+        android:textAllCaps="false"
         android:textColor="@color/TextOnWhite"
+        android:textColorHint="@color/hintColor"
         android:textSize="80sp"
-        app:layout_constraintEnd_toStartOf="@+id/secondNum_ET"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/comma_TV"
+        android:layout_width="11dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="113dp"
+        android:gravity="center_horizontal"
+        android:text="."
+        android:textColor="@color/hintColor"
+        android:textSize="59sp"
+        app:layout_constraintEnd_toStartOf="@+id/thirdNum_ET"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/comment_ET"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="85dp"
-        android:layout_marginStart="85dp"
-        android:layout_marginTop="92dp"
+        android:layout_width="300dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="108dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginStart="42dp"
         android:ems="10"
         android:hint="Kommentar..."
-        android:inputType="textLongMessage"
-        android:selectAllOnFocus="false"
+        android:inputType="textMultiLine"
         android:singleLine="false"
-        android:textColor="@color/TextOnWhite"
+        app:layout_constraintBottom_toTopOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/thirdNum_ET" />
-
-    <TextView
-        android:id="@+id/comma_TV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="37dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="96dp"
-        android:gravity="left"
-        android:text=","
-        android:textColor="#000000"
-        android:textSize="60sp"
-        app:layout_constraintEnd_toStartOf="@+id/thirdNum_ET"
-        app:layout_constraintHorizontal_bias="0.054"
-        app:layout_constraintStart_toEndOf="@+id/secondNum_ET"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

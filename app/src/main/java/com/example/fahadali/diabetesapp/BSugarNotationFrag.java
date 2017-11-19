@@ -1,16 +1,24 @@
 package com.example.fahadali.diabetesapp;
 
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 
 /**
@@ -20,6 +28,7 @@ public class BSugarNotationFrag extends Fragment implements View.OnClickListener
 
     Button cancel_BTN, add_BTN;
     EditText firstNum_ET, secondNum_ET, thirdNum_ET, comment_ET;
+    TextView comma_TV;
 
 
     @Override
@@ -41,6 +50,7 @@ public class BSugarNotationFrag extends Fragment implements View.OnClickListener
         thirdNum_ET = rod.findViewById(R.id.thirdNum_ET);
         thirdNum_ET.addTextChangedListener(this);
 
+        comma_TV = rod.findViewById(R.id.comma_TV);
         comment_ET = rod.findViewById(R.id.comment_ET);
 
         return rod;
@@ -66,19 +76,8 @@ public class BSugarNotationFrag extends Fragment implements View.OnClickListener
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        int maxLength = 1;
+        focusHandler();
 
-        if(firstNum_ET.getText().toString().length() == maxLength){
-            secondNum_ET.requestFocus();
-        }
-
-        if(secondNum_ET.getText().toString().length() == maxLength){
-            thirdNum_ET.requestFocus();
-        }
-
-       if(thirdNum_ET.getText().toString().length() == maxLength){
-            comment_ET.requestFocus();
-        }
     }
 
 
@@ -87,4 +86,31 @@ public class BSugarNotationFrag extends Fragment implements View.OnClickListener
     public void afterTextChanged(Editable s) {
 
     }
+
+    public void focusHandler(){
+
+        int maxLength = 1;
+        comma_TV.setTextColor(getResources().getColor(R.color.hintColor));
+        if(firstNum_ET.getText().toString().length() == maxLength){
+            secondNum_ET.requestFocus();
+            if(secondNum_ET.getText().toString().length() == maxLength){
+                thirdNum_ET.requestFocus();
+                if(thirdNum_ET.getText().toString().length() == maxLength){
+                    comma_TV.setTextColor(getResources().getColor(R.color.TextOnWhite));
+                    comment_ET.requestFocus();
+
+                }
+            }
+        }
+    }
+
+//    public void blinkingEffect(EditText num){
+//        ObjectAnimator anim = ObjectAnimator.ofInt(num, "stroke", num.getDrawingCacheBackgroundColor(), Color.RED, num.getDrawingCacheBackgroundColor());
+//        anim.setDuration(800);
+//        anim.setEvaluator(new ArgbEvaluator());
+//        anim.setRepeatMode(ValueAnimator.REVERSE);
+//        anim.setRepeatCount(Animation.INFINITE);
+//        anim.start();
+//
+//    }
 }
