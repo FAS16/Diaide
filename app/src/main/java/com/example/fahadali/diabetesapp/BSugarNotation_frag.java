@@ -24,7 +24,7 @@ import android.widget.TextView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BSugarNotationFrag extends Fragment implements View.OnClickListener, TextWatcher{
+public class BSugarNotation_frag extends Fragment implements View.OnClickListener, TextWatcher{
 
     Button cancel_BTN, add_BTN;
     EditText firstNum_ET, secondNum_ET, thirdNum_ET, comment_ET;

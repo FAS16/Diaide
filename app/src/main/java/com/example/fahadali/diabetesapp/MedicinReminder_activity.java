@@ -7,12 +7,12 @@ import android.view.View;
 import android.widget.Button;
 
 
-public class MedicinReminderActivity extends AppCompatActivity implements View.OnClickListener{
+public class MedicinReminder_activity extends AppCompatActivity implements View.OnClickListener{
 
     int reminderState = 0;
     Button next_BTN = (Button) findViewById(R.id.next_BTN);
     Button cancel_BTN = (Button) findViewById(R.id.cancel_BTN);
-    Fragment step1 = new MedicinReminderStepsFrag();
+    Fragment step1 = new MedicinReminder_frag();
 
 
 

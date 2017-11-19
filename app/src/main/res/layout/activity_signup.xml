@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="com.example.fahadali.diabetesapp.LoginActivity"
+    tools:context="com.example.fahadali.diabetesapp.Login_activity"
     tools:layout_editor_absoluteY="25dp">
 
     <EditText

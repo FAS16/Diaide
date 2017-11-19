@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class Login_activity extends AppCompatActivity implements View.OnClickListener {
 
     /**
      * variables - fields:
@@ -44,13 +44,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if(v == login_BTN){
-            Intent intent = new Intent(this, HomeMenuActivity.class);
+            Intent intent = new Intent(this, HomeMenu_activity.class);
             startActivity(intent);
 
         }
 
         if(v == newUser_TV){
-            Intent intent = new Intent(this, SignUp_Activity.class);
+            Intent intent = new Intent(this, SignUp_activity.class);
             startActivity(intent);
         }
     }

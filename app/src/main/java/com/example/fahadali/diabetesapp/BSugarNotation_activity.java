@@ -3,7 +3,7 @@ package com.example.fahadali.diabetesapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class BSugarNotationActivity extends AppCompatActivity {
+public class BSugarNotation_activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -12,7 +12,7 @@ public class BSugarNotationActivity extends AppCompatActivity {
 
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.BSnotation_frag_container,new BSugarNotationFrag())
+                    .add(R.id.BSnotation_frag_container,new BSugarNotation_frag())
                     .commit();
         }
     }

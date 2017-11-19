@@ -7,12 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class MedicinReminderStepsFrag extends android.support.v4.app.Fragment {
+public class MedicinReminder_frag extends android.support.v4.app.Fragment {
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_medicin_reminder_steps, container, false);
+        View view = inflater.inflate(R.layout.fragment_medicin_reminder, container, false);
         return view;
     }
 

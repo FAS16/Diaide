@@ -17,7 +17,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SignUp_Activity extends AppCompatActivity implements View.OnClickListener {
+public class SignUp_activity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText firstName_ET, lastName_ET, email_ET, password_ET;
     private Button signUp_BTN;
@@ -84,12 +84,12 @@ public class SignUp_Activity extends AppCompatActivity implements View.OnClickLi
                             // User is logged in, and the UI updates with the specific user values
                             Log.d("EMAIL -------", "createUserWithEmail:success");
                             FirebaseUser user = firebaseAuth.getCurrentUser();
-                            Toast.makeText(SignUp_Activity.this, "Bruger oprettet", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUp_activity.this, "Bruger oprettet", Toast.LENGTH_SHORT).show();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                            // Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignUp_Activity.this, "FEJL, bruger ikke oprettet", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUp_activity.this, "FEJL, bruger ikke oprettet", Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
 

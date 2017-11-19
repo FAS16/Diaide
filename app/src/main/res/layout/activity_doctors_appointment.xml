@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.fahadali.diabetesapp.DoctorsAppointmentActivity">
+    tools:context="com.example.fahadali.diabetesapp.DoctorsAppointment_activity">
 
     <include layout="@layout/done_cancel_btns"
         tools:layout_constraintTop_creator="1"

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name=".Login_activity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,22 +21,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeMenuActivity"
+            android:name=".HomeMenu_activity"
             android:label="@string/title_activity_home_menu"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".BSugarOverviewActivity"
+            android:name=".BSugarOverview_activity"
             android:label="@string/title_activity_bsuger_overview" />
-        <activity android:name=".BSugarNotationActivity" />
-        <activity android:name=".ReminderTypeSelectorActivity" />
-        <activity android:name=".DoctorsAppointmentActivity" />
+        <activity android:name=".BSugarNotation_activity" />
+        <activity android:name=".ReminderTypeSelector_activity" />
+        <activity android:name=".DoctorsAppointment_activity" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".SignUp_Activity"
+            android:name=".SignUp_activity"
             android:theme="@style/AppTheme.NoActionBar"
             ></activity>
     </application>
