@@ -7,19 +7,13 @@ import android.view.View;
 import android.widget.Button;
 
 
-/**
- * Created by emiljorgensen on 02/11/2017.
- */
-
 public class MedicinReminderActivity extends AppCompatActivity implements View.OnClickListener{
 
     int reminderState = 0;
     Button next_BTN = (Button) findViewById(R.id.next_BTN);
     Button cancel_BTN = (Button) findViewById(R.id.cancel_BTN);
-    Fragment step1 = new MedicinReminderStep1Frag();
-    Fragment step2 = new MedicinReminderStep2Frag();
-    Fragment step3 = new MedicinReminderStep3Frag();
-    Fragment step4 = new MedicinReminderStep4Frag();
+    Fragment step1 = new MedicinReminderStepsFrag();
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +36,19 @@ public class MedicinReminderActivity extends AppCompatActivity implements View.O
                switch (reminderState){
                    case 1: {
                        getSupportFragmentManager().beginTransaction()
-                               .add(R.id.medicinReminder_FRM, step2)
+                               .add(R.id.medicinReminder_FRM, null)
                                .commit();
                    }
                    break;
                    case 2: {
                                getSupportFragmentManager().beginTransaction()
-                                       .add(R.id.medicinReminder_FRM, step3)
+                                       .add(R.id.medicinReminder_FRM, null)
                                        .commit();
                    }
                    break;
                    case 3: {
                                getSupportFragmentManager().beginTransaction()
-                                         .add(R.id.medicinReminder_FRM, step4)
+                                         .add(R.id.medicinReminder_FRM, null)
                                         .commit();
                    };
                }
