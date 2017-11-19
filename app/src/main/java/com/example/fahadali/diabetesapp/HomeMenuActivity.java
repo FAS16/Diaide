@@ -20,6 +20,8 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
     Button påmindelser_BTN;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,7 +110,8 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
         }
 
         if(v == påmindelser_BTN){
-
+            Intent intent = new Intent(this, ReminderTypeSelectorActivity.class);
+            startActivity(intent);
         }
 
     }

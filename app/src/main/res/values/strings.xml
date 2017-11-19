@@ -3,6 +3,8 @@
     <!--Removed: DiabetesApp - Fahad -->
     <string name="app_name"></string>
     <string name="title_activity_home_menu">Hovedmenu</string>
+
+
     <string name="title_activity_bsuger_overview">Blodsukkermålinger</string>
     <string name="title_activity_bsugar_notation">Ny blodsukkermåling</string>
 
