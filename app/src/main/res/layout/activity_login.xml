@@ -5,71 +5,125 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="com.example.fahadali.diabetesapp.LoginActivity">
-
-    <ImageView
-        android:id="@+id/logo_IV"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
-        android:background="@mipmap/ic_launcher_round"
-        app:srcCompat="@mipmap/ic_launcher_round"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="0dp"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context="com.example.fahadali.diabetesapp.LoginActivity"
+    tools:layout_editor_absoluteY="25dp">
 
     <EditText
         android:id="@+id/password_ET"
-        android:layout_width="0dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="52dp"
+        android:layout_marginStart="52dp"
         android:backgroundTint="@color/grey"
+        android:drawableLeft="@mipmap/password_logo"
+        android:drawablePadding="4dp"
         android:ems="10"
         android:hint="Adgangskode"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:textColor="@color/colorSecondary"
         android:textColorHint="@color/hintColor"
-        tools:layout_constraintRight_creator="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userName_ET"
         tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/login_BTN"
-        app:layout_constraintRight_toRightOf="@+id/userName_ET"
         tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="19dp"
-        app:layout_constraintLeft_toLeftOf="@+id/userName_ET" />
+        tools:layout_constraintRight_creator="1" />
 
     <EditText
         android:id="@+id/userName_ET"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="52dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="18dp"
         android:backgroundTint="@color/grey"
+        android:drawableLeft="@mipmap/username_logo"
+        android:drawablePadding="7dp"
         android:ems="10"
         android:hint="Brugernavn"
         android:inputType="textPersonName"
         android:textColor="@color/colorSecondary"
         android:textColorHint="@color/hintColor"
-        tools:layout_constraintRight_creator="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginLogo_IV"
         tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/password_ET"
-        app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        tools:layout_constraintRight_creator="1" />
+
+    <Button
+        android:id="@+id/loginFB_BTN"
+        android:backgroundTint="#3b5998"
+        android:drawableLeft="@mipmap/fb_logo"
+        android:layout_width="280dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="69dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginStart="52dp"
+        android:text="Log ind med facebook"
+        android:textSize="18sp"
+        android:textColor="@color/colorSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
 
     <Button
         android:id="@+id/login_BTN"
-        android:layout_width="0dp"
+        android:layout_width="280dp"
         android:layout_height="55dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="19dp"
         android:text="Log ind"
         android:textSize="18sp"
-        tools:layout_constraintRight_creator="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_ET"
         tools:layout_constraintBottom_creator="1"
-        android:layout_marginStart="67dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="67dp"
-        app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="99dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        tools:layout_constraintRight_creator="1" />
+
+    <ImageView
+        android:id="@+id/loginLogo_IV"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginEnd="92dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="34dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/dia_logo_recovered" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="178dp"
+        android:layout_marginStart="179dp"
+        android:layout_marginTop="4dp"
+        android:text="eller"
+        android:textColor="@color/colorSecondary"
+        app:layout_constraintBottom_toTopOf="@+id/loginFB_BTN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_BTN" />
+
+    <TextView
+        android:id="@+id/forgottenPassword_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="127dp"
+        android:layout_marginStart="129dp"
+        android:text="glemt adgangskode?"
+        android:textColor="@color/colorSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

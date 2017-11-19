@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="81dp">
+
+
+    <Button
+        android:id="@+id/cancel_BTN"
+        android:layout_width="120dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="35dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginStart="45dp"
+        android:layout_weight="1"
+        android:background="@drawable/secondary_button"
+        android:elevation="2dp"
+        android:text="Button"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/done_BTN"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <Button
+        android:id="@+id/done_BTN"
+        android:layout_width="117dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="35dp"
+        android:layout_marginEnd="45dp"
+        android:layout_weight="1"
+        android:background="@drawable/primary_button"
+        android:elevation="50dp"
+        android:text="Done"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintRight_creator="1" />
+
+
+</android.support.constraint.ConstraintLayout>

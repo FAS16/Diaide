@@ -10,7 +10,7 @@ import android.widget.EditText;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     /**
-     * Global variables:
+     * variables - fields:
      * userName_ET: Username input - EditText
      * password_ET: password input - EditText
      * login_BTN: login button - Button
@@ -19,15 +19,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText userName_ET;
     EditText password_ET;
     Button login_BTN;
+    Button loginFB_BTN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        userName_ET = (EditText) findViewById(R.id.userName_ET);
-        password_ET = (EditText) findViewById(R.id.userName_ET);
-        login_BTN = (Button) findViewById(R.id.login_BTN);
+        userName_ET = findViewById(R.id.userName_ET);
+        password_ET = findViewById(R.id.password_ET);
+        login_BTN = findViewById(R.id.login_BTN);
+        loginFB_BTN = findViewById(R.id.loginFB_BTN);
+
+        userName_ET.requestFocus();
         login_BTN.setOnClickListener(this);
 
     }
