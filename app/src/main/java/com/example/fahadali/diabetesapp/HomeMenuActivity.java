@@ -20,6 +20,8 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
     Button påmindelser_BTN;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
