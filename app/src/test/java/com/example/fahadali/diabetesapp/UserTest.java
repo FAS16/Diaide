@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 /**
  * Created by aleks on 19-11-2017.
- */ 
+ */
 
 public class UserTest {
     @Test
