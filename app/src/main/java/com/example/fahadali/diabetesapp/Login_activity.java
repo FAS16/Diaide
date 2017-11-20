@@ -6,8 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class Login_activity extends AppCompatActivity implements View.OnClickListener {
 
     /**
      * variables - fields:
@@ -20,6 +21,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText password_ET;
     Button login_BTN;
     Button loginFB_BTN;
+    TextView newUser_TV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +32,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         password_ET = findViewById(R.id.password_ET);
         login_BTN = findViewById(R.id.login_BTN);
         loginFB_BTN = findViewById(R.id.loginFB_BTN);
+        newUser_TV = findViewById(R.id.newUser_TV);
 
         userName_ET.requestFocus();
         login_BTN.setOnClickListener(this);
+        newUser_TV.setOnClickListener(this);
 
     }
 
@@ -40,10 +44,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if(v == login_BTN){
-            Intent intent = new Intent(this, HomeMenuActivity.class);
+            Intent intent = new Intent(this, HomeMenu_activity.class);
             startActivity(intent);
 
         }
+
+        if(v == newUser_TV){
+            Intent intent = new Intent(this, SignUp_activity.class);
+            startActivity(intent);
+        }
+    }
+
+    private void registerUser(){
+
+        String email = userName_ET.getText().toString().trim();
+        String password = password_ET.getText().toString().trim();
+
     }
 }
 

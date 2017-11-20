@@ -13,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
-public class HomeMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+public class HomeMenu_activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
 
     Button blodsukker_BTN;
@@ -105,12 +105,12 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
     @Override
     public void onClick(View v) {
         if(v == blodsukker_BTN){
-            Intent intent = new Intent(this, BSugarOverviewActivity.class);
+            Intent intent = new Intent(this, BSugarOverview_activity.class);
             startActivity(intent);
         }
 
         if(v == påmindelser_BTN){
-            Intent intent = new Intent(this, ReminderTypeSelectorActivity.class);
+            Intent intent = new Intent(this, ReminderTypeSelector_activity.class);
             startActivity(intent);
         }
 
