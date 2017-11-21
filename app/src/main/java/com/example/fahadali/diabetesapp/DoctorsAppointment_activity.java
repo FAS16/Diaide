@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 
-public class DoctorsAppointmentActivity extends AppCompatActivity {
+public class DoctorsAppointment_activity extends AppCompatActivity {
 
     Button cancel_BTN, add_BTN;
 

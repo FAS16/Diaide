@@ -1,4 +1,4 @@
-package com.example.fahadali.diabetesapp;
+package com.example.fahadali.diabetesapp.Model;
 
 /**
  * Created by aleks on 19-11-2017.
