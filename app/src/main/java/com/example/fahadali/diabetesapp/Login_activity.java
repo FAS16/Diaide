@@ -1,13 +1,18 @@
 package com.example.fahadali.diabetesapp;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -50,8 +55,8 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if(v == login_BTN){
-            Intent intent = new Intent(this, HomeMenu_activity.class);
-            startActivity(intent);
+            signIn(userName_ET.getText().toString(), password_ET.getText().toString());
+
 
         }
 
@@ -69,7 +74,27 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
        // updateUI(currentUser);
     }
 
+    private void signIn(String email, String password){
+        firebaseAuth.signInWithEmailAndPassword(email,password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            //User is signed in
+                            Toast.makeText(Login_activity.this, "Logged in", Toast.LENGTH_SHORT).show();
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            Intent intent = new Intent(Login_activity.this, HomeMenu_activity.class);
+                            startActivity(intent);
+                            //updateUI(user)
+                        }
+                        else{
+                            //Login fails
+                            Toast.makeText(Login_activity.this, "Fejl, kan ikke genkende e-mail/password.", Toast.LENGTH_SHORT).show();
+                            //updateUI(null)
 
-
+                        }
+                    }
+                });
+    }
 }
 
