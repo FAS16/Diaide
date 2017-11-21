@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="com.example.fahadali.diabetesapp.LoginActivity"
+    tools:context="com.example.fahadali.diabetesapp.Login_activity"
     tools:layout_editor_absoluteY="25dp">
 
     <EditText
@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="52dp"
         android:layout_marginStart="52dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/grey"
         android:drawableLeft="@mipmap/password_logo"
         android:drawablePadding="4dp"
@@ -35,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="52dp"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/grey"
         android:drawableLeft="@mipmap/username_logo"
         android:drawablePadding="7dp"
@@ -76,7 +77,7 @@
         android:layout_height="55dp"
         android:layout_marginEnd="52dp"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="16dp"
         android:text="Log ind"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -114,13 +115,13 @@
         app:layout_constraintTop_toBottomOf="@+id/login_BTN" />
 
     <TextView
-        android:id="@+id/forgottenPassword_TV"
+        android:id="@+id/newUser_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="127dp"
         android:layout_marginStart="129dp"
-        android:text="glemt adgangskode?"
+        android:text="Ny bruger? Opret dig her"
         android:textColor="@color/colorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -23,105 +23,105 @@
 
 
 
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape>
-            <padding android:bottom="2dp" android:left="0dp" android:right="2dp"
-                android:top="0dp"/>
-            <solid android:color="#00CCCCCC"/>
-        </shape>
-    </item>
-    <item>
-        <shape>
-            <padding android:bottom="2dp" android:left="0dp" android:right="2dp"
-                android:top="0dp"/>
-            <solid android:color="#10CCCCCC"/>
-        </shape>
-    </item>
-    <item>
-        <shape>
-            <padding android:bottom="2dp" android:left="0dp" android:right="2dp"
-                android:top="0dp"/>
-            <solid android:color="#20CCCCCC"/>
-        </shape>
-    </item>
-    <item>
-        <shape>
-            <padding android:bottom="2dp" android:left="0dp" android:right="2dp"
-                android:top="0dp"/>
-            <solid android:color="#30CCCCCC"/>
-        </shape>
-    </item>
-    <item>
-        <shape>
-            <padding android:bottom="1dp" android:left="1dp" android:right="1dp" android:top="1dp"/>
-            <solid android:color="#50CCCCCC"/>
-        </shape>
-    </item>
-
-    <!-- Background -->
-    <item>
-        <shape>
-            <solid android:color="@color/white"/>
-            <corners android:radius="3dp"/>
-        </shape>
-    </item>
-</layer-list>
-
-    <!--<selector xmlns:android="http://schemas.android.com/apk/res/android">-->
-
-    <!--<item android:state_enabled="true"-->
-        <!--android:state_focused="true"-->
-        <!--&gt;-->
-
-        <!--<shape android:padding="0dp">-->
-
-            <!--<gradient android:startColor="#000000" android:endColor="#FFFFFF" android:angle="90"/>-->
-
-            <!--&lt;!&ndash; Background Color &ndash;&gt;-->
-            <!--<solid android:color="@color/grey" />-->
-
-            <!--&lt;!&ndash; Border Color &ndash;&gt;-->
-            <!--<stroke  android:width="1dp" android:color="@color/greyHighlighted" />-->
-
-            <!--&lt;!&ndash; Round Corners &ndash;&gt;-->
-            <!--<corners android:radius="5dp" />-->
-
-
+<!--<layer-list xmlns:android="http://schemas.android.com/apk/res/android">-->
+    <!--<item>-->
+        <!--<shape>-->
+            <!--<padding android:bottom="2dp" android:left="0dp" android:right="2dp"-->
+                <!--android:top="0dp"/>-->
+            <!--<solid android:color="#00CCCCCC"/>-->
         <!--</shape>-->
-
-
+    <!--</item>-->
+    <!--<item>-->
+        <!--<shape>-->
+            <!--<padding android:bottom="2dp" android:left="0dp" android:right="2dp"-->
+                <!--android:top="0dp"/>-->
+            <!--<solid android:color="#10CCCCCC"/>-->
+        <!--</shape>-->
+    <!--</item>-->
+    <!--<item>-->
+        <!--<shape>-->
+            <!--<padding android:bottom="2dp" android:left="0dp" android:right="2dp"-->
+                <!--android:top="0dp"/>-->
+            <!--<solid android:color="#20CCCCCC"/>-->
+        <!--</shape>-->
+    <!--</item>-->
+    <!--<item>-->
+        <!--<shape>-->
+            <!--<padding android:bottom="2dp" android:left="0dp" android:right="2dp"-->
+                <!--android:top="0dp"/>-->
+            <!--<solid android:color="#30CCCCCC"/>-->
+        <!--</shape>-->
+    <!--</item>-->
+    <!--<item>-->
+        <!--<shape>-->
+            <!--<padding android:bottom="1dp" android:left="1dp" android:right="1dp" android:top="1dp"/>-->
+            <!--<solid android:color="#50CCCCCC"/>-->
+        <!--</shape>-->
     <!--</item>-->
 
-    <!--<item android:state_enabled="true" >-->
-
-        <!--<shape android:padding="0dp">-->
-
-
-
-            <!--&lt;!&ndash; Background Color &ndash;&gt;-->
-            <!--<solid android:color="#FFFFFF" />-->
-
-            <!--&lt;!&ndash; Border Color &ndash;&gt;-->
-            <!--<stroke  android:width="1dp" android:color="@color/grey" />-->
-            <!--&lt;!&ndash;<gradient&ndash;&gt;-->
-               <!--&lt;!&ndash;android:startColor="#ffffff"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:centerColor="#ffffff"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:endColor="#ffffff"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:angle="270"&ndash;&gt;-->
-                <!--&lt;!&ndash;/>&ndash;&gt;-->
-
-
-            <!--&lt;!&ndash; Round Corners &ndash;&gt;-->
-            <!--<corners android:radius="5dp" />-->
-
-
+    <!--&lt;!&ndash; Background &ndash;&gt;-->
+    <!--<item>-->
+        <!--<shape>-->
+            <!--<solid android:color="@color/white"/>-->
+            <!--<corners android:radius="3dp"/>-->
         <!--</shape>-->
-
-
     <!--</item>-->
+<!--</layer-list>-->
+
+    <selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_enabled="true"
+        android:state_focused="true"
+        >
+
+        <shape android:padding="0dp">
+
+            <gradient android:startColor="#000000" android:endColor="#FFFFFF" android:angle="90"/>
+
+            <!-- Background Color -->
+            <solid android:color="@color/grey" />
+
+            <!-- Border Color -->
+            <stroke  android:width="1dp" android:color="@color/greyHighlighted" />
+
+            <!-- Round Corners -->
+            <corners android:radius="5dp" />
+
+
+        </shape>
+
+
+    </item>
+
+    <item android:state_enabled="true" >
+
+        <shape android:padding="0dp">
+
+
+
+            <!-- Background Color -->
+            <solid android:color="@color/colorSecondary" />
+
+            <!-- Border Color -->
+            <stroke  android:width="0dp" android:color="@color/grey" />
+            <!--<gradient-->
+               <!--android:startColor="#ffffff"-->
+                <!--android:centerColor="#ffffff"-->
+                <!--android:endColor="#ffffff"-->
+                <!--android:angle="270"-->
+                <!--/>-->
+
+
+            <!-- Round Corners -->
+            <corners android:radius="5dp" />
+
+
+        </shape>
+
+
+    </item>
 
 
 
 
-<!--</selector>-->
+</selector>

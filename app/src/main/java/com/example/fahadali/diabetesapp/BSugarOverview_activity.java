@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class BSugarOverviewActivity extends AppCompatActivity implements View.OnClickListener {
+public class BSugarOverview_activity extends AppCompatActivity implements View.OnClickListener {
 
     Button addBloodSugar_BTN;
 
@@ -24,7 +24,7 @@ public class BSugarOverviewActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         if(v == addBloodSugar_BTN){
-            Intent intent = new Intent(this, BSugarNotationActivity.class);
+            Intent intent = new Intent(this, BSugarNotation_activity.class);
             startActivity(intent);
 
         }
