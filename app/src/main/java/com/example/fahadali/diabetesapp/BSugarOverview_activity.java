@@ -20,7 +20,13 @@ public class BSugarOverview_activity extends AppCompatActivity implements View.O
 
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BloodSugarAdapter adapter = new BloodSugarAdapter(this,BloodSugar.getList());
+        ListView overview = findViewById(R.id.BloodSugar_LV);
+        overview.setAdapter(adapter);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,8 @@ public class BSugarOverview_activity extends AppCompatActivity implements View.O
         }
 
     }
+
+
 
 
 }

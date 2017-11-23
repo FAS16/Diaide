@@ -54,7 +54,9 @@ public class BloodSugar {
 
     public static ArrayList getList(){
 
-        createList();
+        if(testArray.size()==0){
+        createList();}
+
         return testArray;
 
     }

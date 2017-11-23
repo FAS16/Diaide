@@ -63,10 +63,7 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         if(v == add_BTN){
             // TODO: 02/11/2017: Needs backend to get Userinput and place it in BSoverview
-            BloodSugar.testArray.add(new BloodSugar(
-                    (Integer.parseInt(firstNum_ET.getText().toString())*10)+
-                                 (Integer.parseInt(secondNum_ET.getText().toString()))+
-                                    (Integer.parseInt(thirdNum_ET.getText().toString()))/10,
+            BloodSugar.testArray.add(new BloodSugar(Double.parseDouble(firstNum_ET.getText().toString()+secondNum_ET.getText().toString()+"."+thirdNum_ET.getText().toString()),
                     comment_ET.getText().toString(),
                     "Test"));
                     getActivity().finish();
