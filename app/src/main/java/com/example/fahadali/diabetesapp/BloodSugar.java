@@ -1,7 +1,10 @@
 package com.example.fahadali.diabetesapp;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by emiljorgensen on 21/11/2017.
@@ -11,12 +14,16 @@ public class BloodSugar {
     double BloodSugar;
     String comment;
     String timeString;
+    String formatted = new SimpleDateFormat("HH:mm dd-MM").format(new Date(System.currentTimeMillis()));
+
+ //   Date currentTime = (Date) Calendar.getInstance().getTime();
+
     static ArrayList<BloodSugar> testArray = new ArrayList<>();
 
     public BloodSugar(double bloodSugar, String comment, String Time) {
         BloodSugar = bloodSugar;
         this.comment = comment;
-        this.timeString = Time;
+        timeString = formatted;
     }
 
     public double getBloodSugar() {

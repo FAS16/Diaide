@@ -127,4 +127,5 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
 
     private void updateUI(FirebaseUser currentUser) {
     }
+
 }

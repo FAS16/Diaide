@@ -20,7 +20,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.util.Calendar;
 
 
 /**
@@ -54,6 +57,7 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
 
         comma_TV = rod.findViewById(R.id.comma_TV);
         comment_ET = rod.findViewById(R.id.comment_ET);
+
 
         return rod;
     }
@@ -92,7 +96,6 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
     public void afterTextChanged(Editable s) {
 
     }
-
     public void focusHandler(){
 
         int maxLength = 1;

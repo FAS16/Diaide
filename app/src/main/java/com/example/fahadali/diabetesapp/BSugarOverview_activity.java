@@ -15,8 +15,14 @@ public class BSugarOverview_activity extends AppCompatActivity implements View.O
     Button addBloodSugar_BTN;
 
 
-    public BSugarOverview_activity() {
 
+    FirebaseDatabase db = FirebaseDatabase.getInstance();
+
+    DatabaseReference ref = db.getReference("test");
+    DatabaseReference ref2 = db.getReference();
+
+
+    public BSugarOverview_activity() {
 
     }
 
@@ -32,10 +38,13 @@ public class BSugarOverview_activity extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bsugar_overview);
-        //FirebaseDatabase db = FirebaseDatabase.getInstance();
-        //DatabaseReference ref = db.getReference("https://console.firebase.google.com/project/diabetesapp-b3ee5/database/firestore/data~2FBloodSugar~2FSQbKqyr6lnCi3zX1jLem");
 
-       // ref.setValue("Test123");
+//       BloodSugar bs = new BloodSugar(12.3, "does it work?", "today");
+      // ref.setValue("Test123");
+      // ref.setValue("Test124");
+       ref.child("test3").setValue("???");
+      // ref2.setValue(bs);
+
 
         BloodSugarAdapter adapter = new BloodSugarAdapter(this,BloodSugar.getList());
         addBloodSugar_BTN = (Button) findViewById(R.id.addBloodSugar_BTN);
