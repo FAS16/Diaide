@@ -13,16 +13,16 @@ public class UserTest {
         User user = new User("1", "Martin", "martindahljen@gmail.com", "qwerty12");
         assertEquals("Martin", user.getName());
         assertEquals("martindahljen@gmail.com", user.getMail());
-        assertEquals("qwerty12", user.getPW());
+        assertEquals("qwerty12", user.getPassword());
         assertEquals("1", user.getID());
 
         user.setName("Aleksander");
         user.setMail("awie@gmail.com");
-        user.setPW("qwerty21");
+        user.setPassword("qwerty21");
 
         assertEquals("Aleksander", user.getName());
         assertEquals("awie@gmail.com", user.getMail());
-        assertEquals("qwerty21", user.getPW());
+        assertEquals("qwerty21", user.getPassword());
 
         }
 

@@ -2,6 +2,7 @@ package com.example.fahadali.diabetesapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,11 +14,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class HomeMenu_activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
 
     Button blodsukker_BTN;
     Button påmindelser_BTN;
+    Button logUd_BTN;
 
 
 
@@ -40,9 +45,11 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
 
         blodsukker_BTN = (Button) findViewById(R.id.bloodsukker_BTN);
         påmindelser_BTN = (Button) findViewById(R.id.påmindelser_BTN);
+        logUd_BTN = findViewById(R.id.logUd_BTN);
 
         blodsukker_BTN.setOnClickListener(this);
         påmindelser_BTN.setOnClickListener(this);
+        logUd_BTN.setOnClickListener(this);
     }
 
     @Override
@@ -112,6 +119,16 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
         if(v == påmindelser_BTN){
             Intent intent = new Intent(this, ReminderTypeSelector_activity.class);
             startActivity(intent);
+        }
+
+        if(v == logUd_BTN){
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            firebaseAuth.signOut();
+            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+            Log.i("CURRENT USER: ", "After sign out: "+firebaseUser);
+        finish();
+
+
         }
 
     }
