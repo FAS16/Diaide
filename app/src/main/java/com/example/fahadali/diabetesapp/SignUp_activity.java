@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,12 +18,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fahadali.diabetesapp.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class SignUp_activity extends AppCompatActivity implements View.OnClickListener {
@@ -32,13 +35,18 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
     private TextView backToLogin_TV;
     private FirebaseAuth firebaseAuth;
     private SharedPreferences prefs;
+    private FirebaseUser firebaseUser;
+    private User user = User.getUserInstance();
+    public DatabaseReference db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+
         firebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseDatabase.getInstance().getReference();
 
         firstName_ET = findViewById(R.id.createFirstName_ET);
         lastName_ET = findViewById(R.id.createLastName_ET);
@@ -81,7 +89,18 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void createUserAccount(String email, String password){
+    private void createLocalUser(){
+        user.setID(firebaseUser.getUid().toString());
+        user.setName(firstName_ET.getText().toString());
+        user.setMail(firebaseUser.getEmail());
+        createDBUser();
+    }
+
+    private void createDBUser(){
+        db.child("users").child(firebaseUser.getUid()).setValue(user);
+    }
+
+    protected void createUserAccount(String email, String password){
 
         if(!passwordValidation()) return;
         if(!userInputValidation()) return;
@@ -94,7 +113,8 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
                         if (task.isSuccessful()) {
                             // User is logged in, and the UI updates with the specific user values
                             Log.d("SUCCESSFULL LOGIN", "createUserWithEmail: success");
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            firebaseUser = firebaseAuth.getCurrentUser();
+                            createLocalUser();
                             Toast.makeText(SignUp_activity.this, "Bruger oprettet", Toast.LENGTH_SHORT).show();
                             sendEmailVerification();
                            // updateUI(user);

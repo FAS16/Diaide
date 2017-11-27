@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fahadali.diabetesapp.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -161,7 +162,6 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
                 });
 
         }
-
 
     private boolean userInputValidation() {
         boolean valid = true;

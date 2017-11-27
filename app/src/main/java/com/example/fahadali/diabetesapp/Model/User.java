@@ -2,17 +2,27 @@ package com.example.fahadali.diabetesapp.Model;
 
 public class User {
 
+    private static User userInstance;
     String ID;
     String name;
     String mail;
     String password;
 
 
-    public User(String ID, String name, String mail, String password){
+    public User(){
+
+    }
+    public User(String ID, String name, String mail){
         this.ID = ID;
         this.name = name;
         this.mail = mail;
-        this.password = password;
+    }
+
+    public static User getUserInstance(){
+        if (null == userInstance) {
+            userInstance = new User();
+        }
+        return userInstance;
     }
 
     public String getID() {

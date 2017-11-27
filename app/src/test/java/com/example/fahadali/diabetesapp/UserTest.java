@@ -1,6 +1,8 @@
 package com.example.fahadali.diabetesapp;
 
 import com.example.fahadali.diabetesapp.Model.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.junit.Test;
 
@@ -23,6 +25,19 @@ public class UserTest {
         assertEquals("Aleksander", user.getName());
         assertEquals("awie@gmail.com", user.getMail());
         assertEquals("qwerty21", user.getPassword());
+
+        }
+    @Test
+    public void createUserDBTest(){
+
+        SignUp_activity testSignup = new SignUp_activity();
+
+        testSignup.createUserAccount("test@email.com", "test123");
+
+
+        FirebaseUser userTest = testSignup.getCurrentUser();
+
+        assertEquals("test@email.com", userTest.getEmail());
 
         }
 
