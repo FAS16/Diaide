@@ -1,55 +1,67 @@
 package com.example.fahadali.diabetesapp.Model;
 
-/**
- * Created by aleks on 19-11-2017.
- */
-
 public class User {
 
-
-
+    private static User userInstance;
     String ID;
     String name;
     String mail;
-    String PW;
+    String password;
 
 
-    public User(String ID, String name, String mail, String PW){
+    public User(){
+
+    }
+    public User(String ID, String name, String mail){
         this.ID = ID;
         this.name = name;
         this.mail = mail;
-        this.PW = PW;
+    }
+
+    public static User getUserInstance(){
+        if (null == userInstance) {
+            userInstance = new User();
+        }
+        return userInstance;
     }
 
     public String getID() {
+
         return ID;
     }
 
     public void setID(String ID) {
+
         this.ID = ID;
     }
 
     public String getName() {
+
         return name;
     }
 
     public void setName(String name) {
+
         this.name = name;
     }
 
     public String getMail() {
+
         return mail;
     }
 
     public void setMail(String mail) {
+
         this.mail = mail;
     }
 
-    public String getPW() {
-        return PW;
+    public String getPassword() {
+
+        return password;
     }
 
-    public void setPW(String PW) {
-        this.PW = PW;
+    public void setPassword(String password) {
+
+        this.password = password;
     }
 }
