@@ -67,15 +67,15 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
         newUser_TV.setTypeface(Typeface.DEFAULT);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String email = prefs.getString("e-mail",null);
-        String password = prefs.getString("password", null);
-
-        if(email != null && password != null){
-            userName_ET.setText(email);
-            password_ET.setText(password);
-
-        }
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        String email = prefs.getString("e-mail",null);
+//        String password = prefs.getString("password", null);
+//
+//        if(email != null && password != null){
+//            userName_ET.setText(email);
+//            password_ET.setText(password);
+//
+//        }
     }
 
     // TODO: 01/11/2017: User input validation missing

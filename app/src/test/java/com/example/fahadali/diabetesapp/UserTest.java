@@ -1,7 +1,6 @@
 package com.example.fahadali.diabetesapp;
 
 import com.example.fahadali.diabetesapp.Model.User;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.junit.Test;
@@ -16,7 +15,7 @@ public class UserTest {
         assertEquals("Martin", user.getName());
         assertEquals("martindahljen@gmail.com", user.getMail());
         assertEquals("qwerty12", user.getPassword());
-        assertEquals("1", user.getID());
+        assertEquals("1", user.getId());
 
         user.setName("Aleksander");
         user.setMail("awie@gmail.com");

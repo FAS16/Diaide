@@ -1,20 +1,25 @@
 package com.example.fahadali.diabetesapp.Model;
 
+//User singleton
+
 public class User {
 
     private static User userInstance;
-    String ID;
-    String name;
+    String id;
+    String firstName;
+    String lastName;
     String mail;
     String password;
 
-
+    //Empty constructor for google firebase
     public User(){
 
     }
-    public User(String ID, String name, String mail){
-        this.ID = ID;
-        this.name = name;
+
+    public User(String id, String firstName, String lastName, String mail){
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.mail = mail;
     }
 
@@ -25,25 +30,42 @@ public class User {
         return userInstance;
     }
 
-    public String getID() {
-
-        return ID;
+    public void nullifyUser(){
+        if(userInstance != null) {
+            userInstance = null;
+        }
     }
 
-    public void setID(String ID) {
+    public String getId() {
 
-        this.ID = ID;
+        return id;
     }
 
-    public String getName() {
+    public void setId(String id) {
 
-        return name;
+        this.id = id;
     }
 
-    public void setName(String name) {
+    public String getFirstName() {
 
-        this.name = name;
+        return firstName;
     }
+
+    public void setFirstName(String firstName) {
+
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+
+        this.lastName = lastName;
+    }
+
 
     public String getMail() {
 
@@ -60,8 +82,4 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
-
-        this.password = password;
-    }
 }
