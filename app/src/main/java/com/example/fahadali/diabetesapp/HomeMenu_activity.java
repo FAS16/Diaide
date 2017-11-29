@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.example.fahadali.diabetesapp.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -125,6 +126,7 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             firebaseAuth.signOut();
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
             Log.i("CURRENT USER: ", "After sign out: "+firebaseUser);
         finish();
 

@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -89,16 +88,18 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void createLocalUser(){
-        user.setID(firebaseUser.getUid().toString());
-        user.setName(firstName_ET.getText().toString());
-        user.setMail(firebaseUser.getEmail());
-        createDBUser();
-    }
+    private void createNewUser(){
 
-    private void createDBUser(){
+        user.setId(firebaseUser.getUid());
+
+
+        user.setFirstName(firstName_ET.getText().toString());
+        user.setLastName(lastName_ET.getText().toString());
+        user.setMail(firebaseUser.getEmail());
+
         db.child("users").child(firebaseUser.getUid()).setValue(user);
     }
+
 
     protected void createUserAccount(String email, String password){
 
@@ -114,12 +115,12 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
                             // User is logged in, and the UI updates with the specific user values
                             Log.d("SUCCESSFULL LOGIN", "createUserWithEmail: success");
                             firebaseUser = firebaseAuth.getCurrentUser();
-                            createLocalUser();
+                            createNewUser();
                             Toast.makeText(SignUp_activity.this, "Bruger oprettet", Toast.LENGTH_SHORT).show();
-                            sendEmailVerification();
+                            //sendEmailVerification();
                            // updateUI(user);
                             showAlertDialog();
-                            saveTempLogin();
+                            //saveTempLogin();
 
 
                         } else {
