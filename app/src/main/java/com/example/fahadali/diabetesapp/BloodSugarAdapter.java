@@ -7,7 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.sql.Date;
+import com.example.fahadali.diabetesapp.Model.BloodSugar;
+
 import java.util.ArrayList;
 
 /**
@@ -30,9 +31,9 @@ public class BloodSugarAdapter extends ArrayAdapter<BloodSugar>{
         TextView comment = convertView.findViewById(R.id.Comment);
         TextView bloodSugar = convertView.findViewById(R.id.Bloodsugar_lvl);
 
-        date.setText(bs.timeString);
-        comment.setText(bs.comment);
-        bloodSugar.setText(String.valueOf(bs.BloodSugar));
+        date.setText(bs.getTime());
+        comment.setText(bs.getComment());
+        bloodSugar.setText(String.valueOf(bs.getBloodSugar()));
 
         return convertView;
     }

@@ -1,29 +1,19 @@
 package com.example.fahadali.diabetesapp;
 
 
-import android.animation.ArgbEvaluator;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.util.Calendar;
+import com.example.fahadali.diabetesapp.Model.BloodSugar;
+import com.example.fahadali.diabetesapp.Model.User;
 
 
 /**
@@ -34,6 +24,7 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
     Button cancel_BTN, add_BTN;
     EditText firstNum_ET, secondNum_ET, thirdNum_ET, comment_ET;
     TextView comma_TV;
+    User user = User.getUserInstance();
 
 
     @Override
@@ -67,9 +58,8 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         if(v == add_BTN){
             // TODO: 02/11/2017: Needs backend to get Userinput and place it in BSoverview
-            BloodSugar.testArray.add(new BloodSugar(Double.parseDouble(firstNum_ET.getText().toString()+secondNum_ET.getText().toString()+"."+thirdNum_ET.getText().toString()),
-                    comment_ET.getText().toString(),
-                    "Test"));
+            user.addBloodSugarNotation(new BloodSugar(Double.parseDouble(firstNum_ET.getText().toString()+secondNum_ET.getText().toString()+"."+thirdNum_ET.getText().toString()),
+                    comment_ET.getText().toString()));
                     getActivity().finish();
         }
         if(v == cancel_BTN){
@@ -112,14 +102,4 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
             }
         }
     }
-
-//    public void blinkingEffect(EditText num){
-//        ObjectAnimator anim = ObjectAnimator.ofInt(num, "stroke", num.getDrawingCacheBackgroundColor(), Color.RED, num.getDrawingCacheBackgroundColor());
-//        anim.setDuration(800);
-//        anim.setEvaluator(new ArgbEvaluator());
-//        anim.setRepeatMode(ValueAnimator.REVERSE);
-//        anim.setRepeatCount(Animation.INFINITE);
-//        anim.start();
-//
-//    }
 }

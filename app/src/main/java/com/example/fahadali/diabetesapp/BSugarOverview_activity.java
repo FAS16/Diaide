@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.fahadali.diabetesapp.Model.BloodSugar;
+import com.example.fahadali.diabetesapp.Model.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -17,9 +21,10 @@ public class BSugarOverview_activity extends AppCompatActivity implements View.O
 
 
     FirebaseDatabase db = FirebaseDatabase.getInstance();
-
-    DatabaseReference ref = db.getReference("test");
-    DatabaseReference ref2 = db.getReference();
+    FirebaseAuth fireBaseAuth = FirebaseAuth.getInstance();
+    private FirebaseUser fireBaseUser = fireBaseAuth.getCurrentUser();
+    DatabaseReference ref = db.getReference();
+    User user = User.getUserInstance();
 
 
     public BSugarOverview_activity() {
@@ -29,8 +34,9 @@ public class BSugarOverview_activity extends AppCompatActivity implements View.O
     @Override
     protected void onResume() {
         super.onResume();
-        BloodSugarAdapter adapter = new BloodSugarAdapter(this,BloodSugar.getList());
+        BloodSugarAdapter adapter = new BloodSugarAdapter(this, user.getBsList());
         ListView overview = findViewById(R.id.BloodSugar_LV);
+        ref.child("users").child(fireBaseUser.getUid()).child("bsList").setValue(user.getBsList());
         overview.setAdapter(adapter);
     }
 
@@ -39,15 +45,8 @@ public class BSugarOverview_activity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bsugar_overview);
 
-//       BloodSugar bs = new BloodSugar(12.3, "does it work?", "today");
-      // ref.setValue("Test123");
-      // ref.setValue("Test124");
-       ref.child("test3").setValue("???");
-      // ref2.setValue(bs);
-
-
-        BloodSugarAdapter adapter = new BloodSugarAdapter(this,BloodSugar.getList());
-        addBloodSugar_BTN = (Button) findViewById(R.id.addBloodSugar_BTN);
+        BloodSugarAdapter adapter = new BloodSugarAdapter(this,user.getBsList());
+        addBloodSugar_BTN = findViewById(R.id.addBloodSugar_BTN);
 
         addBloodSugar_BTN.setOnClickListener(this);
 
