@@ -126,17 +126,22 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+
+
                             firebaseUser = firebaseAuth.getCurrentUser();
                             if(!firebaseUser.isEmailVerified()){
+
                             //User is signed in
+                            firebaseUser = firebaseAuth.getCurrentUser();
                             Toast.makeText(Login_activity.this, "Logged in", Toast.LENGTH_SHORT).show();
 
-
-                            System.out.println("VERIFIED STATUS: "+ firebaseUser.isEmailVerified());
+                            System.out.println("EMAIL VERIFICATION STATUS: "+ firebaseUser.isEmailVerified());
                             Intent intent = new Intent(Login_activity.this, HomeMenu_activity.class);
                             startActivity(intent);
                             //updateUI(user)
                             Log.i(TAG, "USER (AFTER SIGN IN): "+firebaseUser.getEmail()); //Should show null since the user is signed out
+
+
 
                         }
 
@@ -148,6 +153,7 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
                             }
 
+
                         }
 
                         else{
@@ -157,10 +163,8 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
                             //updateUI(null)
 
                         }
-
                     }
-                });
-
+            });
         }
 
     private boolean userInputValidation() {
