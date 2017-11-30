@@ -2,6 +2,8 @@ package com.example.fahadali.diabetesapp.Model;
 
 //User singleton
 
+import java.util.ArrayList;
+
 public class User {
 
     private static User userInstance;
@@ -10,17 +12,33 @@ public class User {
     String lastName;
     String mail;
     String password;
+   public ArrayList<BloodSugar> bsList = new ArrayList<>();
 
     //Empty constructor for google firebase
     public User(){
 
     }
 
+
     public User(String id, String firstName, String lastName, String mail){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mail = mail;
+
+    }
+
+
+    public ArrayList<BloodSugar> getBsList() {
+        return bsList;
+    }
+
+    public void setBsList(ArrayList<BloodSugar> testArray) {
+        this.bsList = testArray;
+    }
+
+    public void addBloodSugarNotation(BloodSugar bs){
+        bsList.add(bs);
     }
 
     public static User getUserInstance(){

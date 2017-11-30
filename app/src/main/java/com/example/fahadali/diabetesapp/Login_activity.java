@@ -127,7 +127,7 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             firebaseUser = firebaseAuth.getCurrentUser();
-                            if(firebaseUser.isEmailVerified()){
+                            if(!firebaseUser.isEmailVerified()){
                             //User is signed in
                             Toast.makeText(Login_activity.this, "Logged in", Toast.LENGTH_SHORT).show();
 
@@ -140,7 +140,7 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
                         }
 
-                            else if(!firebaseUser.isEmailVerified()){
+                            else if(firebaseUser.isEmailVerified()){
                                 firebaseAuth.signOut();
                                 firebaseUser = firebaseAuth.getCurrentUser();
                                 Toast.makeText(Login_activity.this, "Verificér venligst din konto via. e-mail.", Toast.LENGTH_SHORT).show();
