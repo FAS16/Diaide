@@ -21,6 +21,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Login_activity extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,6 +40,8 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
     TextView newUser_TV;
     protected FirebaseAuth firebaseAuth;
     protected FirebaseUser firebaseUser;
+    private User user = User.getUserInstance();
+    public DatabaseReference db;
 
     private static final String TAG = "CURRENT USER";
 
@@ -48,6 +52,7 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+        db = FirebaseDatabase.getInstance().getReference();
 
         userName_ET = findViewById(R.id.userName_ET);
         password_ET = findViewById(R.id.password_ET);
@@ -166,6 +171,22 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
                     }
             });
         }
+
+    private void initializeUser(){
+
+        user.setId(firebaseUser.getUid());
+
+
+        user.setFirstName(db.child("users/"+firebaseUser.getUid()+"/firstName").toString());
+        System.out.println(user.getFirstName());
+        System.out.println(db.child("users/"+firebaseUser.getUid()+"/firstName").toString());
+        user.setLastName(db.child("users/"+firebaseUser.getUid()+"/lastName").toString());
+        System.out.println(user.getLastName());
+        System.out.println(db.child("users/"+firebaseUser.getUid()+"/lastName").toString());
+        user.setMail(firebaseUser.getEmail());
+
+        db.child("users").child(firebaseUser.getUid()).setValue(user);
+    }
 
     private boolean userInputValidation() {
         boolean valid = true;

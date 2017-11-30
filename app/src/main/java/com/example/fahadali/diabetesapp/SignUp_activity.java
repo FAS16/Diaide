@@ -2,6 +2,7 @@ package com.example.fahadali.diabetesapp;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
@@ -84,6 +85,10 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
 
         if(view == signUp_BTN){
             createUserAccount(email_ET.getText().toString(), password_ET.getText().toString());
+            Intent intent = new Intent(this, HomeMenu_activity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
 
         }
     }
@@ -221,7 +226,7 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                finish();
+
             }
         });
 
