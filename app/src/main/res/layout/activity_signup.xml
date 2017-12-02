@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.example.fahadali.diabetesapp.Login_activity"
+    tools:layout_editor_absoluteY="25dp">
+
+    <EditText
+        android:id="@+id/createPassword_ET"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginStart="52dp"
+        android:backgroundTint="@color/grey"
+        android:ems="10"
+        android:hint="********"
+        android:inputType="textPassword"
+        android:textColor="@color/colorSecondary"
+        android:textColorHint="@color/hintColor"
+        app:layout_constraintBottom_toTopOf="@+id/signUp_BTN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
+
+    <EditText
+        android:id="@+id/createEmail_ET"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginStart="52dp"
+        android:backgroundTint="@color/grey"
+        android:ems="10"
+        android:hint="dinmail@dinmail.dk"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorSecondary"
+        android:textColorHint="@color/hintColor"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="288dp"
+        android:layout_marginStart="52dp"
+        android:paddingLeft="5dp"
+        android:text="E-mail"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/createEmail_ET"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/createLastName_ET"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginStart="52dp"
+        android:backgroundTint="@color/grey"
+        android:ems="10"
+        android:hint="Petersen"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorSecondary"
+        android:textColorHint="@color/hintColor"
+        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="266dp"
+        android:layout_marginStart="52dp"
+        android:paddingLeft="5dp"
+        android:text="Efternavn"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/createLastName_ET"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/createFirstName_ET"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginStart="52dp"
+        android:backgroundTint="@color/grey"
+        android:ems="10"
+        android:hint="Peter"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorSecondary"
+        android:textColorHint="@color/hintColor"
+        app:layout_constraintBottom_toTopOf="@+id/textView10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="277dp"
+        android:layout_marginStart="52dp"
+        android:paddingLeft="5dp"
+        android:text="Fornavn"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/createFirstName_ET"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/signUp_BTN"
+        android:layout_width="280dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="17dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginStart="52dp"
+        android:text="Opret bruger"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/backToLogin_TV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
+
+    <ImageView
+        android:id="@+id/signUpLogo_IV"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="92dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="12dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/dia_logo_recovered"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/backToLogin_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="127dp"
+        android:layout_marginStart="129dp"
+        android:text="Allerede oprettet? Log ind her"
+        android:textColor="@color/colorSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="242dp"
+        android:layout_marginStart="52dp"
+        android:paddingLeft="5dp"
+        android:text="Adgangskode"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/createPassword_ET"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

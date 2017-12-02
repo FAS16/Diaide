@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class ReminderTypeSelectorActivity extends AppCompatActivity implements View.OnClickListener {
+public class ReminderTypeSelector_activity extends AppCompatActivity implements View.OnClickListener {
     Button medicinBT, doctorAppointmentBT, otherBT;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +22,10 @@ public class ReminderTypeSelectorActivity extends AppCompatActivity implements V
 
     public void onClick(View v){
         if (v == medicinBT){
-          //  Intent intent = new Intent(this, MedicinReminderActivity.class);
-          //  startActivity(intent);
+
             }
         else if (v == doctorAppointmentBT){
-        Intent intent = new Intent(this, DoctorsAppointmentActivity.class);
+        Intent intent = new Intent(this, DoctorsAppointment_activity.class);
         startActivity(intent);
         }
         else if (v == otherBT){
