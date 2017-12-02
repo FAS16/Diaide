@@ -4,9 +4,6 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-/**
- * Created by emiljorgensen on 21/11/2017.
- */
 
 public class BloodSugar {
     double bloodSugar;

@@ -85,10 +85,11 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
 
         if(view == signUp_BTN){
             createUserAccount(email_ET.getText().toString(), password_ET.getText().toString());
-            Intent intent = new Intent(this, HomeMenu_activity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
+            //Intent intent = new Intent(this, HomeMenu_activity.class);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            //startActivity(intent);
+            //finish();
+
 
         }
     }
@@ -225,7 +226,7 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
         alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+finish();
 
             }
         });
