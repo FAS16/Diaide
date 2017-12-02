@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.fahadali.diabetesapp.HomeMenuActivity"
+    tools:context="com.example.fahadali.diabetesapp.HomeMenu_activity"
     tools:showIn="@layout/app_bar_home_menu">
 
     <Button
@@ -34,5 +34,47 @@
         tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/logUd_BTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="184dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="167dp"
+        android:text="Log ud"
+        app:layout_constraintBottom_toTopOf="@+id/bloodsukker_BTN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nuværendeUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="82dp"
+        android:layout_marginEnd="163dp"
+        android:layout_marginStart="163dp"
+        android:layout_marginTop="2dp"
+        android:text="nuværendeUser"
+        app:layout_constraintBottom_toTopOf="@+id/logUd_BTN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="163dp"
+        android:layout_marginStart="163dp"
+        android:text="Nuværende User:"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/nuværendeUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

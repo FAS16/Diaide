@@ -2,6 +2,7 @@ package com.example.fahadali.diabetesapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,20 +13,44 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
-public class HomeMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+import com.example.fahadali.diabetesapp.Model.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.w3c.dom.Text;
+
+public class HomeMenu_activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, Runnable {
 
 
     Button blodsukker_BTN;
     Button påmindelser_BTN;
+    Button testLogUd_BTN;
 
-
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    User user;
+    private TextView tv;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_menu);
+
+        User.getUserInstance().observers.add(this);
+
+        user = User.getUserInstance();
+
+        System.out.println("SNAPSHOT3: "+ User.getUserInstance());
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        tv = findViewById(R.id.nuværendeUser);
+
+        System.out.println("KIG HEEER: "+user.getFirstName());
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -40,9 +65,17 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
 
         blodsukker_BTN = (Button) findViewById(R.id.bloodsukker_BTN);
         påmindelser_BTN = (Button) findViewById(R.id.påmindelser_BTN);
+        testLogUd_BTN = findViewById(R.id.logUd_BTN);
 
         blodsukker_BTN.setOnClickListener(this);
         påmindelser_BTN.setOnClickListener(this);
+        testLogUd_BTN.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        User.getUserInstance().observers.remove(this);
     }
 
     @Override
@@ -105,14 +138,33 @@ public class HomeMenuActivity extends AppCompatActivity implements NavigationVie
     @Override
     public void onClick(View v) {
         if(v == blodsukker_BTN){
-            Intent intent = new Intent(this, BSugarOverviewActivity.class);
+            Intent intent = new Intent(this, BSugarOverview_activity.class);
             startActivity(intent);
         }
 
         if(v == påmindelser_BTN){
-            Intent intent = new Intent(this, ReminderTypeSelectorActivity.class);
+            Intent intent = new Intent(this, ReminderTypeSelector_activity.class);
             startActivity(intent);
         }
 
+        if(v == testLogUd_BTN){
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            firebaseAuth.signOut();
+            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+            Log.i("CURRENT USER: ", "After sign out: "+firebaseUser);
+
+            user.nullifyUser();
+            System.out.println("SNAPSHOT2: "+ User.getUserInstance());
+        finish();
+
+        }
+
+    }
+
+    @Override
+    public void run() {
+        tv.setText(User.getUserInstance().getFirstName());
+        System.out.println("SNAPSHOT3X: "+ User.getUserInstance());
     }
 }
