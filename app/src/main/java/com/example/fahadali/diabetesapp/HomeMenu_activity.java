@@ -41,6 +41,7 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
 
         User.getUserInstance().observers.add(this);
 
+
         user = User.getUserInstance();
 
         System.out.println("SNAPSHOT3: "+ User.getUserInstance());

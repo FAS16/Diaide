@@ -1,5 +1,6 @@
 package com.example.fahadali.diabetesapp;
 
+
 import com.example.fahadali.diabetesapp.Model.User;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -11,7 +12,7 @@ public class UserTest {
     @Test
     public void createUserTest() {
 
-        User user = new User("1", "Martin", "martindahljen@gmail.com", "qwerty12");
+        User user = User.getUserInstance();
         assertEquals("Martin", user.getFirstName());
         assertEquals("martindahljen@gmail.com", user.getMail());
         assertEquals("1", user.getId());
