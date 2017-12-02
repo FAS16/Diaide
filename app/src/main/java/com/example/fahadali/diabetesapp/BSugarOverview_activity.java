@@ -58,11 +58,6 @@ public class BSugarOverview_activity extends AppCompatActivity implements View.O
 
         addBloodSugar_BTN.setOnClickListener(this);
 
-        //ListView overview = findViewById(R.id.BloodSugar_LV);
-        //overview.setAdapter(adapter);
-
-
-
     }
 
     @Override
