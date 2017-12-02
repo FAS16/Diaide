@@ -27,6 +27,8 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
     User user = User.getUserInstance();
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rod = inflater.inflate(R.layout.fragment_bsugar_notation,container,false);
@@ -57,10 +59,10 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         if(v == add_BTN){
-            // TODO: 02/11/2017: Needs backend to get Userinput and place it in BSoverview
-            user.addBloodSugarNotation(new BloodSugar(Double.parseDouble(firstNum_ET.getText().toString()+secondNum_ET.getText().toString()+"."+thirdNum_ET.getText().toString()),
-                    comment_ET.getText().toString()));
-                    getActivity().finish();
+
+            user.addBloodSugarNotation(new BloodSugar(Double.parseDouble(firstNum_ET.getText().toString()+ secondNum_ET.getText().toString()+ "."+thirdNum_ET.getText().toString()), comment_ET.getText().toString()));
+
+                 getActivity().finish();
         }
         if(v == cancel_BTN){
             getActivity().finish();
