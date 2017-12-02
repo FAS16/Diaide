@@ -185,7 +185,7 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
             }
         };
 
-        db_userReference.addListenerForSingleValueEvent(listener);
+        db_userReference.addValueEventListener(listener);
 
     }
 
