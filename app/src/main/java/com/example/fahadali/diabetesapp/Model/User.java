@@ -6,25 +6,24 @@ import java.util.ArrayList;
 
 public class User {
 
+    public ArrayList <Runnable> observers = new ArrayList<>();
     private static User userInstance;
-    String id;
-    String firstName;
-    String lastName;
-    String mail;
-    String password;
-   public ArrayList<BloodSugar> bsList = new ArrayList<>();
+    private String id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private ArrayList<BloodSugar> bsList = new ArrayList<>();
 
     //Empty constructor for google firebase
-    public User(){
+    private User(){
 
     }
 
-
-    public User(String id, String firstName, String lastName, String mail){
+    private User(String id, String firstName, String lastName, String mail){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.mail = mail;
+        this.email = mail;
 
     }
 
@@ -34,16 +33,18 @@ public class User {
     }
 
     public void setBsList(ArrayList<BloodSugar> testArray) {
-        this.bsList = testArray;
+
+        bsList = testArray;
     }
 
-    public void addBloodSugarNotation(BloodSugar bs){
+    public void addBloodSugarNotation(BloodSugar bs) {
         bsList.add(bs);
     }
 
     public static User getUserInstance(){
-        if (null == userInstance) {
+        if (userInstance == null) {
             userInstance = new User();
+            System.out.println("User was null XX");
         }
         return userInstance;
     }
@@ -87,17 +88,30 @@ public class User {
 
     public String getMail() {
 
-        return mail;
+        return email;
     }
 
     public void setMail(String mail) {
 
-        this.mail = mail;
+        this.email = mail;
     }
 
-    public String getPassword() {
+    public void setUser(String id, String firstName, String lastName, String email, ArrayList<BloodSugar> bsList){
 
-        return password;
+
+
+
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.bsList = bsList;
+
+    }
+
+
+    public String toString(){
+        return ("ID: "+id + " - NAVN: "+firstName + " - MAIL: "+email);
     }
 
 }

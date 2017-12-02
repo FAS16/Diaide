@@ -21,6 +21,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Login_activity extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,13 +36,16 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
      * login_BTN: login button - Button
      */
 
-    EditText userName_ET;
-    EditText password_ET;
-    Button login_BTN;
-    Button loginFB_BTN;
-    TextView newUser_TV;
-    protected FirebaseAuth firebaseAuth;
-    protected FirebaseUser firebaseUser;
+    private EditText userName_ET;
+    private EditText password_ET;
+    private Button login_BTN;
+    private Button loginFB_BTN;
+    private TextView newUser_TV;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private DatabaseReference db;
+    private DatabaseReference db_userReference;
+    static  AppCompatActivity act;
 
     private static final String TAG = "CURRENT USER";
 
@@ -46,8 +54,11 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        act = this;
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+        db = FirebaseDatabase.getInstance().getReference();
 
         userName_ET = findViewById(R.id.userName_ET);
         password_ET = findViewById(R.id.password_ET);
@@ -60,6 +71,7 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
         newUser_TV.setOnClickListener(this);
 
     }
+
 
     @Override
     protected  void onResume() {
@@ -78,12 +90,11 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 //        }
     }
 
-    // TODO: 01/11/2017: User input validation missing
+
     @Override
     public void onClick(View v) {
         if (v == login_BTN) {
             signIn(userName_ET.getText().toString(), password_ET.getText().toString());
-
 
         }
 
@@ -109,16 +120,12 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
         else{
             Log.i(TAG, "USER (onStart): " + currentUser.getEmail());
         }
+
     }
 
     private void signIn(String email, String password) {
 
-        if (!userInputValidation()) {
-            return;
-        }
-
-        firebaseUser = firebaseAuth.getCurrentUser();
-
+        if (!userInputValidation()) return;
         Log.i(TAG, "USER (BEFORE SIGN IN): "+firebaseUser);
 
         firebaseAuth.signInWithEmailAndPassword(email,password)
@@ -127,32 +134,14 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
 
-
-                            firebaseUser = firebaseAuth.getCurrentUser();
-                            if(!firebaseUser.isEmailVerified()){
-
-                            //User is signed in
-                            firebaseUser = firebaseAuth.getCurrentUser();
-                            Toast.makeText(Login_activity.this, "Logged in", Toast.LENGTH_SHORT).show();
-
-                            System.out.println("EMAIL VERIFICATION STATUS: "+ firebaseUser.isEmailVerified());
-                            Intent intent = new Intent(Login_activity.this, HomeMenu_activity.class);
-                            startActivity(intent);
-                            //updateUI(user)
-                            Log.i(TAG, "USER (AFTER SIGN IN): "+firebaseUser.getEmail()); //Should show null since the user is signed out
-
-
-
-                        }
-
-                            else if(firebaseUser.isEmailVerified()){
-                                firebaseAuth.signOut();
+                                //User is signed in
                                 firebaseUser = firebaseAuth.getCurrentUser();
-                                Toast.makeText(Login_activity.this, "Verificér venligst din konto via. e-mail.", Toast.LENGTH_SHORT).show();
-                                Log.i(TAG, "USER (AFTER SIGN IN - VERIFY ACCOUNT): "+firebaseUser); //Should show null since the user is signed out
+                                setListener();
+                                Toast.makeText(Login_activity.this, "Logged in", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(Login_activity.this, HomeMenu_activity.class);
+                                startActivity(intent);
 
-                            }
-
+                                Log.i(TAG, "USER (AFTER SIGN IN): " + firebaseUser.getEmail()); //Should show null since the user is signed out
 
                         }
 
@@ -166,6 +155,39 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
                     }
             });
         }
+
+    private void setListener (){
+
+        db_userReference = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid());
+        //Prints link to the current user
+        System.out.println(FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid()).toString());
+
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get User object.
+
+                User u = dataSnapshot.getValue(User.class);
+                System.out.println("SNAPSHOT: "+ u);
+                System.out.println("SINGLETON FØR HENTNING FRA FB: "+ User.getUserInstance());
+
+                User.getUserInstance().setUser(u.getId(),u.getFirstName(),u.getLastName(),u.getMail(),u.getBsList());
+                System.out.println("SINGLETON EFTER HENTNING FRA FB: "+ User.getUserInstance());
+
+                for(Runnable r: User.getUserInstance().observers) r.run();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+               // Toast.makeText(Login_activity.this, "Fejl - initializeUser", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        db_userReference.addListenerForSingleValueEvent(listener);
+
+    }
 
     private boolean userInputValidation() {
         boolean valid = true;
@@ -188,6 +210,8 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
         }
 
         return valid;
-    }
+
+        }
+
     }
 
