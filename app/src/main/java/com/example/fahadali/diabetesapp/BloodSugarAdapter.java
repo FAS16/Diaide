@@ -16,7 +16,9 @@ import java.util.ArrayList;
  */
 
 public class BloodSugarAdapter extends ArrayAdapter<BloodSugar>{
-    public BloodSugarAdapter(Context context, ArrayList<BloodSugar> users) {super(context,0,users);}
+    public BloodSugarAdapter(Context context, ArrayList<BloodSugar> users) {
+        super(context,0,users);
+    }
 
 
     @Override

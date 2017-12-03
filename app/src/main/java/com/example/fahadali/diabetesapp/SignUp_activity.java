@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +26,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class SignUp_activity extends AppCompatActivity implements View.OnClickListener {
@@ -33,17 +39,18 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
     private EditText firstName_ET, lastName_ET, email_ET, password_ET;
     private Button signUp_BTN;
     private TextView backToLogin_TV;
+    private ProgressBar pBar;
+
     private FirebaseAuth firebaseAuth;
     private SharedPreferences prefs;
     private FirebaseUser firebaseUser;
-    private User user = User.getUserInstance();
     public DatabaseReference db;
+    private DatabaseReference db_userReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-
 
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance().getReference();
@@ -52,16 +59,17 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
         lastName_ET = findViewById(R.id.createLastName_ET);
         email_ET = findViewById(R.id.createEmail_ET);
         password_ET = findViewById(R.id.createPassword_ET);
+        pBar = findViewById(R.id.signProgressBar);
+
 
         signUp_BTN = findViewById(R.id.signUp_BTN);
         signUp_BTN.setOnClickListener(this);
-
         backToLogin_TV = findViewById(R.id.backToLogin_TV);
         backToLogin_TV.setOnClickListener(this);
+        pBar.setVisibility(View.GONE);
+        firstName_ET.requestFocus();
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-
 
     }
 
@@ -70,7 +78,7 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
         super.onStart();
         // Check if user is signed in and update UI accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        updateUI(currentUser);
+       // updateUI(currentUser);
     }
 
 
@@ -85,25 +93,20 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
 
         if(view == signUp_BTN){
             createUserAccount(email_ET.getText().toString(), password_ET.getText().toString());
-            //Intent intent = new Intent(this, HomeMenu_activity.class);
-            //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            //startActivity(intent);
-            //finish();
-
 
         }
     }
 
     private void createNewUser(){
 
-        user.setId(firebaseUser.getUid());
+        String id = firebaseUser.getUid();
+        String firstName = firstName_ET.getText().toString();
+        String lastName = lastName_ET.getText().toString();
+        String email = firebaseUser.getEmail();
 
+        User.getUserInstance().setUser(id, firstName, lastName, email, null);
 
-        user.setFirstName(firstName_ET.getText().toString());
-        user.setLastName(lastName_ET.getText().toString());
-        user.setMail(firebaseUser.getEmail());
-
-        db.child("users").child(firebaseUser.getUid()).setValue(user);
+        db.child("users").child(firebaseUser.getUid()).setValue(User.getUserInstance());
     }
 
 
@@ -111,32 +114,29 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
 
         if(!passwordValidation()) return;
         if(!userInputValidation()) return;
-
+        disableScreen();
 
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
                             // User is logged in, and the UI updates with the specific user values
                             Log.d("SUCCESSFULL LOGIN", "createUserWithEmail: success");
                             firebaseUser = firebaseAuth.getCurrentUser();
                             createNewUser();
-                            Toast.makeText(SignUp_activity.this, "Bruger oprettet", Toast.LENGTH_SHORT).show();
-                            //sendEmailVerification();
-                           // updateUI(user);
                             showAlertDialog();
-                            //saveTempLogin();
 
+//                            Toast.makeText(SignUp_activity.this, "Bruger oprettet", Toast.LENGTH_SHORT).show();
 
-                        } else {
-                            // If sign in fails, display a message to the user.
-                           Log.w("FAILED LOGIN", "createUserWithEmail: failure", task.getException());
-                            Toast.makeText(SignUp_activity.this, "FEJL, bruger ikke oprettet", Toast.LENGTH_SHORT).show();
-                            updateUI(null);
                         }
-
-                        //hideProgressDialog();
+                        else if (!task.isSuccessful()) {
+                            // If sign in fails, display a message to the user.
+                            Log.w("FAILED LOGIN", "createUserWithEmail: failure", task.getException());
+                            Toast.makeText(SignUp_activity.this, "FEJL, bruger ikke oprettet", Toast.LENGTH_SHORT).show();
+                            enableScreen();
+                        }
                     }
                 });
         }
@@ -219,20 +219,26 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
     public void showAlertDialog(){
 
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("Brugeren er oprettet.");
-        alertDialog.setMessage("Verificér venligst din konto via. e-mail.");
-
+        alertDialog.setTitle("Du er oprettet som bruger");
+        alertDialog.setMessage("Du vil nu blive ført til din hovedmenu");
+        alertDialog.setCanceledOnTouchOutside(false); //the dialog will note close when touch is outside of it
+        alertDialog.setCancelable(false);
 
         alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-finish();
+
+                Intent intent = new Intent(SignUp_activity.this, HomeMenu_activity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
 
             }
         });
 
         alertDialog.show();
     }
+
 
     public void saveTempLogin(){
 
@@ -242,12 +248,25 @@ finish();
                 .commit();
     }
 
+    public void disableScreen(){
+            pBar.setVisibility(View.VISIBLE);
+            firstName_ET.setEnabled(false);
+            lastName_ET.setEnabled(false);
+            email_ET.setEnabled(false);
+            password_ET.setEnabled(false);
+            signUp_BTN.setEnabled(false);
+            backToLogin_TV.setEnabled(false);
 
-
-
-
-
-    private void updateUI(FirebaseUser currentUser) {
     }
+
+    public void enableScreen(){
+            pBar.setVisibility(View.GONE);
+            firstName_ET.setEnabled(true);
+            lastName_ET.setEnabled(true);
+            email_ET.setEnabled(true);
+            password_ET.setEnabled(true);
+    }
+
+
 
 }

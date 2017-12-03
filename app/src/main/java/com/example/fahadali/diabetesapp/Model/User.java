@@ -2,17 +2,21 @@ package com.example.fahadali.diabetesapp.Model;
 
 //User singleton
 
+import com.example.fahadali.diabetesapp.Model.Reminders.Reminder;
+
 import java.util.ArrayList;
 
 public class User {
 
-    public ArrayList <Runnable> observers = new ArrayList<>();
+
     private static User userInstance;
     private String id;
     private String firstName;
     private String lastName;
     private String email;
     private ArrayList<BloodSugar> bsList = new ArrayList<>();
+    private ArrayList<Reminder> reminderList = new ArrayList<>();
+    public  ArrayList <Runnable> observers = new ArrayList<>();
 
     //Empty constructor for google firebase
     private User(){
@@ -29,6 +33,7 @@ public class User {
 
 
     public ArrayList<BloodSugar> getBsList() {
+
         return bsList;
     }
 
@@ -37,7 +42,16 @@ public class User {
         bsList = testArray;
     }
 
+    public ArrayList<Reminder> getReminderList() {
+        return reminderList;
+    }
+
+    public void setReminderList(ArrayList<Reminder> reminderList) {
+        this.reminderList = reminderList;
+    }
+
     public void addBloodSugarNotation(BloodSugar bs) {
+
         bsList.add(bs);
     }
 
@@ -98,9 +112,6 @@ public class User {
 
     public void setUser(String id, String firstName, String lastName, String email, ArrayList<BloodSugar> bsList){
 
-
-
-
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -108,7 +119,6 @@ public class User {
         this.bsList = bsList;
 
     }
-
 
     public String toString(){
         return ("ID: "+id + " - NAVN: "+firstName + " - MAIL: "+email);

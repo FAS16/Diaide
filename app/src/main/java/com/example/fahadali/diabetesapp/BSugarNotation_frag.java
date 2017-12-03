@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.fahadali.diabetesapp.Model.BloodSugar;
 import com.example.fahadali.diabetesapp.Model.User;
@@ -22,9 +21,10 @@ import com.example.fahadali.diabetesapp.Model.User;
 public class BSugarNotation_frag extends Fragment implements View.OnClickListener, TextWatcher{
 
     Button cancel_BTN, add_BTN;
-    EditText firstNum_ET, secondNum_ET, thirdNum_ET, comment_ET;
-    TextView comma_TV;
-    User user = User.getUserInstance();
+    EditText firstNum_ET, secondNum_ET, thirdNum_ET, comment_ET, comma_ET;
+
+
+
 
 
     @Override
@@ -46,7 +46,9 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
         thirdNum_ET = rod.findViewById(R.id.thirdNum_ET);
         thirdNum_ET.addTextChangedListener(this);
 
-        comma_TV = rod.findViewById(R.id.comma_TV);
+        comma_ET = rod.findViewById(R.id.comma_ET);
+        comma_ET.setEnabled(false);
+
         comment_ET = rod.findViewById(R.id.comment_ET);
 
 
@@ -57,10 +59,10 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         if(v == add_BTN){
-            // TODO: 02/11/2017: Needs backend to get Userinput and place it in BSoverview
-            user.addBloodSugarNotation(new BloodSugar(Double.parseDouble(firstNum_ET.getText().toString()+secondNum_ET.getText().toString()+"."+thirdNum_ET.getText().toString()),
-                    comment_ET.getText().toString()));
-                    getActivity().finish();
+
+            User.getUserInstance().addBloodSugarNotation(new BloodSugar(Double.parseDouble(firstNum_ET.getText().toString()+ "."+secondNum_ET.getText().toString()), comment_ET.getText().toString()));
+
+                 getActivity().finish();
         }
         if(v == cancel_BTN){
             getActivity().finish();
@@ -86,16 +88,17 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
     public void afterTextChanged(Editable s) {
 
     }
-    public void focusHandler(){
+    public void focusHandler() {
+
 
         int maxLength = 1;
-        comma_TV.setTextColor(getResources().getColor(R.color.hintColor));
-        if(firstNum_ET.getText().toString().length() == maxLength){
+        comma_ET.setTextColor(getResources().getColor(R.color.hintColor));
+        if (firstNum_ET.getText().toString().length() == maxLength) {
             secondNum_ET.requestFocus();
-            if(secondNum_ET.getText().toString().length() == maxLength){
+            if (secondNum_ET.getText().toString().length() == maxLength) {
                 thirdNum_ET.requestFocus();
-                if(thirdNum_ET.getText().toString().length() == maxLength){
-                    comma_TV.setTextColor(getResources().getColor(R.color.TextOnWhite));
+                if (thirdNum_ET.getText().toString().length() == maxLength) {
+                    comma_ET.setHintTextColor(getResources().getColor(R.color.TextOnWhite));
                     comment_ET.requestFocus();
 
                 }
@@ -103,3 +106,5 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
         }
     }
 }
+
+

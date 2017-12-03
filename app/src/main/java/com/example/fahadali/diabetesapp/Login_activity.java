@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,42 +42,41 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
     private Button login_BTN;
     private Button loginFB_BTN;
     private TextView newUser_TV;
+    private ProgressBar pBar;
+
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
-    private DatabaseReference db;
-    private DatabaseReference db_userReference;
-    static  AppCompatActivity act;
 
     private static final String TAG = "CURRENT USER";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("OBSERVERS: "+ User.getUserInstance().observers.toString());
         setContentView(R.layout.activity_login);
-
-        act = this;
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-        db = FirebaseDatabase.getInstance().getReference();
 
         userName_ET = findViewById(R.id.userName_ET);
         password_ET = findViewById(R.id.password_ET);
         login_BTN = findViewById(R.id.login_BTN);
         loginFB_BTN = findViewById(R.id.loginFB_BTN);
         newUser_TV = findViewById(R.id.newUser_TV);
+        pBar = findViewById(R.id.loginProgressBar);
 
+        pBar.setVisibility(View.GONE);
         userName_ET.requestFocus();
         login_BTN.setOnClickListener(this);
         newUser_TV.setOnClickListener(this);
 
-    }
 
+    }
 
     @Override
     protected  void onResume() {
         super.onResume();
-
+        enableScreen();
         newUser_TV.setTypeface(Typeface.DEFAULT);
 
 //        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -94,6 +94,8 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (v == login_BTN) {
+
+
             signIn(userName_ET.getText().toString(), password_ET.getText().toString());
 
         }
@@ -125,7 +127,9 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
     private void signIn(String email, String password) {
 
+
         if (!userInputValidation()) return;
+        disableScreen();
         Log.i(TAG, "USER (BEFORE SIGN IN): "+firebaseUser);
 
         firebaseAuth.signInWithEmailAndPassword(email,password)
@@ -136,58 +140,32 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
                                 //User is signed in
                                 firebaseUser = firebaseAuth.getCurrentUser();
-                                setListener();
+                               // setListener();
                                 Toast.makeText(Login_activity.this, "Logged in", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Login_activity.this, HomeMenu_activity.class);
                                 startActivity(intent);
 
-                                Log.i(TAG, "USER (AFTER SIGN IN): " + firebaseUser.getEmail()); //Should show null since the user is signed out
+                                Log.i(TAG, "USER (AFTER SIGN IN): " + firebaseUser.getEmail());
 
                         }
 
-                        else{
+                        else if(!task.isSuccessful()){
+
                             //Login fails
                             Toast.makeText(Login_activity.this, "Fejl, kan ikke genkende e-mail/password.", Toast.LENGTH_SHORT).show();
-                            Log.i(TAG, "No such user: "+firebaseUser); //Should show null since the user is signed out
+                            //enableScreen();
+                            Log.i(TAG, "No such user: "+firebaseUser);
+                            enableScreen();
+
                             //updateUI(null)
 
                         }
+
                     }
-            });
+
+                });
         }
 
-    private void setListener (){
-
-        db_userReference = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid());
-        //Prints link to the current user
-        System.out.println(FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid()).toString());
-
-        ValueEventListener listener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get User object.
-
-                User u = dataSnapshot.getValue(User.class);
-                System.out.println("SNAPSHOT: "+ u);
-                System.out.println("SINGLETON FØR HENTNING FRA FB: "+ User.getUserInstance());
-
-                User.getUserInstance().setUser(u.getId(),u.getFirstName(),u.getLastName(),u.getMail(),u.getBsList());
-                System.out.println("SINGLETON EFTER HENTNING FRA FB: "+ User.getUserInstance());
-
-                for(Runnable r: User.getUserInstance().observers) r.run();
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-               // Toast.makeText(Login_activity.this, "Fejl - initializeUser", Toast.LENGTH_SHORT).show();
-            }
-        };
-
-        db_userReference.addListenerForSingleValueEvent(listener);
-
-    }
 
     private boolean userInputValidation() {
         boolean valid = true;
@@ -211,6 +189,27 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
         return valid;
 
+        }
+
+
+        public void disableScreen(){
+            pBar.setVisibility(View.VISIBLE);
+            userName_ET.setEnabled(false);
+            password_ET.setEnabled(false);
+            login_BTN.setEnabled(false);
+            loginFB_BTN.setEnabled(false);
+            newUser_TV.setEnabled(false);
+
+        }
+
+
+        public void enableScreen(){
+            pBar.setVisibility(View.GONE);
+            userName_ET.setEnabled(true);
+            password_ET.setEnabled(true);
+            login_BTN.setEnabled(true);
+            loginFB_BTN.setEnabled(true);
+            newUser_TV.setEnabled(true);
         }
 
     }

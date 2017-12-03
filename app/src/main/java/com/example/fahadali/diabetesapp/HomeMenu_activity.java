@@ -13,25 +13,30 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.fahadali.diabetesapp.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import org.w3c.dom.Text;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class HomeMenu_activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, Runnable {
 
 
-    Button blodsukker_BTN;
-    Button påmindelser_BTN;
-    Button testLogUd_BTN;
+    private Button bloodSugar_BTN;
+    private Button reminders_BTN;
+    private Button testLogUd_BTN;
+    private ProgressBar pBar;
+    private TextView tv;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
-    User user;
-    private TextView tv;
+    private DatabaseReference db_userReference;
 
 
     @Override
@@ -39,17 +44,17 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_menu);
 
-        User.getUserInstance().observers.add(this);
+        pBar = findViewById(R.id.homeProgressBar);
 
-        user = User.getUserInstance();
 
-        System.out.println("SNAPSHOT3: "+ User.getUserInstance());
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+        setListener();
+        User.getUserInstance().observers.add(this);
+
+        System.out.println("SNAPSHOT3: "+ User.getUserInstance());
+
         tv = findViewById(R.id.nuværendeUser);
-
-        System.out.println("KIG HEEER: "+user.getFirstName());
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,19 +68,22 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        blodsukker_BTN = (Button) findViewById(R.id.bloodsukker_BTN);
-        påmindelser_BTN = (Button) findViewById(R.id.påmindelser_BTN);
+        bloodSugar_BTN = (Button) findViewById(R.id.bloodSugar_BTN);
+        reminders_BTN = (Button) findViewById(R.id.reminders_BTN);
         testLogUd_BTN = findViewById(R.id.logUd_BTN);
 
-        blodsukker_BTN.setOnClickListener(this);
-        påmindelser_BTN.setOnClickListener(this);
+
+        bloodSugar_BTN.setOnClickListener(this);
+        reminders_BTN.setOnClickListener(this);
         testLogUd_BTN.setOnClickListener(this);
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         User.getUserInstance().observers.remove(this);
+
     }
 
     @Override
@@ -137,12 +145,12 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
 
     @Override
     public void onClick(View v) {
-        if(v == blodsukker_BTN){
+        if(v == bloodSugar_BTN){
             Intent intent = new Intent(this, BSugarOverview_activity.class);
             startActivity(intent);
         }
 
-        if(v == påmindelser_BTN){
+        if(v == reminders_BTN){
             Intent intent = new Intent(this, ReminderTypeSelector_activity.class);
             startActivity(intent);
         }
@@ -154,17 +162,58 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
 
             Log.i("CURRENT USER: ", "After sign out: "+firebaseUser);
 
-            user.nullifyUser();
+            User.getUserInstance().nullifyUser();
             System.out.println("SNAPSHOT2: "+ User.getUserInstance());
-        finish();
+            Intent i = new Intent (this, Login_activity.class);
+            startActivity(i);
+            finish();
 
         }
 
     }
 
+
     @Override
     public void run() {
         tv.setText(User.getUserInstance().getFirstName());
         System.out.println("SNAPSHOT3X: "+ User.getUserInstance());
+    }
+
+
+    private void setListener (){
+
+
+        db_userReference = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid());
+        //Prints link to the current user
+        System.out.println("Link to current user: " + FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid()).toString());
+
+        db_userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                // Get User object.
+                User u = dataSnapshot.getValue(User.class);
+                System.out.println("SNAPSHOT: "+ u);
+                System.out.println("SINGLETON FØR HENTNING FRA FB: "+ User.getUserInstance());
+
+                User.getUserInstance().setUser(u.getId(),u.getFirstName(),u.getLastName(),u.getMail(),u.getBsList());
+                System.out.println("SINGLETON EFTER HENTNING FRA FB: "+ User.getUserInstance());
+
+                for(Runnable r: User.getUserInstance().observers) r.run();
+                System.out.println("OBSERVERS 2: "+ User.getUserInstance().observers.toString());
+
+                pBar.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+
+            }
+        });
+
+
+
     }
 }
