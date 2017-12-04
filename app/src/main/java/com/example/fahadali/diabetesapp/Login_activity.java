@@ -49,6 +49,10 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
     private static final String TAG = "CURRENT USER";
 
+    /**
+     * Oncreate method, to tell the program what to do on create.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +77,9 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    /**
+     * Resume method, for when the acitivity gets resumed
+     */
     @Override
     protected  void onResume() {
         super.onResume();
@@ -90,7 +97,10 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 //        }
     }
 
-
+    /**
+     * Method for handling what happens when you click in the activity
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         if (v == login_BTN) {
@@ -107,6 +117,9 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    /**
+     * Method for handling what happens on start.
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -125,6 +138,11 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    /**
+     * Method for handling the sign in process, with firebaseAuth
+     * @param email
+     * @param password
+     */
     private void signIn(String email, String password) {
 
 
@@ -166,7 +184,10 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
                 });
         }
 
-
+    /**
+     * Method for checking if the user has entered anything in the fields.
+     * @return
+     */
     private boolean userInputValidation() {
         boolean valid = true;
 
@@ -191,7 +212,9 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
         }
 
-
+    /**
+     * Method for disabling the screen.
+     */
         public void disableScreen(){
             pBar.setVisibility(View.VISIBLE);
             userName_ET.setEnabled(false);
@@ -202,7 +225,9 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
         }
 
-
+    /**
+     * Method for enabling the screen.
+     */
         public void enableScreen(){
             pBar.setVisibility(View.GONE);
             userName_ET.setEnabled(true);

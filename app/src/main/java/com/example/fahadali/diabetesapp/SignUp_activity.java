@@ -35,7 +35,9 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class SignUp_activity extends AppCompatActivity implements View.OnClickListener {
-
+    /**
+     * variables for the SignUp activity
+     */
     private EditText firstName_ET, lastName_ET, email_ET, password_ET;
     private Button signUp_BTN;
     private TextView backToLogin_TV;
@@ -47,6 +49,10 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
     public DatabaseReference db;
     private DatabaseReference db_userReference;
 
+    /**
+     * Oncreate method, to tell the program what to do on create.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +79,9 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    /**
+     * On start method, to tell the program what to do on start.
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -82,7 +91,10 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-
+    /**
+     * Method for handling what happens when you click in the activity
+     * @param view
+     */
     @Override
     public void onClick(View view) {
 
@@ -97,6 +109,9 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    /**
+     * Method for creating a new user locally, and saving it in the database
+     */
     private void createNewUser(){
 
         String id = firebaseUser.getUid();
@@ -109,7 +124,11 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
         db.child("users").child(firebaseUser.getUid()).setValue(User.getUserInstance());
     }
 
-
+    /**
+     * Method for creating the user account in firebase.
+     * @param email
+     * @param password
+     */
     protected void createUserAccount(String email, String password){
 
         if(!passwordValidation()) return;
@@ -141,6 +160,9 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
                 });
         }
 
+    /**
+     * Method for sending email verification.
+     */
     private void sendEmailVerification() {
 
 
@@ -164,7 +186,10 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
                 });}
     }
 
-
+    /**
+     * Method for checking that the user is entering the right information
+     * @return
+     */
     private boolean userInputValidation() {
         boolean valid = true;
 
@@ -188,6 +213,10 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
         return valid;
     }
 
+    /**
+     * Method for checking if the password is correct, min 6 chars, a number and a capital letter
+     * @return
+     */
     public boolean passwordValidation(){
         boolean valid = true;
 
@@ -215,7 +244,9 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-
+    /**
+     * Method for showing the alerts, eg when they are created as users.
+     */
     public void showAlertDialog(){
 
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
@@ -239,7 +270,9 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
         alertDialog.show();
     }
 
-
+    /**
+     * Method for saving a temporary login, and transfering it to the loginactivity
+     */
     public void saveTempLogin(){
 
         prefs.edit()
@@ -248,6 +281,9 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
                 .commit();
     }
 
+    /**
+     * Method for disabling the screen.
+     */
     public void disableScreen(){
             pBar.setVisibility(View.VISIBLE);
             firstName_ET.setEnabled(false);
@@ -259,6 +295,9 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    /**
+     * Method for enabling the screen.
+     */
     public void enableScreen(){
             pBar.setVisibility(View.GONE);
             firstName_ET.setEnabled(true);
