@@ -29,10 +29,19 @@
 
     <ListView
         android:id="@+id/BloodSugar_LV"
+
         android:layout_width="356dp"
         android:layout_height="444dp"
         android:layout_marginEnd="7dp"
         android:layout_marginStart="7dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="492dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+
         android:divider="@color/colorPrimary"
         android:dividerHeight="4px"
         app:layout_constraintBottom_toTopOf="@+id/addBloodSugar_BTN"

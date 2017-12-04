@@ -8,9 +8,15 @@ public class Reminder {
     String reminderHeader;
     boolean repeateable;
 
+
     public Reminder(String tiime, String reminderMessage, String reminderHeader, boolean repeateable){
 
         this.time = tiime;
+
+    public Reminder(String time, String reminderMessage, String reminderHeader, boolean repeateable){
+
+        this.time = time;
+
         this.reminderMessage = reminderMessage;
         this.reminderHeader = reminderHeader;
         this.repeateable = repeateable;
@@ -50,4 +56,8 @@ public class Reminder {
     }
 
 
+
 }
+
+}
+

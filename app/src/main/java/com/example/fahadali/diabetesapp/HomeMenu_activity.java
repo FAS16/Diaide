@@ -52,6 +52,11 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
         pBar = findViewById(R.id.homeProgressBar);
 
 
+
+
+        user = User.getUserInstance();
+
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         setListener();
