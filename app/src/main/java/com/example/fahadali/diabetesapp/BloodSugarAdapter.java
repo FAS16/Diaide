@@ -16,9 +16,17 @@ import java.util.ArrayList;
  */
 
 public class BloodSugarAdapter extends ArrayAdapter<BloodSugar>{
-    public BloodSugarAdapter(Context context, ArrayList<BloodSugar> users) {super(context,0,users);}
+    public BloodSugarAdapter(Context context, ArrayList<BloodSugar> users) {
+        super(context,0,users);
+    }
 
-
+    /**
+     * Method ??????
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent)   {
         BloodSugar bs = getItem(position);
