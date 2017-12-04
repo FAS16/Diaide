@@ -150,11 +150,13 @@
         android:id="@+id/signUpLogo_IV"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginBottom="13dp"
         android:layout_marginEnd="92dp"
         android:layout_marginStart="92dp"
         android:layout_marginTop="12dp"
         android:adjustViewBounds="true"
         android:src="@drawable/dia_logo_recovered"
+        app:layout_constraintBottom_toTopOf="@+id/createFirstName_ET"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

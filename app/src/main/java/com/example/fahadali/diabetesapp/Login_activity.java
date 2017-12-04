@@ -94,9 +94,7 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (v == login_BTN) {
-
-
-            signIn(userName_ET.getText().toString(), password_ET.getText().toString());
+            signIn(userName_ET.getText().toString().trim(), password_ET.getText().toString());
 
         }
 
@@ -144,6 +142,7 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
                                 Toast.makeText(Login_activity.this, "Logged in", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Login_activity.this, HomeMenu_activity.class);
                                 startActivity(intent);
+                                finish();
 
                                 Log.i(TAG, "USER (AFTER SIGN IN): " + firebaseUser.getEmail());
 

@@ -60,7 +60,7 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         if(v == add_BTN){
 
-            User.getUserInstance().addBloodSugarNotation(new BloodSugar(Double.parseDouble(firstNum_ET.getText().toString()+ "."+secondNum_ET.getText().toString()), comment_ET.getText().toString()));
+            User.getUserInstance().addBloodSugarNotation(new BloodSugar(Double.parseDouble(firstNum_ET.getText().toString()+secondNum_ET.getText().toString()+ "."+thirdNum_ET.getText().toString()), comment_ET.getText().toString()));
 
                  getActivity().finish();
         }
