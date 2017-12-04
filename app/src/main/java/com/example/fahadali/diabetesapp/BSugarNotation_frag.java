@@ -19,14 +19,20 @@ import com.example.fahadali.diabetesapp.Model.User;
  * A simple {@link Fragment} subclass.
  */
 public class BSugarNotation_frag extends Fragment implements View.OnClickListener, TextWatcher{
-
+    /**
+     * Variables for BSnotation fragment
+     */
     Button cancel_BTN, add_BTN;
     EditText firstNum_ET, secondNum_ET, thirdNum_ET, comment_ET, comma_ET;
 
 
-
-
-
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rod = inflater.inflate(R.layout.fragment_bsugar_notation,container,false);
@@ -55,7 +61,10 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
         return rod;
     }
 
-
+    /**
+     * Method for letting the fragment know what to do when clicked.
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         if(v == add_BTN){
@@ -70,12 +79,26 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
 
     }
 
+    /**
+     * ???????
+     * @param s
+     * @param start
+     * @param count
+     * @param after
+     */
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
 
     }
 
+    /**
+     * ?????????????
+     * @param s
+     * @param start
+     * @param before
+     * @param count
+     */
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         focusHandler();
@@ -83,11 +106,18 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
     }
 
 
-
+    /**
+     * ??????????
+     * @param s
+     */
     @Override
     public void afterTextChanged(Editable s) {
 
     }
+
+    /**
+     * ?????????????????
+     */
     public void focusHandler() {
 
 

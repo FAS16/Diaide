@@ -27,7 +27,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class HomeMenu_activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, Runnable {
 
-
+    /**
+     * Variables for the HomeMenuActivity
+     */
     private Button bloodSugar_BTN;
     private Button reminders_BTN;
     private Button testLogUd_BTN;
@@ -38,7 +40,10 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
     private FirebaseUser firebaseUser;
     private DatabaseReference db_userReference;
 
-
+    /**
+     * Oncreate method, to tell the program what to do on create.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +84,9 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
 
     }
 
+    /**
+     * Method for telling the activity what to do on destroy.
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -86,6 +94,9 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
 
     }
 
+    /**
+     * Method for telling the activity what to do when the back button is pressed.
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -96,6 +107,11 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
         }
     }
 
+    /**
+     * Method for creating the optionsmenu oncreate
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -103,14 +119,14 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
+    /**
+     * Method for handle action bar item clicks.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -118,10 +134,14 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Method for navigating view item clicks
+     * @param item
+     * @return
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
@@ -143,6 +163,10 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
+    /**
+     * Method for handling what happens when you click different places.
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         if(v == bloodSugar_BTN){
@@ -172,14 +196,18 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
 
     }
 
-
+    /**
+     * Run method, handling the ???????
+     */
     @Override
     public void run() {
         tv.setText(User.getUserInstance().getFirstName());
         System.out.println("SNAPSHOT3X: "+ User.getUserInstance());
     }
 
-
+    /**
+     * Method for listening to changes to the database, and update if changes occur.
+     */
     private void setListener (){
 
 

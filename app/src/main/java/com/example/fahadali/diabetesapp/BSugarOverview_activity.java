@@ -16,21 +16,26 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class BSugarOverview_activity extends AppCompatActivity implements View.OnClickListener {
 
+    /**
+     * Variables for the BsugarOverview activity
+     */
     Button addBloodSugar_BTN;
-
-
-
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     FirebaseAuth fireBaseAuth = FirebaseAuth.getInstance();
     private FirebaseUser fireBaseUser = fireBaseAuth.getCurrentUser();
     DatabaseReference ref = db.getReference();
     User user = User.getUserInstance();
 
-
+    /**
+     * Constructor for BsugarOverview
+     */
     public BSugarOverview_activity() {
 
     }
 
+    /**
+     * Method for what to do when the activity resumes.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -40,6 +45,10 @@ public class BSugarOverview_activity extends AppCompatActivity implements View.O
         overview.setAdapter(adapter);
     }
 
+    /**
+     * Method for what to do when activity is created.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +66,10 @@ public class BSugarOverview_activity extends AppCompatActivity implements View.O
 
     }
 
+    /**
+     * Method for what the acitivity does when it is clicked.
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         if(v == addBloodSugar_BTN){
