@@ -2,14 +2,16 @@ package com.example.fahadali.diabetesapp.Model;
 
 //User singleton
 
+import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
+import com.example.fahadali.diabetesapp.Model.ObserverPattern.Subject;
 import com.example.fahadali.diabetesapp.Model.Reminders.Reminder;
 
 import java.util.ArrayList;
 
-public class User {
+public class User implements Subject {
 
     /**
-     * Variables for the User class
+     * field variables for the User class
      */
     private static User userInstance;
     private String id;
@@ -18,7 +20,7 @@ public class User {
     private String email;
     private ArrayList<BloodSugar> bsList = new ArrayList<>();
     private ArrayList<Reminder> reminderList = new ArrayList<>();
-    public  ArrayList <Runnable> observers = new ArrayList<>();
+    public  ArrayList <Observer> observers = new ArrayList<>();
 
     //Empty constructor for google firebase
     private User(){
@@ -41,6 +43,18 @@ public class User {
     }
 
     /**
+     * Method for getting the user instance
+     * @return
+     */
+    public static User getUserInstance(){
+        if (userInstance == null) {
+            userInstance = new User();
+            System.out.println("User was null XX");
+        }
+        return userInstance;
+    }
+
+    /**
      * Method for getting bsList
      * @return
      */
@@ -59,6 +73,15 @@ public class User {
     }
 
     /**
+     * Method for adding bloodsugarnotation
+     * @param bs
+     */
+    public void addBloodSugarNotation(BloodSugar bs) {
+
+        bsList.add(bs);
+    }
+
+    /**
      * Method for getting reminderslist
      * @return
      */
@@ -72,27 +95,6 @@ public class User {
      */
     public void setReminderList(ArrayList<Reminder> reminderList) {
         this.reminderList = reminderList;
-    }
-
-    /**
-     * Method for adding bloodsugarnotation
-     * @param bs
-     */
-    public void addBloodSugarNotation(BloodSugar bs) {
-
-        bsList.add(bs);
-    }
-
-    /**
-     * Method for getting the user instance
-     * @return
-     */
-    public static User getUserInstance(){
-        if (userInstance == null) {
-            userInstance = new User();
-            System.out.println("User was null XX");
-        }
-        return userInstance;
     }
 
     /**
@@ -202,4 +204,23 @@ public class User {
         return ("ID: "+id + " - NAVN: "+firstName + " - MAIL: "+email);
     }
 
+
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+
+    }
+
+    @Override
+    public void notifyAllObservers() {
+        for (Observer obs: observers) {
+            obs.update();
+        }
+    }
 }

@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
+import com.example.fahadali.diabetesapp.Model.ObserverPattern.Subject;
 import com.example.fahadali.diabetesapp.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,7 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class HomeMenu_activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, Runnable {
+
+public class HomeMenu_activity extends AppCompatActivity implements Observer, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     /**
      * Variables for the HomeMenuActivity
@@ -40,6 +43,7 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
     private FirebaseUser firebaseUser;
     private DatabaseReference db_userReference;
 
+
     /**
      * Oncreate method, to tell the program what to do on create.
      * @param savedInstanceState
@@ -48,14 +52,16 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_menu);
-
         pBar = findViewById(R.id.homeProgressBar);
-
-
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+
+        User.getUserInstance().registerObserver(this);
+
+
         setListener();
-        User.getUserInstance().observers.add(this);
+
+
 
         System.out.println("SNAPSHOT3: "+ User.getUserInstance());
 
@@ -197,15 +203,6 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
     }
 
     /**
-     * Run method, handling the ???????
-     */
-    @Override
-    public void run() {
-        tv.setText(User.getUserInstance().getFirstName());
-        System.out.println("SNAPSHOT3X: "+ User.getUserInstance());
-    }
-
-    /**
      * Method for listening to changes to the database, and update if changes occur.
      */
     private void setListener (){
@@ -227,7 +224,7 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
                 User.getUserInstance().setUser(u.getId(),u.getFirstName(),u.getLastName(),u.getMail(),u.getBsList());
                 System.out.println("SINGLETON EFTER HENTNING FRA FB: "+ User.getUserInstance());
 
-                for(Runnable r: User.getUserInstance().observers) r.run();
+                User.getUserInstance().notifyAllObservers();
                 System.out.println("OBSERVERS 2: "+ User.getUserInstance().observers.toString());
 
                 pBar.setVisibility(View.GONE);
@@ -241,6 +238,16 @@ public class HomeMenu_activity extends AppCompatActivity implements NavigationVi
             }
         });
 
+
+
+    }
+
+
+    @Override
+    public void update() {
+
+        tv.setText(User.getUserInstance().getFirstName());
+        System.out.println("User updated - HomeMenu_activity "+ User.getUserInstance());
 
 
     }

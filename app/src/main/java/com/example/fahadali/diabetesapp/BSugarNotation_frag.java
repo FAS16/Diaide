@@ -65,13 +65,20 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
      * Method for letting the fragment know what to do when clicked.
      * @param v
      */
+
     @Override
     public void onClick(View v) {
         if(v == add_BTN){
 
-            User.getUserInstance().addBloodSugarNotation(new BloodSugar(Double.parseDouble(firstNum_ET.getText().toString()+secondNum_ET.getText().toString()+ "."+thirdNum_ET.getText().toString()), comment_ET.getText().toString()));
+            double tempBloodSugar = Double.parseDouble(firstNum_ET.getText().toString()+secondNum_ET.getText().toString()+ "."+thirdNum_ET.getText().toString());
+            String tempComment    = comment_ET.getText().toString();
+
+            User.getUserInstance().addBloodSugarNotation(new BloodSugar(tempBloodSugar, tempComment));
 
                  getActivity().finish();
+
+
+
         }
         if(v == cancel_BTN){
             getActivity().finish();
