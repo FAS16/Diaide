@@ -56,7 +56,7 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("OBSERVERS: "+ User.getUserInstance().observers.toString());
+
         setContentView(R.layout.activity_login);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -150,68 +150,38 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
         firebaseAuth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
 
-                                //User is signed in
-                                firebaseUser = firebaseAuth.getCurrentUser();
-                               // setListener();
-                                Toast.makeText(Login_activity.this, "Logged in", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(Login_activity.this, HomeMenu_activity.class);
-                                startActivity(intent);
-                                finish();
+                                    //User is signed in
+                                    firebaseUser = firebaseAuth.getCurrentUser();
+                                    // setListener();
+                                    Toast.makeText(Login_activity.this, "Logged in", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(Login_activity.this, HomeMenu_activity.class);
+                                    startActivity(intent);
+                                    finish();
 
-                                Log.i(TAG, "USER (AFTER SIGN IN): " + firebaseUser.getEmail());
+                                    Log.i(TAG, "USER (AFTER SIGN IN): " + firebaseUser.getEmail());
 
-                        }
+                                } else if (!task.isSuccessful()) {
 
-                        else if(!task.isSuccessful()){
+                                    //Login fails
+                                    Toast.makeText(Login_activity.this, "Fejl, kan ikke genkende e-mail/password.", Toast.LENGTH_SHORT).show();
+                                    //enableScreen();
+                                    Log.i(TAG, "No such user: " + firebaseUser);
+                                    enableScreen();
 
-                            //Login fails
-                            Toast.makeText(Login_activity.this, "Fejl, kan ikke genkende e-mail/password.", Toast.LENGTH_SHORT).show();
-                            //enableScreen();
-                            Log.i(TAG, "No such user: "+firebaseUser);
-                            enableScreen();
+                                    //updateUI(null)
 
-                            //updateUI(null)
-
-                        }
+                                }
 
 
-                    }
+                            }
 
-        db_userReference = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid());
-        //Prints link to the current user
-        System.out.println(FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid()).toString());
+                        });
 
-        ValueEventListener listener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get User object.
-
-                User u = dataSnapshot.getValue(User.class);
-                System.out.println("SNAPSHOT: "+ u);
-                System.out.println("SINGLETON FØR HENTNING FRA FB: "+ User.getUserInstance());
-
-                User.getUserInstance().setUser(u.getId(),u.getFirstName(),u.getLastName(),u.getMail(),u.getBsList());
-                System.out.println("SINGLETON EFTER HENTNING FRA FB: "+ User.getUserInstance());
-
-                for(Runnable r: User.getUserInstance().observers) r.run();
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-               // Toast.makeText(Login_activity.this, "Fejl - initializeUser", Toast.LENGTH_SHORT).show();
-            }
-        };
-
-        db_userReference.addValueEventListener(listener);
-
-                });
-        }
+    }
 
     /**
      * Method for checking if the user has entered anything in the fields.
@@ -267,4 +237,5 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
         }
 
     }
+
 

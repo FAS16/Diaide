@@ -20,7 +20,7 @@ public class User implements Subject {
     private String email;
     private ArrayList<BloodSugar> bsList = new ArrayList<>();
     private ArrayList<Reminder> reminderList = new ArrayList<>();
-    public  ArrayList <Observer> observers = new ArrayList<>();
+    private  ArrayList <Observer> observers = new ArrayList<>();
 
     //Empty constructor for google firebase
     private User(){

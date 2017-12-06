@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.fahadali.diabetesapp.Model.BloodSugar;
+import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
 import com.example.fahadali.diabetesapp.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,28 +23,20 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BSugarOverview_activity extends AppCompatActivity implements View.OnClickListener, Runnable {
+public class BSugarOverview_activity extends AppCompatActivity implements View.OnClickListener, Observer, Runnable {
 
     /**
      * Variables for the BsugarOverview activity
      */
-    Button addBloodSugar_BTN;
-    FirebaseDatabase db = FirebaseDatabase.getInstance();
-    FirebaseAuth fireBaseAuth = FirebaseAuth.getInstance();
+    private Button addBloodSugar_BTN;
+    private FirebaseDatabase db = FirebaseDatabase.getInstance();
+    private FirebaseAuth fireBaseAuth = FirebaseAuth.getInstance();
     private FirebaseUser fireBaseUser = fireBaseAuth.getCurrentUser();
-    DatabaseReference ref = db.getReference();
+    private DatabaseReference ref = db.getReference();
     private DatabaseReference db_userReference;
     private FirebaseUser firebaseUser;
-    User user = User.getUserInstance();
-    GenericTypeIndicator<ArrayList<BloodSugar>> t = new GenericTypeIndicator<ArrayList<BloodSugar>>(){};
-
-
-    /**
-     * Constructor for BsugarOverview
-     */
-    public BSugarOverview_activity() {
-
-    }
+    private User user = User.getUserInstance();
+    private GenericTypeIndicator<ArrayList<BloodSugar>> t = new GenericTypeIndicator<ArrayList<BloodSugar>>(){};
 
     /**
      * Method for what to do when the activity resumes.
@@ -53,6 +46,7 @@ public class BSugarOverview_activity extends AppCompatActivity implements View.O
     protected void onResume() {
         super.onResume();
         run();
+        update();
 
     }
 
@@ -66,7 +60,7 @@ public class BSugarOverview_activity extends AppCompatActivity implements View.O
         setContentView(R.layout.activity_bsugar_overview);
         firebaseUser = fireBaseAuth.getCurrentUser();
 
-        User.getUserInstance().observers.add(this);
+        User.getUserInstance().registerObserver(this);
 
         BloodSugarAdapter adapter = new BloodSugarAdapter(this,user.getBsList());
         addBloodSugar_BTN = findViewById(R.id.addBloodSugar_BTN);
@@ -78,7 +72,8 @@ public class BSugarOverview_activity extends AppCompatActivity implements View.O
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        User.getUserInstance().observers.remove(this);
+       // User.getUserInstance().observers.remove(this);
+        User.getUserInstance().removeObserver(this);
     }
 
     private void setListener (){
@@ -90,10 +85,15 @@ public class BSugarOverview_activity extends AppCompatActivity implements View.O
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get User object.
+
+//                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+//                    User.getUserInstance().addBloodSugarNotation(new BloodSugar());
+//                }
+
                 Log.d("Før","val = " + dataSnapshot.getValue());
                 user.setBsList(dataSnapshot.getValue(t));
 
-                for(Runnable r: User.getUserInstance().observers) r.run();
+                //for(Runnable r: User.getUserInstance().observers) r.run();
                 Log.d("Efter","val = " + dataSnapshot.getValue());
             }
 
@@ -125,9 +125,16 @@ public class BSugarOverview_activity extends AppCompatActivity implements View.O
 
     @Override
     public void run() {
+
+    }
+
+    @Override
+    public void update() {
+
         BloodSugarAdapter adapter = new BloodSugarAdapter(this, user.getBsList());
         ListView overview = findViewById(R.id.BloodSugar_LV);
         ref.child("users").child(fireBaseUser.getUid()).child("bsList").setValue(user.getBsList());
         overview.setAdapter(adapter);
+
     }
 }

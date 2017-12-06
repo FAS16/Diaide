@@ -96,7 +96,7 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        User.getUserInstance().observers.remove(this);
+        User.getUserInstance().removeObserver(this);
 
     }
 
@@ -225,7 +225,6 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
                 System.out.println("SINGLETON EFTER HENTNING FRA FB: "+ User.getUserInstance());
 
                 User.getUserInstance().notifyAllObservers();
-                System.out.println("OBSERVERS 2: "+ User.getUserInstance().observers.toString());
 
                 pBar.setVisibility(View.GONE);
 
