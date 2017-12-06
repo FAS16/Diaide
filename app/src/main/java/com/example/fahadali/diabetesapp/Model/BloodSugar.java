@@ -60,7 +60,7 @@ public class BloodSugar {
      * Method for setting bloodsugar
      * @param bloodSugar
      */
-    public void setBloodSugar(int bloodSugar) {
+
 
     public void setBloodSugar(double bloodSugar) {
 
