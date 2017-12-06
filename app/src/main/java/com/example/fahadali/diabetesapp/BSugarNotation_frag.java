@@ -26,7 +26,6 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
     EditText firstNum_ET, secondNum_ET, thirdNum_ET, comment_ET, comma_ET;
 
 
-
     /**
      *
      * @param inflater
@@ -34,10 +33,6 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
      * @param savedInstanceState
      * @return
      */
-
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rod = inflater.inflate(R.layout.fragment_bsugar_notation,container,false);
@@ -70,17 +65,20 @@ public class BSugarNotation_frag extends Fragment implements View.OnClickListene
      * Method for letting the fragment know what to do when clicked.
      * @param v
      */
+
     @Override
     public void onClick(View v) {
         if(v == add_BTN){
 
+            double tempBloodSugar = Double.parseDouble(firstNum_ET.getText().toString()+secondNum_ET.getText().toString()+ "."+thirdNum_ET.getText().toString());
+            String tempComment    = comment_ET.getText().toString();
 
-            User.getUserInstance().addBloodSugarNotation(new BloodSugar(Double.parseDouble(firstNum_ET.getText().toString()+secondNum_ET.getText().toString()+ "."+thirdNum_ET.getText().toString()), comment_ET.getText().toString()));
-
-            user.addBloodSugarNotation(new BloodSugar(Double.parseDouble(firstNum_ET.getText().toString()+ secondNum_ET.getText().toString()+ "."+thirdNum_ET.getText().toString()), comment_ET.getText().toString()));
-
+            User.getUserInstance().addBloodSugarNotation(new BloodSugar(tempBloodSugar, tempComment));
 
                  getActivity().finish();
+
+
+
         }
         if(v == cancel_BTN){
             getActivity().finish();
