@@ -2,7 +2,6 @@ package com.example.fahadali.diabetesapp.Model;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 
 public class BloodSugar {
@@ -56,11 +55,15 @@ public class BloodSugar {
         return timeString;
     }
 
+
     /**
      * Method for setting bloodsugar
      * @param bloodSugar
      */
     public void setBloodSugar(int bloodSugar) {
+
+    public void setBloodSugar(double bloodSugar) {
+
         this.bloodSugar = bloodSugar;
     }
 

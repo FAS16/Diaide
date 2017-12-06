@@ -178,7 +178,37 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
                         }
 
+
                     }
+
+        db_userReference = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid());
+        //Prints link to the current user
+        System.out.println(FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid()).toString());
+
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get User object.
+
+                User u = dataSnapshot.getValue(User.class);
+                System.out.println("SNAPSHOT: "+ u);
+                System.out.println("SINGLETON FØR HENTNING FRA FB: "+ User.getUserInstance());
+
+                User.getUserInstance().setUser(u.getId(),u.getFirstName(),u.getLastName(),u.getMail(),u.getBsList());
+                System.out.println("SINGLETON EFTER HENTNING FRA FB: "+ User.getUserInstance());
+
+                for(Runnable r: User.getUserInstance().observers) r.run();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+               // Toast.makeText(Login_activity.this, "Fejl - initializeUser", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        db_userReference.addValueEventListener(listener);
 
                 });
         }
