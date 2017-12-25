@@ -37,8 +37,10 @@
 
         <activity
             android:name=".SignUp_activity"
-            android:theme="@style/AppTheme.NoActionBar"
-            ></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BottomMenu"
+            android:label="@string/title_activity_bottom_menu"></activity>
     </application>
 
 </manifest>

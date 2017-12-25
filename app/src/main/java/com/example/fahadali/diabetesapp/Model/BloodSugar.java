@@ -8,10 +8,10 @@ public class BloodSugar {
     /**
      * Variables for the Bloodsugar class
      */
-    double bloodSugar;
-    String comment;
-    String timeString;
-    String formatted = new SimpleDateFormat("dd/MM - HH:mm").format(new Date(System.currentTimeMillis()));
+    private double bloodSugar;
+    private String comment;
+    private String timeString;
+    private String formatted = new SimpleDateFormat("dd/MM - HH:mm").format(new Date(System.currentTimeMillis()));
 
  //   Date currentTime = (Date) Calendar.getInstance().getTime();
 

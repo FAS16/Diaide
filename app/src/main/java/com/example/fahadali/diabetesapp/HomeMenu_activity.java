@@ -181,7 +181,7 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
         }
 
         if(v == reminders_BTN){
-            Intent intent = new Intent(this, ReminderTypeSelector_activity.class);
+            Intent intent = new Intent(this, BottomMenu.class);
             startActivity(intent);
         }
 

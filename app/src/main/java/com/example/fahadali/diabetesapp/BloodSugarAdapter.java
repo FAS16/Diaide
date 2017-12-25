@@ -11,9 +11,6 @@ import com.example.fahadali.diabetesapp.Model.BloodSugar;
 
 import java.util.ArrayList;
 
-/**
- * Created by emiljorgensen on 21/11/2017.
- */
 
 public class BloodSugarAdapter extends ArrayAdapter<BloodSugar>{
     public BloodSugarAdapter(Context context, ArrayList<BloodSugar> users) {
