@@ -35,7 +35,6 @@ public class BloodSugarAdapter extends ArrayAdapter<BloodSugar>{
         TextView date = convertView.findViewById(R.id.Date);
         TextView comment = convertView.findViewById(R.id.Comment);
         TextView bloodSugar = convertView.findViewById(R.id.Bloodsugar_lvl);
-
         date.setText(bs.getTime());
         comment.setText(bs.getComment());
         bloodSugar.setText(String.valueOf(bs.getBloodSugar()));

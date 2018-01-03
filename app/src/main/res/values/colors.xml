@@ -5,7 +5,7 @@
     <color name="colorPrimary">#8e1709</color>
     <color name="colorPrimaryDark">#801408</color>
     <color name="colorSecondary">#F3F3F3</color>
-    <color name="colorAccent">#4571DA</color>
+    <color name="colorAccent">#4571da</color>
 
 
     <!--Other Colors-->
@@ -16,4 +16,5 @@
     <color name="white">#F3F3F3</color>
     <color name="rippleColor">#761308</color>
     <color name="greyHighlighted">#afafaf</color>
+    <color name="notSelectedItemColor">#380a05</color>
 </resources>
