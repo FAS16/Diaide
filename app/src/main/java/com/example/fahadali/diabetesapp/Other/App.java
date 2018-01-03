@@ -18,7 +18,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        System.out.println("Running onCreate - Application App");
+        System.out.println("Running onCreate -  Application App");
 
         appInstance = this;
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
