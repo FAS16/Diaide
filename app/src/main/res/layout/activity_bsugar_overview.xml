@@ -6,49 +6,30 @@
     android:layout_height="match_parent"
     tools:context="com.example.fahadali.diabetesapp.BSugarOverview_activity">
 
-    <Button
-        android:id="@+id/addBloodSugar_BTN"
-        android:layout_width="140dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="95dp"
-        android:layout_marginStart="95dp"
-        android:background="@drawable/primary_button"
-        android:fontFamily="@font/roboto_medium"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:text="NY MÅLING"
-        android:textColor="@color/white"
-        android:textSize="14sp"
+    <ListView
+        android:id="@+id/BloodSugar_LV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        android:divider="@color/colorPrimaryDark"
+        android:dividerHeight="4px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/BloodSugar_LV"
-
-        android:layout_width="356dp"
-        android:layout_height="444dp"
-        android:layout_marginEnd="7dp"
-        android:layout_marginStart="7dp"
-
-        android:layout_width="match_parent"
-        android:layout_height="492dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-
-        android:divider="@color/colorPrimary"
-        android:dividerHeight="4px"
-        app:layout_constraintBottom_toTopOf="@+id/addBloodSugar_BTN"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addBloodSugar_BTN"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="45dp"
+        android:clickable="true"
+        android:src="@drawable/ic_add_black_24dp"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.842" />
+        />
 
 
 </android.support.constraint.ConstraintLayout>

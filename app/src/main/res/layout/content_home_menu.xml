@@ -8,87 +8,44 @@
     tools:context="com.example.fahadali.diabetesapp.HomeMenu_activity"
     tools:showIn="@layout/app_bar_home_menu">
 
-    <Button
-        android:id="@+id/bloodSugar_BTN"
-        android:layout_width="160dp"
-        android:layout_height="0dp"
-        android:text="blodsukker"
-        android:background="@drawable/primary_button"
-        android:textColor="@color/white"
-        app:layout_constraintRight_toLeftOf="@+id/reminders_BTN"
-        app:layout_constraintLeft_toLeftOf="parent"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="@+id/reminders_BTN"
-        app:layout_constraintTop_toTopOf="@+id/reminders_BTN" />
-
-    <Button
-        android:id="@+id/reminders_BTN"
-        android:layout_width="160dp"
-        android:layout_height="96dp"
-        android:text="Påmindelser"
-        android:background="@drawable/primary_button"
-        android:textColor="@color/white"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/bloodSugar_BTN"
-        tools:layout_constraintBottom_creator="1"
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:background="?android:attr/windowBackground"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@color/bottom_nav_selector"
+        app:itemTextColor="@color/bottom_nav_selector"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/navigation" />
 
-    <Button
-        android:id="@+id/logUd_BTN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="184dp"
-        android:layout_marginEnd="148dp"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="167dp"
-        android:text="Log ud"
-        app:layout_constraintBottom_toTopOf="@+id/bloodSugar_BTN"
+
+    <FrameLayout
+        android:id="@+id/navigation_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/nuværendeUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="82dp"
-        android:layout_marginEnd="163dp"
-        android:layout_marginStart="163dp"
-        android:layout_marginTop="2dp"
-        android:text="nuværendeUser"
-        app:layout_constraintBottom_toTopOf="@+id/logUd_BTN"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="163dp"
-        android:layout_marginStart="163dp"
-        android:text="Nuværende User:"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/nuværendeUser"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+    </FrameLayout>
 
     <ProgressBar
         android:id="@+id/homeProgressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="39dp"
+        android:layout_marginBottom="412dp"
         android:layout_marginEnd="168dp"
         android:layout_marginStart="168dp"
-        android:layout_marginTop="14dp"
-        app:layout_constraintBottom_toTopOf="@+id/logUd_BTN"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nuværendeUser" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>

@@ -270,16 +270,7 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
         alertDialog.show();
     }
 
-    /**
-     * Method for saving a temporary login, and transfering it to the loginactivity
-     */
-    public void saveTempLogin(){
 
-        prefs.edit()
-                .putString("e-mail", email_ET.getText().toString())
-                .putString("password", password_ET.getText().toString())
-                .commit();
-    }
 
     /**
      * Method for disabling the screen.
@@ -299,11 +290,11 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
      * Method for enabling the screen.
      */
     public void enableScreen(){
-            pBar.setVisibility(View.GONE);
-            firstName_ET.setEnabled(true);
-            lastName_ET.setEnabled(true);
-            email_ET.setEnabled(true);
-            password_ET.setEnabled(true);
+        pBar.setVisibility(View.GONE);
+        firstName_ET.setEnabled(true);
+        lastName_ET.setEnabled(true);
+        email_ET.setEnabled(true);
+        password_ET.setEnabled(true);
     }
 
 

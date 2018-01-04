@@ -2,6 +2,9 @@ package com.example.fahadali.diabetesapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,7 +20,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
-import com.example.fahadali.diabetesapp.Model.ObserverPattern.Subject;
 import com.example.fahadali.diabetesapp.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,15 +35,18 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
     /**
      * Variables for the HomeMenuActivity
      */
-    private Button bloodSugar_BTN;
-    private Button reminders_BTN;
-    private Button testLogUd_BTN;
-    private ProgressBar pBar;
-    private TextView tv;
+
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private DatabaseReference db_userReference;
+
+    //Objects in current activity
+    private ProgressBar pBar;
+
+    //Objects in side drawer
+    private TextView name_TV, email_TV;
+
 
 
     /**
@@ -52,56 +57,53 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_menu);
-        pBar = findViewById(R.id.homeProgressBar);
+        setTitle("Blodsukker");
+
+        //Handling data retrieval from firebase
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+        db_userReference = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid());
+        setFirebaseListener();
 
         User.getUserInstance().registerObserver(this);
 
+        //instantiation of bottom menu
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        setListener();
-
-
-
-        System.out.println("SNAPSHOT3: "+ User.getUserInstance());
-
-        tv = findViewById(R.id.nuværendeUser);
-
+        //instantiation of toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //instantiation of drawer/side menu
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        bloodSugar_BTN = (Button) findViewById(R.id.bloodSugar_BTN);
-        reminders_BTN = (Button) findViewById(R.id.reminders_BTN);
-        testLogUd_BTN = findViewById(R.id.logUd_BTN);
+        //Objects in current activity
+        pBar = findViewById(R.id.homeProgressBar);
 
-
-        bloodSugar_BTN.setOnClickListener(this);
-        reminders_BTN.setOnClickListener(this);
-        testLogUd_BTN.setOnClickListener(this);
+        //Objects in side drawer
+        name_TV = navigationView.getHeaderView(0).findViewById(R.id.name_TV_drawer);
+        email_TV= navigationView.getHeaderView(0).findViewById(R.id.email_TV_drawer);
 
     }
 
     /**
-     * Method for telling the activity what to do on destroy.
+     * What to do when activity is destroyed.
      */
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        User.getUserInstance().observers.remove(this);
+        User.getUserInstance().removeObserver(this);
 
     }
 
     /**
-     * Method for telling the activity what to do when the back button is pressed.
+     * What to do when the back button is pressed.
      */
     @Override
     public void onBackPressed() {
@@ -150,17 +152,30 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_homeMenu) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_medicin) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_motivationGroup) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_tips) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_print) {
 
-        } else if (id == R.id.nav_send) {
+        }else if (id == R.id.nav_settings) {
+
+        } else if (id == R.id.nav_signOut) {
+
+            firebaseAuth.signOut();
+            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+            Log.i("CURRENT USER: ", "After sign out: "+firebaseUser); //Should be null
+
+            User.getUserInstance().nullifyUser();
+            System.out.println("SNAPSHOT2: "+ User.getUserInstance()); //Should be null
+
+            Intent i = new Intent (this, Login_activity.class);
+            startActivity(i);
+            finish();
 
         }
 
@@ -170,63 +185,65 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
     }
 
     /**
-     * Method for handling what happens when you click different places.
+     * Handles click events
      * @param v
      */
     @Override
     public void onClick(View v) {
-        if(v == bloodSugar_BTN){
-            Intent intent = new Intent(this, BSugarOverview_activity.class);
-            startActivity(intent);
-        }
 
-        if(v == reminders_BTN){
-            Intent intent = new Intent(this, ReminderTypeSelector_activity.class);
-            startActivity(intent);
-        }
-
-        if(v == testLogUd_BTN){
-            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-            firebaseAuth.signOut();
-            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-
-            Log.i("CURRENT USER: ", "After sign out: "+firebaseUser);
-
-            User.getUserInstance().nullifyUser();
-            System.out.println("SNAPSHOT2: "+ User.getUserInstance());
-            Intent i = new Intent (this, Login_activity.class);
-            startActivity(i);
-            finish();
-
-        }
 
     }
+
+    public BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                Fragment fragment = null;
+
+                switch (item.getItemId()) {
+
+                case R.id.navigation_bloodsugar:
+                    setTitle("Blodsukker");
+                    fragment = new BSugarOverview_activity();
+                   break;
+
+                case R.id.navigation_reminders:
+                    setTitle("Påmindelser");
+                    fragment = new Fragment();
+                    break;
+
+                case R.id.navigation_overview:
+                    setTitle("Overblik");
+                    fragment = new Fragment();
+                    break;
+            }
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.navigation_container,fragment)
+                    .commit();
+            return true;
+        }
+    };
 
     /**
      * Method for listening to changes to the database, and update if changes occur.
      */
-    private void setListener (){
+    private void setFirebaseListener(){
 
 
-        db_userReference = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid());
-        //Prints link to the current user
-        System.out.println("Link to current user: " + FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid()).toString());
-
+        System.out.println("Link to current user: " + FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid()).toString()); //Prints link to the current user
         db_userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                // Get User object.
+                // Create User object with DataSnapShot
                 User u = dataSnapshot.getValue(User.class);
                 System.out.println("SNAPSHOT: "+ u);
                 System.out.println("SINGLETON FØR HENTNING FRA FB: "+ User.getUserInstance());
-
-                User.getUserInstance().setUser(u.getId(),u.getFirstName(),u.getLastName(),u.getMail(),u.getBsList());
+                User.getUserInstance().setUser(u.getId(),u.getFirstName(),u.getLastName(),u.getEmail(), u.getBloodList());
                 System.out.println("SINGLETON EFTER HENTNING FRA FB: "+ User.getUserInstance());
-
                 User.getUserInstance().notifyAllObservers();
-                System.out.println("OBSERVERS 2: "+ User.getUserInstance().observers.toString());
-
                 pBar.setVisibility(View.GONE);
 
             }
@@ -238,17 +255,21 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
             }
         });
 
-
-
     }
 
 
     @Override
     public void update() {
 
-        tv.setText(User.getUserInstance().getFirstName());
+        name_TV.setText(User.getUserInstance().getFirstName()+" "+User.getUserInstance().getLastName());
+        email_TV.setText(User.getUserInstance().getEmail());
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.navigation_container,new BSugarOverview_activity())
+                .commit();
+
         System.out.println("User updated - HomeMenu_activity "+ User.getUserInstance());
 
-
     }
+
 }

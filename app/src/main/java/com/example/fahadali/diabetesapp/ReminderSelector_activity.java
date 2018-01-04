@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class ReminderTypeSelector_activity extends AppCompatActivity implements View.OnClickListener {
+public class ReminderSelector_activity extends AppCompatActivity implements View.OnClickListener {
     /**
      * Variables for the reminder type selector class
      */

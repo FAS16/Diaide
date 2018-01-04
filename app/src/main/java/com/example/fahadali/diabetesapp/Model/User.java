@@ -18,9 +18,9 @@ public class User implements Subject {
     private String firstName;
     private String lastName;
     private String email;
-    private ArrayList<BloodSugar> bsList = new ArrayList<>();
+    private ArrayList<BloodSugar> bloodList = new ArrayList<>();
     private ArrayList<Reminder> reminderList = new ArrayList<>();
-    public  ArrayList <Observer> observers = new ArrayList<>();
+    private  ArrayList <Observer> observers = new ArrayList<>();
 
     //Empty constructor for google firebase
     private User(){
@@ -34,11 +34,12 @@ public class User implements Subject {
      * @param lastName
      * @param mail
      */
-    private User(String id, String firstName, String lastName, String mail){
+    private User(String id, String firstName, String lastName, String mail,  ArrayList<BloodSugar> bloodList){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = mail;
+        this.bloodList = bloodList;
 
     }
 
@@ -54,22 +55,12 @@ public class User implements Subject {
         return userInstance;
     }
 
-    /**
-     * Method for getting bsList
-     * @return
-     */
-    public ArrayList<BloodSugar> getBsList() {
-
-        return bsList;
+    public ArrayList<BloodSugar> getBloodList() {
+        return bloodList;
     }
 
-    /**
-     * Method for setting bsList
-     * @param testArray
-     */
-    public void setBsList(ArrayList<BloodSugar> testArray) {
-
-        bsList = testArray;
+    public void setBloodList(ArrayList<BloodSugar> bloodList) {
+        this.bloodList = bloodList;
     }
 
     /**
@@ -78,7 +69,7 @@ public class User implements Subject {
      */
     public void addBloodSugarNotation(BloodSugar bs) {
 
-        bsList.add(bs);
+        bloodList.add(bs);
     }
 
     /**
@@ -164,18 +155,18 @@ public class User implements Subject {
      * Method for getting mail
      * @return
      */
-    public String getMail() {
+    public String getEmail() {
 
         return email;
     }
 
     /**
      * Method for setting mail
-     * @param mail
+     * @param email
      */
-    public void setMail(String mail) {
+    public void setEmail(String email) {
 
-        this.email = mail;
+        this.email = email;
     }
 
     /**
@@ -184,15 +175,15 @@ public class User implements Subject {
      * @param firstName
      * @param lastName
      * @param email
-     * @param bsList
+     * @param bloodList
      */
-    public void setUser(String id, String firstName, String lastName, String email, ArrayList<BloodSugar> bsList){
+    public void setUser(String id, String firstName, String lastName, String email, ArrayList<BloodSugar> bloodList){
 
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.bsList = bsList;
+        this.bloodList = bloodList;
 
     }
 
@@ -200,8 +191,9 @@ public class User implements Subject {
      * Method to convert to string
      * @return
      */
-    public String toString(){
-        return ("ID: "+id + " - NAVN: "+firstName + " - MAIL: "+email);
+    public String toString()
+    {
+        return ("ID: "+id + " - NAVN: "+firstName + " - MAIL: "+email+ " - BSLIST: "+ bloodList);
     }
 
 

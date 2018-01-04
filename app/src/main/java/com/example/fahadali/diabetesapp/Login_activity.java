@@ -11,42 +11,36 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.fahadali.diabetesapp.Model.User;
+import com.example.fahadali.diabetesapp.Other.App;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-public class Login_activity extends AppCompatActivity implements View.OnClickListener {
+public class Login_activity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     /**
      * variables - fields:
-     * userName_ET: Username input - EditText
+     * email_ET: Username input - EditText
      * password_ET: password input - EditText
      * login_BTN: login button - Button
      */
 
-    private EditText userName_ET;
-    private EditText password_ET;
-    private Button login_BTN;
-    private Button loginFB_BTN;
-    private TextView newUser_TV;
-    private ProgressBar pBar;
-
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
-
+    private EditText email_ET, password_ET;
+    private Button login_BTN, loginFB_BTN;
+    private TextView newUser_TV;
+    private ProgressBar pBar;
+    private CheckBox checkBox;
     private static final String TAG = "CURRENT USER";
 
     /**
@@ -56,25 +50,37 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("OBSERVERS: "+ User.getUserInstance().observers.toString());
         setContentView(R.layout.activity_login);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
-        userName_ET = findViewById(R.id.userName_ET);
-        password_ET = findViewById(R.id.password_ET);
-        login_BTN = findViewById(R.id.login_BTN);
-        loginFB_BTN = findViewById(R.id.loginFB_BTN);
-        newUser_TV = findViewById(R.id.newUser_TV);
-        pBar = findViewById(R.id.loginProgressBar);
+        if(firebaseUser != null){
 
-        pBar.setVisibility(View.GONE);
-        userName_ET.requestFocus();
-        login_BTN.setOnClickListener(this);
-        newUser_TV.setOnClickListener(this);
+            Intent intent = new Intent(Login_activity.this, HomeMenu_activity.class);
+            startActivity(intent);
+            finish();
 
+        }
 
+        else {
+
+            email_ET = findViewById(R.id.userName_ET);
+            password_ET = findViewById(R.id.password_ET);
+            login_BTN = findViewById(R.id.login_BTN);
+            loginFB_BTN = findViewById(R.id.loginFB_BTN);
+            newUser_TV = findViewById(R.id.newUser_TV);
+            pBar = findViewById(R.id.loginProgressBar);
+            checkBox = findViewById(R.id.login_checkBox);
+
+            email_ET.requestFocus();
+            login_BTN.setOnClickListener(this);
+            newUser_TV.setOnClickListener(this);
+            pBar.setVisibility(View.GONE);
+            checkBox.setOnCheckedChangeListener(this);
+
+            displaySavedLoginCred();
+        }
     }
 
     /**
@@ -85,16 +91,6 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
         super.onResume();
         enableScreen();
         newUser_TV.setTypeface(Typeface.DEFAULT);
-
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-//        String email = prefs.getString("e-mail",null);
-//        String password = prefs.getString("password", null);
-//
-//        if(email != null && password != null){
-//            userName_ET.setText(email);
-//            password_ET.setText(password);
-//
-//        }
     }
 
     /**
@@ -104,37 +100,21 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (v == login_BTN) {
-            signIn(userName_ET.getText().toString().trim(), password_ET.getText().toString());
+
+            signIn(email_ET.getText().toString().trim(), password_ET.getText().toString());
+            setSavedLoginCred();
 
         }
 
         if (v == newUser_TV) {
+
             newUser_TV.setTypeface(Typeface.DEFAULT_BOLD);
             Intent intent = new Intent(this, SignUp_activity.class);
             startActivity(intent);
+
         }
     }
 
-    /**
-     * Method for handling what happens on start.
-     */
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in, and update UI.
-        //updateUI(firebaseUser);
-
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-
-        if(currentUser == null) {
-
-            Log.i(TAG, "User is null");
-        }
-        else{
-            Log.i(TAG, "USER (onStart): " + currentUser.getEmail());
-        }
-
-    }
 
     /**
      * Method for handling the sign in process, with firebaseAuth
@@ -146,96 +126,61 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
         if (!userInputValidation()) return;
         disableScreen();
-        Log.i(TAG, "USER (BEFORE SIGN IN): "+firebaseUser);
 
+        Log.i(TAG, "USER (BEFORE SIGN IN): "+firebaseUser); //Should be null if signed out
         firebaseAuth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                //User is signed in
-                                firebaseUser = firebaseAuth.getCurrentUser();
-                               // setListener();
-                                Toast.makeText(Login_activity.this, "Logged in", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(Login_activity.this, HomeMenu_activity.class);
-                                startActivity(intent);
-                                finish();
+                                if (task.isSuccessful()) {
+                                    //User is now signed in
+                                    firebaseUser = firebaseAuth.getCurrentUser();
+                                    Intent intent = new Intent(Login_activity.this, HomeMenu_activity.class);
+                                    startActivity(intent);
+                                    finish();
+                                    Log.i(TAG, "USER (AFTER SIGN IN): " + firebaseUser.getEmail());
 
-                                Log.i(TAG, "USER (AFTER SIGN IN): " + firebaseUser.getEmail());
+                                } else if (!task.isSuccessful()) {
 
-                        }
+                                    //if login fails
+                                    App.longToast(Login_activity.this, "Fejl, kan ikke genkende e-mail/password");
+                                    Log.i(TAG, "No such user: " + firebaseUser);
+                                    enableScreen();
 
-                        else if(!task.isSuccessful()){
+                                }
 
-                            //Login fails
-                            Toast.makeText(Login_activity.this, "Fejl, kan ikke genkende e-mail/password.", Toast.LENGTH_SHORT).show();
-                            //enableScreen();
-                            Log.i(TAG, "No such user: "+firebaseUser);
-                            enableScreen();
+                            }
 
-                            //updateUI(null)
+                        });
+             }
 
-                        }
-
-
-                    }
-
-        db_userReference = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid());
-        //Prints link to the current user
-        System.out.println(FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid()).toString());
-
-        ValueEventListener listener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get User object.
-
-                User u = dataSnapshot.getValue(User.class);
-                System.out.println("SNAPSHOT: "+ u);
-                System.out.println("SINGLETON FØR HENTNING FRA FB: "+ User.getUserInstance());
-
-                User.getUserInstance().setUser(u.getId(),u.getFirstName(),u.getLastName(),u.getMail(),u.getBsList());
-                System.out.println("SINGLETON EFTER HENTNING FRA FB: "+ User.getUserInstance());
-
-                for(Runnable r: User.getUserInstance().observers) r.run();
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-               // Toast.makeText(Login_activity.this, "Fejl - initializeUser", Toast.LENGTH_SHORT).show();
-            }
-        };
-
-        db_userReference.addValueEventListener(listener);
-
-                });
-        }
 
     /**
      * Method for checking if the user has entered anything in the fields.
      * @return
      */
     private boolean userInputValidation() {
+
         boolean valid = true;
 
-        String email = userName_ET.getText().toString();
+        String email = email_ET.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            userName_ET.setError("Udfyld venligst.");
+
+            email_ET.setError("Udfyld venligst.");
             valid = false;
 
-        } else {
-            userName_ET.setError(null);
         }
+        else email_ET.setError(null);
 
         String password = password_ET.getText().toString();
         if (TextUtils.isEmpty(password)) {
+
             password_ET.setError("Udfyld venligst.");
             valid = false;
-        } else {
-            password_ET.setError(null);
+
         }
+        else password_ET.setError(null);
 
         return valid;
 
@@ -246,11 +191,12 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
      */
         public void disableScreen(){
             pBar.setVisibility(View.VISIBLE);
-            userName_ET.setEnabled(false);
+            email_ET.setEnabled(false);
             password_ET.setEnabled(false);
             login_BTN.setEnabled(false);
             loginFB_BTN.setEnabled(false);
             newUser_TV.setEnabled(false);
+            checkBox.setEnabled(false);
 
         }
 
@@ -259,12 +205,61 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
      */
         public void enableScreen(){
             pBar.setVisibility(View.GONE);
-            userName_ET.setEnabled(true);
+            email_ET.setEnabled(true);
             password_ET.setEnabled(true);
             login_BTN.setEnabled(true);
             loginFB_BTN.setEnabled(true);
             newUser_TV.setEnabled(true);
+            checkBox.setEnabled(true);
+        }
+
+    public void setSavedLoginCred(){
+
+            if(checkBox.isChecked()) {
+                App.prefs.edit()
+                        .putBoolean("loginCheckBox", checkBox.isChecked())
+                        .putString("e-mail", email_ET.getText().toString())
+                        .putString("password", password_ET.getText().toString())
+                        .apply();
+            }
+
+    }
+
+    public void displaySavedLoginCred(){
+
+        boolean checked = App.prefs.getBoolean("loginCheckBox", false);
+        String email = App.prefs.getString("e-mail", null);
+        String password = App.prefs.getString("password", null);
+
+        if (checked && email != null && password != null) {
+            checkBox.setChecked(true);
+            email_ET.setText(email);
+            password_ET.setText(password);
+
         }
 
     }
+
+
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+            switch(compoundButton.getId()){
+                case  R.id.login_checkBox:
+                    if(!b){
+
+                        App.prefs.edit()
+                                .remove("loginCheckBox")
+                                .remove("e-mail")
+                                .remove("password")
+                                .commit();
+                    }
+
+             }
+
+       }
+
+}
+
 
