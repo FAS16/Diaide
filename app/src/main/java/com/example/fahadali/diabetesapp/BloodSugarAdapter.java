@@ -11,14 +11,19 @@ import com.example.fahadali.diabetesapp.Model.BloodSugar;
 
 import java.util.ArrayList;
 
-/**
- * Created by emiljorgensen on 21/11/2017.
- */
 
 public class BloodSugarAdapter extends ArrayAdapter<BloodSugar>{
-    public BloodSugarAdapter(Context context, ArrayList<BloodSugar> users) {super(context,0,users);}
+    public BloodSugarAdapter(Context context, ArrayList<BloodSugar> users) {
+        super(context,0,users);
+    }
 
-
+    /**
+     * Method ??????
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent)   {
         BloodSugar bs = getItem(position);
@@ -30,7 +35,6 @@ public class BloodSugarAdapter extends ArrayAdapter<BloodSugar>{
         TextView date = convertView.findViewById(R.id.Date);
         TextView comment = convertView.findViewById(R.id.Comment);
         TextView bloodSugar = convertView.findViewById(R.id.Bloodsugar_lvl);
-
         date.setText(bs.getTime());
         comment.setText(bs.getComment());
         bloodSugar.setText(String.valueOf(bs.getBloodSugar()));

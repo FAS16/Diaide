@@ -6,8 +6,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class ReminderTypeSelector_activity extends AppCompatActivity implements View.OnClickListener {
+public class ReminderSelector_activity extends AppCompatActivity implements View.OnClickListener {
+    /**
+     * Variables for the reminder type selector class
+     */
     Button medicinBT, doctorAppointmentBT, otherBT;
+
+    /**
+     * Method for letting the activity know what to do, when it is created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +28,10 @@ public class ReminderTypeSelector_activity extends AppCompatActivity implements 
         otherBT.setOnClickListener(this);
     }
 
+    /**
+     * Method for letting the activity know, what to do when clicked
+     * @param v
+     */
     public void onClick(View v){
         if (v == medicinBT){
 
