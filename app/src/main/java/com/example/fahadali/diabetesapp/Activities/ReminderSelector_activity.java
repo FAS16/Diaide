@@ -1,10 +1,13 @@
-package com.example.fahadali.diabetesapp;
+package com.example.fahadali.diabetesapp.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.fahadali.diabetesapp.Activities.DoctorsAppointment_activity;
+import com.example.fahadali.diabetesapp.R;
 
 public class ReminderSelector_activity extends AppCompatActivity implements View.OnClickListener {
     /**

@@ -31,7 +31,7 @@
         <menu>
             <item
                 android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_menu_manage"
+                android:icon="@drawable/ic_settings_black_24dp"
                 android:title="Indstillinger" />
             <item
                 android:id="@+id/nav_signOut"

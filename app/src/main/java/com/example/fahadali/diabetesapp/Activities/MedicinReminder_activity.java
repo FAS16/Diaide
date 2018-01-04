@@ -1,10 +1,13 @@
-package com.example.fahadali.diabetesapp;
+package com.example.fahadali.diabetesapp.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.fahadali.diabetesapp.MedicinReminder_frag;
+import com.example.fahadali.diabetesapp.R;
 
 
 public class MedicinReminder_activity extends AppCompatActivity implements View.OnClickListener {

@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.fahadali.diabetesapp.BSugarOverview_activity">
+    tools:context="com.example.fahadali.diabetesapp.BSugarOverview_frag">
 
     <ListView
         android:id="@+id/BloodSugar_LV"
         android:layout_width="0dp"
         android:layout_height="0dp"
-
-        android:divider="@color/colorPrimaryDark"
+        android:divider="@color/grey"
         android:dividerHeight="4px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,14 +21,13 @@
         android:id="@+id/addBloodSugar_BTN"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_marginBottom="30dp"
-        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
         android:clickable="true"
         android:src="@drawable/ic_add_black_24dp"
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

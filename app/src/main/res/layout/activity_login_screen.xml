@@ -12,11 +12,12 @@
         android:id="@+id/password_ET"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
         android:layout_marginEnd="57dp"
         android:layout_marginStart="57dp"
         android:backgroundTint="@color/grey"
-        android:drawableLeft="@mipmap/password_logo"
-        android:drawablePadding="4dp"
+        android:drawableLeft="@drawable/ic_lock_white_12dp"
+        android:drawablePadding="7dp"
         android:ems="10"
         android:hint="Adgangskode"
         android:inputType="textPassword"
@@ -25,6 +26,7 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/login_checkBox"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
@@ -38,7 +40,7 @@
         android:layout_marginEnd="57dp"
         android:layout_marginStart="57dp"
         android:backgroundTint="@color/grey"
-        android:drawableLeft="@mipmap/username_logo"
+        android:drawableLeft="@drawable/ic_email_black_24dp"
         android:drawablePadding="7dp"
         android:ems="10"
         android:hint="e-mail"
@@ -48,16 +50,21 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/password_ET"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1" />
 
+        <!---->
+
+
+
     <Button
         android:id="@+id/loginFB_BTN"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginEnd="57dp"
         android:layout_marginStart="57dp"
         android:backgroundTint="#3b5998"
@@ -65,8 +72,9 @@
         android:text="Log ind med facebook"
         android:textColor="@color/colorSecondary"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/notNow_TV"
+        app:layout_constraintBottom_toTopOf="@+id/createUser_BTN"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
@@ -76,13 +84,14 @@
         android:id="@+id/login_BTN"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginEnd="57dp"
         android:layout_marginStart="57dp"
         android:text="Log ind"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
@@ -90,14 +99,15 @@
 
     <ImageView
         android:id="@+id/loginLogo_IV"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginEnd="92dp"
         android:layout_marginStart="92dp"
         android:layout_marginTop="10dp"
         android:adjustViewBounds="true"
         android:src="@drawable/dia_logo_recovered"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -105,26 +115,29 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginEnd="178dp"
         android:layout_marginStart="179dp"
+        android:fontFamily="sans-serif"
         android:text="eller"
         android:textColor="@color/colorSecondary"
         app:layout_constraintBottom_toTopOf="@+id/loginFB_BTN"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/notNow_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="18dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginEnd="116dp"
         android:layout_marginStart="117dp"
-        android:text="Ny bruger? Opret dig her"
+        android:text="Spring over"
         android:textColor="@color/colorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
@@ -142,7 +155,7 @@
         android:id="@+id/login_checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="7dp"
         android:layout_marginEnd="231dp"
         android:layout_marginStart="57dp"
         android:buttonTint="@color/colorSecondary"
@@ -151,6 +164,22 @@
         android:textColor="@color/colorSecondary"
         app:layout_constraintBottom_toTopOf="@+id/login_BTN"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/createUser_BTN"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/red"
+        android:text="Opret bruger"
+        android:textColor="@color/colorSecondary"
+        android:drawableLeft="@drawable/ic_account_circle_white_24dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/notNow_TV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

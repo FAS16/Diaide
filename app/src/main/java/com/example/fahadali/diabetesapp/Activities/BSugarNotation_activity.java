@@ -1,5 +1,5 @@
 
-package com.example.fahadali.diabetesapp;
+package com.example.fahadali.diabetesapp.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.EditText;
 import com.example.fahadali.diabetesapp.Model.BloodSugar;
 import com.example.fahadali.diabetesapp.Model.User;
 import com.example.fahadali.diabetesapp.Other.App;
+import com.example.fahadali.diabetesapp.R;
 
 public class BSugarNotation_activity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
 

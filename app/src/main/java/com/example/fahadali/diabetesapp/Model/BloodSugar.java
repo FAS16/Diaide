@@ -2,6 +2,8 @@ package com.example.fahadali.diabetesapp.Model;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class BloodSugar {
@@ -25,7 +27,9 @@ public class BloodSugar {
     public BloodSugar(double bloodSugar, String comment) {
         this.bloodSugar = bloodSugar;
         this.comment = comment;
-        time = new SimpleDateFormat("dd/MM - HH:mm").format(new Date(System.currentTimeMillis()));
+        time = new SimpleDateFormat("dd/MM/yy - HH:mm").format(new Date(System.currentTimeMillis()));
+
+
     }
 
     public  BloodSugar(){
@@ -41,18 +45,32 @@ public class BloodSugar {
     }
 
     public String getComment() {
+
         return comment;
     }
 
     public void setComment(String comment) {
+
         this.comment = comment;
     }
 
     public String getTime() {
+
         return time;
     }
 
     public void setTime(String time) {
+
         this.time = time;
     }
+
+
+    public String toString(){
+
+        return ("["+bloodSugar+", "+time+"]");
+    }
+
+
+
+
 }

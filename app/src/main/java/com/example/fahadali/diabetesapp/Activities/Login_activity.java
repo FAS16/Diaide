@@ -1,9 +1,7 @@
-package com.example.fahadali.diabetesapp;
+package com.example.fahadali.diabetesapp.Activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,9 +14,9 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.fahadali.diabetesapp.Other.App;
+import com.example.fahadali.diabetesapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -37,8 +35,8 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private EditText email_ET, password_ET;
-    private Button login_BTN, loginFB_BTN;
-    private TextView newUser_TV;
+    private Button login_BTN, loginFB_BTN, createUser_BTN;
+    private TextView notNow_TV ;
     private ProgressBar pBar;
     private CheckBox checkBox;
     private static final String TAG = "CURRENT USER";
@@ -50,7 +48,7 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_screen);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -69,13 +67,16 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
             password_ET = findViewById(R.id.password_ET);
             login_BTN = findViewById(R.id.login_BTN);
             loginFB_BTN = findViewById(R.id.loginFB_BTN);
-            newUser_TV = findViewById(R.id.newUser_TV);
+            createUser_BTN = findViewById(R.id.createUser_BTN);
+            notNow_TV = findViewById(R.id.notNow_TV);
             pBar = findViewById(R.id.loginProgressBar);
             checkBox = findViewById(R.id.login_checkBox);
 
             email_ET.requestFocus();
             login_BTN.setOnClickListener(this);
-            newUser_TV.setOnClickListener(this);
+            loginFB_BTN.setOnClickListener(this);
+            createUser_BTN.setOnClickListener(this);
+            notNow_TV.setOnClickListener(this);
             pBar.setVisibility(View.GONE);
             checkBox.setOnCheckedChangeListener(this);
 
@@ -90,7 +91,7 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
     protected  void onResume() {
         super.onResume();
         enableScreen();
-        newUser_TV.setTypeface(Typeface.DEFAULT);
+        notNow_TV.setTypeface(Typeface.DEFAULT);
     }
 
     /**
@@ -106,11 +107,25 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
         }
 
-        if (v == newUser_TV) {
+        else if(v == loginFB_BTN){
 
-            newUser_TV.setTypeface(Typeface.DEFAULT_BOLD);
+            Intent intent = new Intent(Login_activity.this, HomeMenu_activity.class);
+            startActivity(intent);
+            finish();
+
+        }
+
+        else if( v == createUser_BTN){
+
             Intent intent = new Intent(this, SignUp_activity.class);
             startActivity(intent);
+        }
+
+        else if (v == notNow_TV) {
+
+            notNow_TV.setTypeface(Typeface.DEFAULT_BOLD);
+            signInAnonymously();
+
 
         }
     }
@@ -144,7 +159,7 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
                                 } else if (!task.isSuccessful()) {
 
                                     //if login fails
-                                    App.longToast(Login_activity.this, "Fejl, kan ikke genkende e-mail/password");
+                                    App.shortToast(Login_activity.this, "Fejl, kan ikke genkende e-mail/password");
                                     Log.i(TAG, "No such user: " + firebaseUser);
                                     enableScreen();
 
@@ -154,6 +169,32 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
                         });
              }
+
+     private void signInAnonymously(){
+         firebaseAuth.signInAnonymously()
+                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                     @Override
+                     public void onComplete(@NonNull Task<AuthResult> task) {
+                         if (task.isSuccessful()) {
+                             // Sign in success, update UI with the signed-in user's information
+                             Log.d(TAG, "signInAnonymously:success");
+                             firebaseUser = firebaseAuth.getCurrentUser();
+                             Intent intent = new Intent(Login_activity.this, HomeMenu_activity.class);
+                             startActivity(intent);
+                             finish();
+
+                         } else {
+                             // If sign in fails, display a message to the user.
+                             Log.w(TAG, "signInAnonymously:failure", task.getException());
+                             App.shortToast(Login_activity.this, "Fejl, bruger ikke oprettet. \nTjek din internetforbindelse og prøv igen.");
+
+                         }
+
+
+                     }
+                 });
+
+     }
 
 
     /**
@@ -195,7 +236,8 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
             password_ET.setEnabled(false);
             login_BTN.setEnabled(false);
             loginFB_BTN.setEnabled(false);
-            newUser_TV.setEnabled(false);
+            createUser_BTN.setEnabled(false);
+            notNow_TV.setEnabled(false);
             checkBox.setEnabled(false);
 
         }
@@ -209,7 +251,8 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
             password_ET.setEnabled(true);
             login_BTN.setEnabled(true);
             loginFB_BTN.setEnabled(true);
-            newUser_TV.setEnabled(true);
+            createUser_BTN.setEnabled(true);
+            notNow_TV.setEnabled(true);
             checkBox.setEnabled(true);
         }
 
