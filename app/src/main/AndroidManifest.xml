@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activities.Login_activity"
+            android:name=".Activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,26 +27,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.HomeMenu_activity"
+            android:name=".Activities.HomeMenuActivity"
             android:label="@string/title_activity_home_menu"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.BSugarNotation_activity" />
-        <activity android:name=".Activities.ReminderSelector_activity" />
-        <activity android:name=".Activities.DoctorsAppointment_activity" />
+        <activity android:name=".Activities.NotationActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".Activities.SignUp_activity"
+            android:name=".Activities.SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Activities.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.NoActionBar">
 
-        </activity>
     </application>
 
 </manifest>

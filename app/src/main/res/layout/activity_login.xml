@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context="com.example.fahadali.diabetesapp.Activities.Login_activity"
+    tools:context="com.example.fahadali.diabetesapp.Activities.LoginActivity"
     tools:layout_editor_absoluteY="25dp">
 
     <EditText
@@ -15,7 +15,7 @@
         android:layout_marginEnd="57dp"
         android:layout_marginStart="57dp"
         android:backgroundTint="@color/grey"
-        android:drawableLeft="@mipmap/password_logo"
+        android:drawableLeft="@drawable/ic_email_black_24dp"
         android:drawablePadding="4dp"
         android:ems="10"
         android:hint="Adgangskode"
@@ -38,7 +38,7 @@
         android:layout_marginEnd="57dp"
         android:layout_marginStart="57dp"
         android:backgroundTint="@color/grey"
-        android:drawableLeft="@mipmap/username_logo"
+        android:drawableLeft="@drawable/ic_lock_white_12dp"
         android:drawablePadding="7dp"
         android:ems="10"
         android:hint="e-mail"

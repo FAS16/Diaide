@@ -1,4 +1,4 @@
-package com.example.fahadali.diabetesapp;
+package com.example.fahadali.diabetesapp.Fragments;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -9,19 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.androidplot.xy.SimpleXYSeries;
 import com.androidplot.xy.XYPlot;
-import com.androidplot.xy.XYSeries;
-import com.example.fahadali.diabetesapp.Activities.BSugarNotation_activity;
+import com.example.fahadali.diabetesapp.Activities.NotationActivity;
 import com.example.fahadali.diabetesapp.Adapters.BloodSugarAdapter;
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
 import com.example.fahadali.diabetesapp.Model.User;
+import com.example.fahadali.diabetesapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class BSugarOverview_frag extends Fragment implements View.OnClickListener, Observer {
+public class BloodSugarFragment extends Fragment implements View.OnClickListener, Observer {
 
     /**
      * Variables for the BsugarOverview
@@ -48,7 +47,7 @@ public class BSugarOverview_frag extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-        view = inflater.inflate(R.layout.activity_bsugar_overview,container,false);
+        view = inflater.inflate(R.layout.fragment_bsugar_overview,container,false);
         addBloodSugar_BTN = view.findViewById(R.id.addBloodSugar_BTN);
         db = FirebaseDatabase.getInstance();
         fireBaseAuth = FirebaseAuth.getInstance();
@@ -87,7 +86,7 @@ public class BSugarOverview_frag extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         if(v == addBloodSugar_BTN){
 
-            Intent intent = new Intent(getActivity(), BSugarNotation_activity.class);
+            Intent intent = new Intent(getActivity(), NotationActivity.class);
             startActivity(intent);
 
         }

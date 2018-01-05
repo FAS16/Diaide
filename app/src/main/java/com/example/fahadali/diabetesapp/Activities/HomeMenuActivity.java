@@ -18,12 +18,11 @@ import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.fahadali.diabetesapp.BSugarOverview_frag;
+import com.example.fahadali.diabetesapp.Fragments.BloodSugarFragment;
+import com.example.fahadali.diabetesapp.GraphFragment;
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
 import com.example.fahadali.diabetesapp.Model.User;
 import com.example.fahadali.diabetesapp.R;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,7 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class HomeMenu_activity extends AppCompatActivity implements Observer, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+public class HomeMenuActivity extends AppCompatActivity implements Observer, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     /**
      * Variables for the HomeMenuActivity
@@ -67,10 +66,14 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
+        if(firebaseUser!= null){
+
 
         firebaseUser.getUid();
         db_userReference = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid());
         setFirebaseListener();
+
+        }
 
         User.getUserInstance().registerObserver(this);
 
@@ -186,7 +189,7 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
 
             if(firebaseUser.isAnonymous()){
 
-                Intent i = new Intent (this, SignUp_activity.class);
+                Intent i = new Intent (this, SignUpActivity.class);
                 startActivity(i);
                 finish();
 
@@ -204,7 +207,7 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
             User.getUserInstance().nullifyUser();
             System.out.println("SNAPSHOT2: "+ User.getUserInstance()); //Should be null
 
-            Intent i = new Intent (this, Login_activity.class);
+            Intent i = new Intent (this, LoginActivity.class);
             startActivity(i);
             finish();
 
@@ -236,12 +239,12 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
 
                 case R.id.navigation_bloodsugar:
                     setTitle("Blodsukker");
-                    fragment = new BSugarOverview_frag();
+                    fragment = new BloodSugarFragment();
                    break;
 
                 case R.id.navigation_reminders:
                     setTitle("Påmindelser");
-                    fragment = new Fragment();
+                    fragment = new GraphFragment();
                     break;
 
                 case R.id.navigation_overview:
@@ -308,10 +311,10 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
         }
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.navigation_container,new BSugarOverview_frag())
+                .replace(R.id.navigation_container,new BloodSugarFragment())
                 .commit();
 
-        System.out.println("User updated - HomeMenu_activity "+ User.getUserInstance());
+        System.out.println("User updated - HomeMenuActivity "+ User.getUserInstance());
 
     }
 

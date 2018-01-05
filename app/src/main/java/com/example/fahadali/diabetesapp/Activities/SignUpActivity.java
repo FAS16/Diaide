@@ -36,7 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 
-public class SignUp_activity extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
     /**
      * variables for the SignUp activity
      */
@@ -153,13 +153,13 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
                             createNewUser();
                             showAlertDialog();
 
-//                            Toast.makeText(SignUp_activity.this, "Bruger oprettet", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(SignUpActivity.this, "Bruger oprettet", Toast.LENGTH_SHORT).show();
 
                         }
                         else if (!task.isSuccessful()) {
                             // If sign in fails, display a message to the user.
                             Log.w("FAILED LOGIN", "createUserWithEmail: failure", task.getException());
-                            App.shortToast(SignUp_activity.this, "fejl, bruger ikke oprettet");
+                            App.shortToast(SignUpActivity.this, "fejl, bruger ikke oprettet");
                             enableScreen();
                         }
                     }
@@ -182,7 +182,7 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
 
                             } else {
                                 Log.w("Convert anon user: ", "linkWithCredential:failure", task.getException());
-                                App.shortToast(SignUp_activity.this, "Fejl, bruger ikke oprettet. Tjek din internetforbindelse og prøv igen.");
+                                App.shortToast(SignUpActivity.this, "Fejl, bruger ikke oprettet. Tjek din internetforbindelse og prøv igen.");
                                 enableScreen();
 
                             }
@@ -208,10 +208,10 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
                     public void onComplete(@NonNull Task<Void> task) {
 
                         if (task.isSuccessful()) {
-                            Toast.makeText(SignUp_activity.this, "Verificérings e-mail er sendt til dig e-mail ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this, "Verificérings e-mail er sendt til dig e-mail ", Toast.LENGTH_SHORT).show();
                         } else {
                             Log.e("FAILED TO SEND EMAIL", "sendEmailVerification method", task.getException());
-                            Toast.makeText(SignUp_activity.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -291,7 +291,7 @@ public class SignUp_activity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                Intent intent = new Intent(SignUp_activity.this, HomeMenu_activity.class);
+                Intent intent = new Intent(SignUpActivity.this, HomeMenuActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);

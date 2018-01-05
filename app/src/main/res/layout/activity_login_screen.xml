@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context="com.example.fahadali.diabetesapp.Activities.Login_activity"
+    tools:context="com.example.fahadali.diabetesapp.Activities.LoginActivity"
     tools:layout_editor_absoluteY="25dp">
 
     <EditText
@@ -84,7 +84,6 @@
         android:id="@+id/login_BTN"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
         android:layout_marginEnd="57dp"
         android:layout_marginStart="57dp"
         android:text="Log ind"
@@ -99,15 +98,16 @@
 
     <ImageView
         android:id="@+id/loginLogo_IV"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginEnd="92dp"
         android:layout_marginStart="92dp"
-        android:layout_marginTop="10dp"
-        android:adjustViewBounds="true"
+        android:layout_marginTop="15dp"
+
         android:src="@drawable/dia_logo_recovered"
+        app:layout_constraintBottom_toTopOf="@+id/userName_ET"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -115,7 +115,6 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
         android:layout_marginEnd="178dp"
         android:layout_marginStart="179dp"
         android:fontFamily="sans-serif"
@@ -130,7 +129,7 @@
         android:id="@+id/notNow_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="116dp"
         android:layout_marginStart="117dp"
         android:text="Spring over"
@@ -145,11 +144,13 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/userName_ET"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/userName_ET"
-        app:layout_constraintTop_toBottomOf="@+id/loginLogo_IV" />
+        app:layout_constraintTop_toBottomOf="@+id/loginLogo_IV"
+        app:layout_constraintVertical_bias="0.104" />
 
     <CheckBox
         android:id="@+id/login_checkBox"
@@ -171,11 +172,11 @@
         android:id="@+id/createUser_BTN"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="23dp"
         android:backgroundTint="@color/red"
+        android:drawableLeft="@drawable/ic_account_circle_white_24dp"
         android:text="Opret bruger"
         android:textColor="@color/colorSecondary"
-        android:drawableLeft="@drawable/ic_account_circle_white_24dp"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/notNow_TV"
         app:layout_constraintEnd_toEndOf="parent"

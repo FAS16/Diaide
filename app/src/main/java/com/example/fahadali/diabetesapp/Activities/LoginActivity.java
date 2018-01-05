@@ -23,7 +23,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Login_activity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     /**
      * variables - fields:
@@ -55,7 +55,7 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
         if(firebaseUser != null){
 
-            Intent intent = new Intent(Login_activity.this, HomeMenu_activity.class);
+            Intent intent = new Intent(LoginActivity.this, HomeMenuActivity.class);
             startActivity(intent);
             finish();
 
@@ -109,15 +109,13 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
 
         else if(v == loginFB_BTN){
 
-            Intent intent = new Intent(Login_activity.this, HomeMenu_activity.class);
-            startActivity(intent);
-            finish();
+
 
         }
 
         else if( v == createUser_BTN){
 
-            Intent intent = new Intent(this, SignUp_activity.class);
+            Intent intent = new Intent(this, SignUpActivity.class);
             startActivity(intent);
         }
 
@@ -151,7 +149,7 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
                                 if (task.isSuccessful()) {
                                     //User is now signed in
                                     firebaseUser = firebaseAuth.getCurrentUser();
-                                    Intent intent = new Intent(Login_activity.this, HomeMenu_activity.class);
+                                    Intent intent = new Intent(LoginActivity.this, HomeMenuActivity.class);
                                     startActivity(intent);
                                     finish();
                                     Log.i(TAG, "USER (AFTER SIGN IN): " + firebaseUser.getEmail());
@@ -159,7 +157,7 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
                                 } else if (!task.isSuccessful()) {
 
                                     //if login fails
-                                    App.shortToast(Login_activity.this, "Fejl, kan ikke genkende e-mail/password");
+                                    App.shortToast(LoginActivity.this, "Fejl, kan ikke genkende e-mail/password");
                                     Log.i(TAG, "No such user: " + firebaseUser);
                                     enableScreen();
 
@@ -179,14 +177,14 @@ public class Login_activity extends AppCompatActivity implements View.OnClickLis
                              // Sign in success, update UI with the signed-in user's information
                              Log.d(TAG, "signInAnonymously:success");
                              firebaseUser = firebaseAuth.getCurrentUser();
-                             Intent intent = new Intent(Login_activity.this, HomeMenu_activity.class);
+                             Intent intent = new Intent(LoginActivity.this, HomeMenuActivity.class);
                              startActivity(intent);
                              finish();
 
                          } else {
                              // If sign in fails, display a message to the user.
                              Log.w(TAG, "signInAnonymously:failure", task.getException());
-                             App.shortToast(Login_activity.this, "Fejl, bruger ikke oprettet. \nTjek din internetforbindelse og prøv igen.");
+                             App.shortToast(LoginActivity.this, "Fejl, bruger ikke oprettet. \nTjek din internetforbindelse og prøv igen.");
 
                          }
 

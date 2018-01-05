@@ -5,16 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.fahadali.diabetesapp.Activities.HomeMenu_activity"
+    tools:context="com.example.fahadali.diabetesapp.Activities.HomeMenuActivity"
     tools:showIn="@layout/app_bar_home_menu">
+
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:background="?android:attr/windowBackground"
+        android:background="@color/colorPrimary"
         app:itemBackground="@color/colorPrimary"
         app:itemIconTint="@color/bottom_nav_selector"
         app:itemTextColor="@color/bottom_nav_selector"
@@ -24,6 +23,17 @@
         app:menu="@menu/navigation" />
 
 
+    <ProgressBar
+        android:id="@+id/homeProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="364dp"
+        app:layout_constraintBottom_toBottomOf="@+id/navigation_container"
+        app:layout_constraintEnd_toStartOf="@+id/navigation_container"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toEndOf="@+id/navigation_container" />
+
     <FrameLayout
         android:id="@+id/navigation_container"
         android:layout_width="0dp"
@@ -32,20 +42,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-    </FrameLayout>
 
-    <ProgressBar
-        android:id="@+id/homeProgressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="412dp"
-        android:layout_marginEnd="168dp"
-        android:layout_marginStart="168dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+
+    </FrameLayout>
 
 
 </android.support.constraint.ConstraintLayout>

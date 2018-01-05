@@ -13,7 +13,7 @@ import com.example.fahadali.diabetesapp.Model.User;
 import com.example.fahadali.diabetesapp.Other.App;
 import com.example.fahadali.diabetesapp.R;
 
-public class BSugarNotation_activity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
+public class NotationActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
 
     private Button cancel_BTN, add_BTN;
     private EditText firstNum_ET, secondNum_ET, thirdNum_ET, comment_ET, comma_ET;
