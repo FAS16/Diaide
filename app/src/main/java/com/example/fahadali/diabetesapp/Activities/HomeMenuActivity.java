@@ -244,12 +244,12 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
 
                 case R.id.navigation_reminders:
                     setTitle("Påmindelser");
-                    fragment = new GraphFragment();
+                    fragment = new Fragment();
                     break;
 
                 case R.id.navigation_overview:
                     setTitle("Overblik");
-                    fragment = new Fragment();
+                    fragment = new GraphFragment();
                     break;
             }
 
