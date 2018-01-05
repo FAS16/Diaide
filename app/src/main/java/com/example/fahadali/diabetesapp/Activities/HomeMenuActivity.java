@@ -1,4 +1,4 @@
-package com.example.fahadali.diabetesapp;
+package com.example.fahadali.diabetesapp.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,12 +15,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.fahadali.diabetesapp.Fragments.BloodSugarFragment;
+import com.example.fahadali.diabetesapp.GraphFragment;
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
 import com.example.fahadali.diabetesapp.Model.User;
+import com.example.fahadali.diabetesapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class HomeMenu_activity extends AppCompatActivity implements Observer, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+public class HomeMenuActivity extends AppCompatActivity implements Observer, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     /**
      * Variables for the HomeMenuActivity
@@ -60,12 +62,21 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
         setTitle("Blodsukker");
 
         //Handling data retrieval from firebase
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+
+        if(firebaseUser!= null){
+
+
+        firebaseUser.getUid();
         db_userReference = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid());
         setFirebaseListener();
 
+        }
+
         User.getUserInstance().registerObserver(this);
+
 
         //instantiation of bottom menu
         BottomNavigationView navigation = findViewById(R.id.navigation);
@@ -82,6 +93,17 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if(firebaseUser.isAnonymous()) {
+            Menu menu = navigationView.getMenu();
+            MenuItem settings = menu.findItem(R.id.nav_settings);
+            settings.setTitle("Opret bruger");
+
+            MenuItem signOut = menu.findItem(R.id.nav_signOut);
+            signOut.setVisible(false);
+            signOut.setEnabled(false);
+        }
+
 
         //Objects in current activity
         pBar = findViewById(R.id.homeProgressBar);
@@ -152,6 +174,7 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+
         if (id == R.id.nav_homeMenu) {
             // Handle the camera action
         } else if (id == R.id.nav_medicin) {
@@ -164,7 +187,18 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
 
         }else if (id == R.id.nav_settings) {
 
+            if(firebaseUser.isAnonymous()){
+
+                Intent i = new Intent (this, SignUpActivity.class);
+                startActivity(i);
+                finish();
+
+            }
+
         } else if (id == R.id.nav_signOut) {
+
+
+
 
             firebaseAuth.signOut();
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -173,7 +207,7 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
             User.getUserInstance().nullifyUser();
             System.out.println("SNAPSHOT2: "+ User.getUserInstance()); //Should be null
 
-            Intent i = new Intent (this, Login_activity.class);
+            Intent i = new Intent (this, LoginActivity.class);
             startActivity(i);
             finish();
 
@@ -205,7 +239,7 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
 
                 case R.id.navigation_bloodsugar:
                     setTitle("Blodsukker");
-                    fragment = new BSugarOverview_activity();
+                    fragment = new BloodSugarFragment();
                    break;
 
                 case R.id.navigation_reminders:
@@ -215,7 +249,7 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
 
                 case R.id.navigation_overview:
                     setTitle("Overblik");
-                    fragment = new Fragment();
+                    fragment = new GraphFragment();
                     break;
             }
 
@@ -241,7 +275,13 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
                 User u = dataSnapshot.getValue(User.class);
                 System.out.println("SNAPSHOT: "+ u);
                 System.out.println("SINGLETON FØR HENTNING FRA FB: "+ User.getUserInstance());
-                User.getUserInstance().setUser(u.getId(),u.getFirstName(),u.getLastName(),u.getEmail(), u.getBloodList());
+
+                if(!firebaseUser.isAnonymous()) {
+                    User.getUserInstance().setUser(u.getId(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getBloodList());
+                }
+
+                else {} //Husk at rette
+
                 System.out.println("SINGLETON EFTER HENTNING FRA FB: "+ User.getUserInstance());
                 User.getUserInstance().notifyAllObservers();
                 pBar.setVisibility(View.GONE);
@@ -258,17 +298,23 @@ public class HomeMenu_activity extends AppCompatActivity implements Observer, Na
     }
 
 
+
+
     @Override
     public void update() {
 
-        name_TV.setText(User.getUserInstance().getFirstName()+" "+User.getUserInstance().getLastName());
-        email_TV.setText(User.getUserInstance().getEmail());
+        if(!firebaseUser.isAnonymous()){
+
+            name_TV.setText(User.getUserInstance().getFirstName()+" "+User.getUserInstance().getLastName());
+            email_TV.setText(User.getUserInstance().getEmail());
+
+        }
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.navigation_container,new BSugarOverview_activity())
+                .replace(R.id.navigation_container,new BloodSugarFragment())
                 .commit();
 
-        System.out.println("User updated - HomeMenu_activity "+ User.getUserInstance());
+        System.out.println("User updated - HomeMenuActivity "+ User.getUserInstance());
 
     }
 

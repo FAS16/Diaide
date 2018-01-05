@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context="com.example.fahadali.diabetesapp.Login_activity"
+    tools:context="com.example.fahadali.diabetesapp.Activities.LoginActivity"
     tools:layout_editor_absoluteY="25dp">
 
     <EditText
@@ -38,7 +38,7 @@
         android:backgroundTint="@color/grey"
         android:ems="10"
         android:hint="dinmail@mail.dk"
-        android:inputType="textPersonName"
+        android:inputType="textWebEmailAddress"
         android:textColor="@color/colorSecondary"
         android:textColorHint="@color/hintColor"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
@@ -133,12 +133,12 @@
     <Button
         android:id="@+id/signUp_BTN"
         android:layout_width="280dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="17dp"
         android:layout_marginEnd="52dp"
         android:layout_marginStart="52dp"
         android:text="Opret bruger"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/backToLogin_TV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

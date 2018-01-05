@@ -1,4 +1,4 @@
-package com.example.fahadali.diabetesapp;
+package com.example.fahadali.diabetesapp.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.fahadali.diabetesapp.Model.BloodSugar;
+import com.example.fahadali.diabetesapp.R;
 
 import java.util.ArrayList;
 

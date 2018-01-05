@@ -7,6 +7,7 @@ import com.example.fahadali.diabetesapp.Model.ObserverPattern.Subject;
 import com.example.fahadali.diabetesapp.Model.Reminders.Reminder;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class User implements Subject {
 
@@ -40,6 +41,7 @@ public class User implements Subject {
         this.lastName = lastName;
         this.email = mail;
         this.bloodList = bloodList;
+
 
     }
 
@@ -87,6 +89,37 @@ public class User implements Subject {
     public void setReminderList(ArrayList<Reminder> reminderList) {
         this.reminderList = reminderList;
     }
+//
+//    public ArrayList<String> getSortedDates(){
+//
+//        ArrayList<String> timeStrings = new ArrayList<>();
+//
+//        for (BloodSugar b: bloodList){
+//
+//            timeStrings.add(b.getTime());
+//
+//        }
+//
+//        Collections.sort(timeStrings);
+//
+//        return timeStrings;
+//
+//    }
+
+//    public ArrayList<Double> getSortedBloodSugars(){
+//
+//        ArrayList<Double> bloodSugars = new ArrayList<>();
+//
+//        for (BloodSugar b: bloodList){
+//
+//            bloodSugars.add(b.getBloodSugar());
+//
+//        }
+//
+////        Collections.sort();
+//
+//            return bloodSugars;
+//    }
 
     /**
      * Method for nullifying the User instance
@@ -168,6 +201,8 @@ public class User implements Subject {
 
         this.email = email;
     }
+
+
 
     /**
      * Method for setting the current user.
