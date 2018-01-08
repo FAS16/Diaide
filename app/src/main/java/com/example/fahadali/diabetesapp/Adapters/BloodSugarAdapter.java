@@ -30,7 +30,7 @@ public class BloodSugarAdapter extends ArrayAdapter<BloodSugar>{
         BloodSugar bs = getItem(position);
 
         if(convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.bloodsugar_listview,parent,false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.bloodsugar_list_item,parent,false);
         }
 
         TextView date = convertView.findViewById(R.id.Date);

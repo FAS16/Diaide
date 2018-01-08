@@ -98,8 +98,8 @@
 
     <ImageView
         android:id="@+id/loginLogo_IV"
-        android:layout_width="175dp"
-        android:layout_height="175dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginBottom="15dp"
         android:layout_marginEnd="92dp"
         android:layout_marginStart="92dp"

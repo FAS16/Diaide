@@ -1,4 +1,4 @@
-package com.example.fahadali.diabetesapp;
+package com.example.fahadali.diabetesapp.Other;
 
 
 import android.graphics.Color;
@@ -11,11 +11,11 @@ import android.widget.TextView;
 
 import com.example.fahadali.diabetesapp.Model.BloodSugar;
 import com.example.fahadali.diabetesapp.Model.User;
+import com.example.fahadali.diabetesapp.R;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -70,7 +70,7 @@ public class GraphFragment extends Fragment implements OnChartValueSelectedListe
         lineChart.setPinchZoom(true);
 
         // set an alternative background color
-        lineChart.setBackgroundColor(Color.LTGRAY);
+        lineChart.setBackgroundColor(Color.parseColor("#F3F3F3"));
 
 // Test        setData(20, 30);
 

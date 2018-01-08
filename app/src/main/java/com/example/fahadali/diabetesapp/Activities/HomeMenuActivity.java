@@ -18,10 +18,11 @@ import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.fahadali.diabetesapp.Fragments.BloodOverviewFragment;
 import com.example.fahadali.diabetesapp.Fragments.BloodSugarFragment;
-import com.example.fahadali.diabetesapp.GraphFragment;
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
 import com.example.fahadali.diabetesapp.Model.User;
+import com.example.fahadali.diabetesapp.Fragments.GraphFragment3;
 import com.example.fahadali.diabetesapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -244,12 +245,12 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
 
                 case R.id.navigation_reminders:
                     setTitle("Påmindelser");
-                    fragment = new Fragment();
+                    fragment = new GraphFragment3();
                     break;
 
                 case R.id.navigation_overview:
                     setTitle("Overblik");
-                    fragment = new GraphFragment();
+                    fragment = new GraphFragment3();
                     break;
             }
 
@@ -311,7 +312,7 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
         }
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.navigation_container,new BloodSugarFragment())
+                .replace(R.id.navigation_container,new BloodOverviewFragment())
                 .commit();
 
         System.out.println("User updated - HomeMenuActivity "+ User.getUserInstance());
