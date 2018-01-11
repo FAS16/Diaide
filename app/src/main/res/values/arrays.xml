@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="blood_sugar_filters">
+        <item>I dag</item>
+        <item>Seneste 7 dage</item>
+        <item>Seneste 30 dage</item>
+    </string-array>
+</resources>

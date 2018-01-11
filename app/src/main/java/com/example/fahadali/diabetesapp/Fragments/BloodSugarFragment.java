@@ -1,106 +1,101 @@
 package com.example.fahadali.diabetesapp.Fragments;
 
+
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 
-import com.androidplot.xy.XYPlot;
-import com.example.fahadali.diabetesapp.Activities.NotationActivity;
-import com.example.fahadali.diabetesapp.Adapters.BloodSugarAdapter;
-import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
-import com.example.fahadali.diabetesapp.Model.User;
+import com.example.fahadali.diabetesapp.Other.App;
 import com.example.fahadali.diabetesapp.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-public class BloodSugarFragment extends Fragment implements View.OnClickListener, Observer {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class BloodSugarFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
-    /**
-     * Variables for the BsugarOverview
-     */
 
     private View view;
-    private FloatingActionButton addBloodSugar_BTN;
-    private FirebaseDatabase db;
-    private FirebaseAuth fireBaseAuth;
-    private FirebaseUser fireBaseUser;
-    private DatabaseReference ref;
-    private BloodSugarAdapter adapter;
-    private XYPlot xyPlot;
+    private Spinner filterSpinner;
+    private ArrayAdapter <CharSequence> filterAdapter;
+    private TextView lowestBloodSugar, highestBloodSugar;
+    private Button go_BTN;
 
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        update();
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        view = inflater.inflate(R.layout.fragment_blood_sugar_2, container, false);
+        addGraph();
 
-        view = inflater.inflate(R.layout.fragment_bsugar_overview,container,false);
-        addBloodSugar_BTN = view.findViewById(R.id.addBloodSugar_BTN);
-        db = FirebaseDatabase.getInstance();
-        fireBaseAuth = FirebaseAuth.getInstance();
-        fireBaseUser = fireBaseAuth.getCurrentUser();
-        ref = db.getReference();
-        adapter = new BloodSugarAdapter(getActivity(), User.getUserInstance().getBloodList());
-        xyPlot = view.findViewById(R.id.plot);
+        filterSpinner = view.findViewById(R.id.filter_SPNR);
+        filterAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.blood_sugar_filters, android.R.layout.simple_spinner_dropdown_item);
+////        lowestBloodSugar = view.findViewById(R.id.bsLowVal_TV);
+////        highestBloodSugar = view.findViewById(R.id.bsHighVal_TV);
+////        lowestBloodSugar = view.findViewById(R.id.bsLowVal_TV);
 
-        addBloodSugar_BTN.setOnClickListener(this);
-        User.getUserInstance().registerObserver(this);
-
-
-
-
-//        XYSeries series1 = new SimpleXYSeries(
-
-//                User.getUserInstance().getSortedBloodSugars(), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Series1");
-
-//        LineAndPointFormatter series1Format = new LineAndPointFormatter(Color.RED, Color.GREEN, Color.BLUE, null);
+//        go_BTN = view.findViewById(R.id.go_BTN);
+//        go_BTN.setOnClickListener(this);
+////
+        filterSpinner.setAdapter(filterAdapter);
+        filterSpinner.setOnItemSelectedListener(this);
 
         return view;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        User.getUserInstance().removeObserver(this);
+    public  void addGraph(){
+//    Nested fragment
+        getChildFragmentManager().beginTransaction()
+                .add(R.id.graph_containerNew, new GraphFragment())
+                .commit();
+
     }
 
-    /**
-     * Method for what the acitivity does when it is clicked.
-     * @param v
-     */
-
     @Override
-    public void onClick(View v) {
-        if(v == addBloodSugar_BTN){
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-            Intent intent = new Intent(getActivity(), NotationActivity.class);
-            startActivity(intent);
+        String itemSelected = adapterView.getItemAtPosition(i).toString();
+
+        if(itemSelected.equals("I dag")){
+
+            App.shortToast(getActivity(),"I dag");
+
+        }
+
+        else if(itemSelected.equals("Seneste 7 dage")){
+
+            App.shortToast(getActivity(),"Seneste 7 dag");
+
+        }
+
+        else if(itemSelected.equals("Seneste 30 dage")){
+
+            App.shortToast(getActivity(),"Seneste 30 dage");
 
         }
 
     }
 
     @Override
-    public void update() {
-
-        BloodSugarAdapter adapter = new BloodSugarAdapter(getActivity(), User.getUserInstance().getBloodList());
-        ListView overview = view.findViewById(R.id.BloodSugar_LV);
-        ref.child("users").child(fireBaseUser.getUid()).child("bloodList").setValue(User.getUserInstance().getBloodList());
-        overview.setAdapter(adapter);
+    public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
 
+    @Override
+    public void onClick(View view) {
+
+
+        Intent i = new Intent(getContext(), BloodOverviewFragment.class);
+
+        startActivity(i);
+
+    }
 }

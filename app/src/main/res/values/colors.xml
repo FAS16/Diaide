@@ -18,4 +18,6 @@
     <color name="greyHighlighted">#afafaf</color>
     <color name="notSelectedItemColor">#380a05</color>
     <color name="red">#9b1a0b</color>
+    <color name="cardBackgColor">#ECECEC</color>
+    <color name="black">#000000</color>
 </resources>

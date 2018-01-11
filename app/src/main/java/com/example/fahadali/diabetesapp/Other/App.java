@@ -25,21 +25,16 @@ public class App extends Application {
         super.onCreate();
         System.out.println("Running onCreate -  Application App");
 
-
-FirebaseAuth auth = FirebaseAuth.getInstance();
-auth.signOut();
-
-
-//        Crashlytics
-//        if (!EMULATOR) {
-//            Fabric.with(this, new Crashlytics());
-//        }
-
-        Fabric.with(null, null);
-        appInstance = this;
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         //Firebase - enbale disk persistence - caching locally
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        
+//        Crashlytics
+        if (!EMULATOR) Fabric.with(this, new Crashlytics());
+
+        appInstance = this;
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+
 
     }
 

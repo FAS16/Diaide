@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.fahadali.diabetesapp.Fragments.BloodSugarFragment">
+    tools:context="com.example.fahadali.diabetesapp.Fragments.BloodOverviewFragment">
 
     <ListView
         android:id="@+id/BloodSugar_LV"
@@ -24,7 +24,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="20dp"
         android:clickable="true"
-        android:src="@drawable/ic_add_black_24dp"
+        android:src="@drawable/ic_add_white_24dp"
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
