@@ -26,11 +26,11 @@ public class CreateUserAccountTest {
         User user = new User("1","User","usertest@mail.dk","123456");
         createUserAccount ca = new createUserAccount();
 
-        ca.createUserAccountMockup(user.getMail(),user.getPassword());
+        ca.createUserAccountMockup(user.getEmail(),user.getPassword());
 
         FirebaseUser fbUser = firebaseAuth.getCurrentUser();
 
-        assertEquals(fbUser.getEmail(), user.getMail());
+        assertEquals(fbUser.getEmail(), user.getEmail());
 
     }
 

@@ -4,7 +4,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
+        android:name=".Other.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Login_activity"
+            android:name=".Activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,24 +27,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeMenu_activity"
+            android:name=".Activities.HomeMenuActivity"
             android:label="@string/title_activity_home_menu"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BSugarOverview_activity"
-            android:label="@string/title_activity_bsuger_overview" />
-        <activity android:name=".BSugarNotation_activity" />
-        <activity android:name=".ReminderTypeSelector_activity" />
-        <activity android:name=".DoctorsAppointment_activity" />
+        <activity android:name=".Activities.NotationActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".SignUp_activity"
-            android:theme="@style/AppTheme.NoActionBar"
-            ></activity>
+            android:name=".Activities.SignUpActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>
