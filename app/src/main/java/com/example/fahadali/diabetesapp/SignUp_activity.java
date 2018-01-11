@@ -1,4 +1,4 @@
-package com.example.fahadali.diabetesapp.Activities;
+package com.example.fahadali.diabetesapp;
 
 
 import android.content.DialogInterface;
@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,24 +20,21 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.fahadali.diabetesapp.Model.BloodSugar;
 import com.example.fahadali.diabetesapp.Model.User;
-import com.example.fahadali.diabetesapp.Other.App;
-import com.example.fahadali.diabetesapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 
-
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignUp_activity extends AppCompatActivity implements View.OnClickListener {
     /**
      * variables for the SignUp activity
      */
@@ -61,7 +59,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_signup);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
         db = FirebaseDatabase.getInstance().getReference();
 
         firstName_ET = findViewById(R.id.createFirstName_ET);
@@ -107,9 +104,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         if(view == signUp_BTN){
-
-            if(firebaseUser == null) createUserAccount(email_ET.getText().toString(), password_ET.getText().toString());
-            else if(firebaseUser.isAnonymous()) convertAnonymousUser(email_ET.getText().toString(), password_ET.getText().toString());
+            createUserAccount(email_ET.getText().toString(), password_ET.getText().toString());
 
         }
     }
@@ -123,9 +118,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String firstName = firstName_ET.getText().toString();
         String lastName = lastName_ET.getText().toString();
         String email = firebaseUser.getEmail();
-        ArrayList <BloodSugar> bloodList = User.getUserInstance().getBloodList();
 
-        User.getUserInstance().setUser(id, firstName, lastName, email, bloodList);
+        User.getUserInstance().setUser(id, firstName, lastName, email, null);
 
         db.child("users").child(firebaseUser.getUid()).setValue(User.getUserInstance());
     }
@@ -153,43 +147,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             createNewUser();
                             showAlertDialog();
 
-//                            Toast.makeText(SignUpActivity.this, "Bruger oprettet", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(SignUp_activity.this, "Bruger oprettet", Toast.LENGTH_SHORT).show();
 
                         }
                         else if (!task.isSuccessful()) {
                             // If sign in fails, display a message to the user.
                             Log.w("FAILED LOGIN", "createUserWithEmail: failure", task.getException());
-                            App.shortToast(SignUpActivity.this, "fejl, bruger ikke oprettet");
+                            Toast.makeText(SignUp_activity.this, "FEJL, bruger ikke oprettet", Toast.LENGTH_SHORT).show();
                             enableScreen();
                         }
                     }
                 });
-        }
-
-        public  void convertAnonymousUser(String email, String password){
-
-            AuthCredential credential = EmailAuthProvider.getCredential(email, password);
-
-            firebaseAuth.getCurrentUser().linkWithCredential(credential)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                Log.d("Convert anon user: ", "linkWithCredential:success");
-                                firebaseUser = task.getResult().getUser();
-                                createNewUser();
-                                showAlertDialog();
-
-                            } else {
-                                Log.w("Convert anon user: ", "linkWithCredential:failure", task.getException());
-                                App.shortToast(SignUpActivity.this, "Fejl, bruger ikke oprettet. Tjek din internetforbindelse og prøv igen.");
-                                enableScreen();
-
-                            }
-
-                        }
-                    });
-
         }
 
     /**
@@ -208,10 +176,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     public void onComplete(@NonNull Task<Void> task) {
 
                         if (task.isSuccessful()) {
-                            Toast.makeText(SignUpActivity.this, "Verificérings e-mail er sendt til dig e-mail ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUp_activity.this, "Verificérings e-mail er sendt til dig e-mail ", Toast.LENGTH_SHORT).show();
                         } else {
                             Log.e("FAILED TO SEND EMAIL", "sendEmailVerification method", task.getException());
-                            Toast.makeText(SignUpActivity.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUp_activity.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -291,7 +259,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                Intent intent = new Intent(SignUpActivity.this, HomeMenuActivity.class);
+                Intent intent = new Intent(SignUp_activity.this, HomeMenu_activity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
@@ -302,7 +270,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         alertDialog.show();
     }
 
+    /**
+     * Method for saving a temporary login, and transfering it to the loginactivity
+     */
+    public void saveTempLogin(){
 
+        prefs.edit()
+                .putString("e-mail", email_ET.getText().toString())
+                .putString("password", password_ET.getText().toString())
+                .commit();
+    }
 
     /**
      * Method for disabling the screen.
@@ -322,12 +299,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
      * Method for enabling the screen.
      */
     public void enableScreen(){
-        pBar.setVisibility(View.GONE);
-        firstName_ET.setEnabled(true);
-        lastName_ET.setEnabled(true);
-        signUp_BTN.setEnabled(true);
-        email_ET.setEnabled(true);
-        password_ET.setEnabled(true);
+            pBar.setVisibility(View.GONE);
+            firstName_ET.setEnabled(true);
+            lastName_ET.setEnabled(true);
+            email_ET.setEnabled(true);
+            password_ET.setEnabled(true);
     }
 
 
