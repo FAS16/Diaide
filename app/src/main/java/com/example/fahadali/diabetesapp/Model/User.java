@@ -1,55 +1,253 @@
 package com.example.fahadali.diabetesapp.Model;
 
-/**
- * Created by aleks on 19-11-2017.
- */
+//User singleton
 
-public class User {
+import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
+import com.example.fahadali.diabetesapp.Model.ObserverPattern.Subject;
+import com.example.fahadali.diabetesapp.Model.Reminders.Reminder;
 
+import java.util.ArrayList;
+import java.util.Collections;
 
+public class User implements Subject {
 
-    String ID;
-    String name;
-    String mail;
-    String PW;
+    /**
+     * field variables for the User class
+     */
+    private static User userInstance;
+    private String id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private ArrayList<BloodSugar> bloodList = new ArrayList<>();
+    private ArrayList<Reminder> reminderList = new ArrayList<>();
+    private  ArrayList <Observer> observers = new ArrayList<>();
 
+    //Empty constructor for google firebase
+    private User(){
 
-    public User(String ID, String name, String mail, String PW){
-        this.ID = ID;
-        this.name = name;
-        this.mail = mail;
-        this.PW = PW;
     }
 
-    public String getID() {
-        return ID;
+    /**
+     * Constructor for the User class
+     * @param id
+     * @param firstName
+     * @param lastName
+     * @param mail
+     */
+    private User(String id, String firstName, String lastName, String mail,  ArrayList<BloodSugar> bloodList){
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = mail;
+        this.bloodList = bloodList;
+
+
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    /**
+     * Method for getting the user instance
+     * @return
+     */
+    public static User getUserInstance(){
+        if (userInstance == null) {
+            userInstance = new User();
+            System.out.println("User was null XX");
+        }
+        return userInstance;
     }
 
-    public String getName() {
-        return name;
+    public ArrayList<BloodSugar> getBloodList() {
+        return bloodList;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBloodList(ArrayList<BloodSugar> bloodList) {
+        this.bloodList = bloodList;
     }
 
-    public String getMail() {
-        return mail;
+    /**
+     * Method for adding bloodsugarnotation
+     * @param bs
+     */
+    public void addBloodSugarNotation(BloodSugar bs) {
+
+        bloodList.add(bs);
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    /**
+     * Method for getting reminderslist
+     * @return
+     */
+    public ArrayList<Reminder> getReminderList() {
+        return reminderList;
     }
 
-    public String getPW() {
-        return PW;
+    /**
+     * Method for setting reminderslist
+     * @param reminderList
+     */
+    public void setReminderList(ArrayList<Reminder> reminderList) {
+        this.reminderList = reminderList;
+    }
+//
+//    public ArrayList<String> getSortedDates(){
+//
+//        ArrayList<String> timeStrings = new ArrayList<>();
+//
+//        for (BloodSugar b: bloodList){
+//
+//            timeStrings.add(b.getTime());
+//
+//        }
+//
+//        Collections.sort(timeStrings);
+//
+//        return timeStrings;
+//
+//    }
+
+//    public ArrayList<Double> getSortedBloodSugars(){
+//
+//        ArrayList<Double> bloodSugars = new ArrayList<>();
+//
+//        for (BloodSugar b: bloodList){
+//
+//            bloodSugars.add(b.getBloodSugar());
+//
+//        }
+//
+////        Collections.sort();
+//
+//            return bloodSugars;
+//    }
+
+    /**
+     * Method for nullifying the User instance
+     */
+    public void nullifyUser(){
+        if(userInstance != null) {
+            userInstance = null;
+        }
     }
 
-    public void setPW(String PW) {
-        this.PW = PW;
+    /**
+     * Method for getting ID
+     * @return
+     */
+    public String getId() {
+
+        return id;
+    }
+
+    /**
+     * Method for setting ID
+     * @param id
+     */
+    public void setId(String id) {
+
+        this.id = id;
+    }
+
+    /**
+     * Method for getting firstname
+     * @return
+     */
+    public String getFirstName() {
+
+        return firstName;
+    }
+
+    /**
+     * Method for setting firstname
+     * @param firstName
+     */
+    public void setFirstName(String firstName) {
+
+        this.firstName = firstName;
+    }
+
+    /**
+     * Method for setting firstname
+     * @return
+     */
+    public String getLastName() {
+
+        return lastName;
+    }
+
+    /**
+     * Method for setting lastname
+     * @param lastName
+     */
+    public void setLastName(String lastName) {
+
+        this.lastName = lastName;
+    }
+
+    /**
+     * Method for getting mail
+     * @return
+     */
+    public String getEmail() {
+
+        return email;
+    }
+
+    /**
+     * Method for setting mail
+     * @param email
+     */
+    public void setEmail(String email) {
+
+        this.email = email;
+    }
+
+
+
+    /**
+     * Method for setting the current user.
+     * @param id
+     * @param firstName
+     * @param lastName
+     * @param email
+     * @param bloodList
+     */
+    public void setUser(String id, String firstName, String lastName, String email, ArrayList<BloodSugar> bloodList){
+
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.bloodList = bloodList;
+
+    }
+
+    /**
+     * Method to convert to string
+     * @return
+     */
+    public String toString()
+    {
+        return ("ID: "+id + " - NAVN: "+firstName + " - MAIL: "+email+ " - BSLIST: "+ bloodList);
+    }
+
+
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+
+    }
+
+    @Override
+    public void notifyAllObservers() {
+        for (Observer obs: observers) {
+            obs.update();
+        }
     }
 }

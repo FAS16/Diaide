@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:context="com.example.fahadali.diabetesapp.Login_activity"
+    android:background="@color/colorPrimaryDark"
+    tools:context="com.example.fahadali.diabetesapp.Activities.LoginActivity"
     tools:layout_editor_absoluteY="25dp">
 
     <EditText
@@ -17,7 +17,7 @@
         android:layout_marginStart="52dp"
         android:backgroundTint="@color/grey"
         android:ems="10"
-        android:hint="********"
+        android:hint="••••••••"
         android:inputType="textPassword"
         android:textColor="@color/colorSecondary"
         android:textColorHint="@color/hintColor"
@@ -37,8 +37,8 @@
         android:layout_marginStart="52dp"
         android:backgroundTint="@color/grey"
         android:ems="10"
-        android:hint="dinmail@dinmail.dk"
-        android:inputType="textPersonName"
+        android:hint="dinmail@mail.dk"
+        android:inputType="textWebEmailAddress"
         android:textColor="@color/colorSecondary"
         android:textColorHint="@color/hintColor"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
@@ -133,12 +133,12 @@
     <Button
         android:id="@+id/signUp_BTN"
         android:layout_width="280dp"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="17dp"
         android:layout_marginEnd="52dp"
         android:layout_marginStart="52dp"
         android:text="Opret bruger"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/backToLogin_TV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -150,11 +150,13 @@
         android:id="@+id/signUpLogo_IV"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginBottom="13dp"
         android:layout_marginEnd="92dp"
         android:layout_marginStart="92dp"
         android:layout_marginTop="12dp"
         android:adjustViewBounds="true"
         android:src="@drawable/dia_logo_recovered"
+        app:layout_constraintBottom_toTopOf="@+id/createFirstName_ET"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -185,5 +187,19 @@
         app:layout_constraintBottom_toTopOf="@+id/createPassword_ET"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/signProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/createLastName_ET"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createFirstName_ET" />
 
 </android.support.constraint.ConstraintLayout>

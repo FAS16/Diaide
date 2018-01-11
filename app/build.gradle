@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
@@ -13,18 +14,32 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTIXE'
+    }
 }
 
+
+
 dependencies {
+
+    implementation 'com.google.firebase:firebase-database:11.6.0'
+    //noinspection GradleCompatible
     compile 'com.android.support:support-v4:26.1.0'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+//Android plot
+    compile "com.androidplot:androidplot-core:1.5.2"
+
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:26.+'
@@ -33,7 +48,20 @@ dependencies {
 //    Firebase
     compile('com.facebook.android:facebook-android-sdk:4.27.0')
     compile 'com.google.firebase:firebase-auth:11.6.0'
-    testCompile 'junit:junit:4.12'
-}
+    compile 'com.google.firebase:firebase-database:11.6.0'
+    compile 'com.google.firebase:firebase-database:11.6.0'
 
-apply plugin: 'com.google.gms.google-services'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    compile('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
+        transitive = true
+        compile 'com.google.firebase:firebase-core:11.6.0'
+
+
+        testCompile 'junit:junit:4.12'
+
+
+    }
+
+    apply plugin: 'com.google.gms.google-services'
+    apply plugin: 'io.fabric'
+}
