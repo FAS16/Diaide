@@ -40,6 +40,11 @@
             android:name=".Activities.SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
+
+        <activity
+            android:name=".Fragments.BloodOverviewFragment"
+             />
+
     </application>
 
 </manifest>

@@ -27,7 +27,7 @@ public class BloodSugar {
     public BloodSugar(double bloodSugar, String comment) {
         this.bloodSugar = bloodSugar;
         this.comment = comment;
-        time = new SimpleDateFormat("dd/MM/yy - HH:mm").format(new Date(System.currentTimeMillis()));
+        time = new SimpleDateFormat("dd/MM/yy HH:mm").format(new Date(System.currentTimeMillis()));
 
 
     }

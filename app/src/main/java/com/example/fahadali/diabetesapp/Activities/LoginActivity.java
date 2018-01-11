@@ -195,6 +195,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      }
 
 
+    public void forgottenPassword(View v) {
+//
+//            userMail = email_ET.getText().toString();
+//            FirebaseAuth.getInstance().sendPasswordResetEmail(userMail)
+//                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Void> task) {
+//                            if (task.isSuccessful()) {
+//                                Log.d("Glemt kode: ", "Email sent.");
+//                                App.shortToast(LoginActivity.this, "Email sendt");
+//                            }
+//                            else if(email_ET == null){
+//                                App.shortToast(LoginActivity.this, "Indtast email");
+//                            }
+//                            else{
+//                                App.shortToast(LoginActivity.this, "Email findes ikke");
+//                            }
+//                        }
+//                    });
+        }
+
+
+
+
     /**
      * Method for checking if the user has entered anything in the fields.
      * @return

@@ -105,7 +105,6 @@ public class NotationActivity extends AppCompatActivity implements View.OnClickL
      */
     public void focusHandler() {
 
-
         int maxLength = 1;
         comma_ET.setTextColor(getResources().getColor(R.color.hintColor));
         if (firstNum_ET.getText().toString().length() == maxLength) {
