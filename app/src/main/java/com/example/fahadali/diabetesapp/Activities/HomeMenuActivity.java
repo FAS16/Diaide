@@ -18,11 +18,10 @@ import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.fahadali.diabetesapp.Fragments.BloodOverviewFragment;
 import com.example.fahadali.diabetesapp.Fragments.BloodSugarFragment;
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
 import com.example.fahadali.diabetesapp.Model.User;
-import com.example.fahadali.diabetesapp.Fragments.GraphFragment3;
+import com.example.fahadali.diabetesapp.Fragments.GraphFragment;
 import com.example.fahadali.diabetesapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -245,12 +244,12 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
 
                 case R.id.navigation_reminders:
                     setTitle("Påmindelser");
-                    fragment = new GraphFragment3();
+                    fragment = new GraphFragment();
                     break;
 
                 case R.id.navigation_overview:
                     setTitle("Overblik");
-                    fragment = new GraphFragment3();
+                    fragment = new GraphFragment();
                     break;
             }
 

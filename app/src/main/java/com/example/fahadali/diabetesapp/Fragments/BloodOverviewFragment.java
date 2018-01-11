@@ -27,18 +27,16 @@ public class BloodOverviewFragment extends AppCompatActivity implements View.OnC
      * Variables for the BsugarOverview
      */
 
-    private View view;
     private FloatingActionButton addBloodSugar_BTN;
     private FirebaseDatabase db;
     private FirebaseAuth fireBaseAuth;
     private FirebaseUser fireBaseUser;
     private DatabaseReference ref;
     private BloodSugarAdapter adapter;
-    private XYPlot xyPlot;
-
 
     @Override
     public void onResume() {
+
         super.onResume();
         update();
 
@@ -55,24 +53,16 @@ public class BloodOverviewFragment extends AppCompatActivity implements View.OnC
         fireBaseUser = fireBaseAuth.getCurrentUser();
         ref = db.getReference();
         adapter = new BloodSugarAdapter(this, User.getUserInstance().getBloodList());
-        xyPlot = findViewById(R.id.plot);
 
         addBloodSugar_BTN.setOnClickListener(this);
         User.getUserInstance().registerObserver(this);
 
 
-
-
-//        XYSeries series1 = new SimpleXYSeries(
-
-//                User.getUserInstance().getSortedBloodSugars(), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Series1");
-
-//        LineAndPointFormatter series1Format = new LineAndPointFormatter(Color.RED, Color.GREEN, Color.BLUE, null);
-
     }
 
     @Override
     public void onDestroy() {
+
         super.onDestroy();
         User.getUserInstance().removeObserver(this);
     }
@@ -97,7 +87,7 @@ public class BloodOverviewFragment extends AppCompatActivity implements View.OnC
     public void update() {
 
         BloodSugarAdapter adapter = new BloodSugarAdapter(this, User.getUserInstance().getBloodList());
-        ListView overview = view.findViewById(R.id.BloodSugar_LV);
+        ListView overview = findViewById(R.id.BloodSugar_LV);
         ref.child("users").child(fireBaseUser.getUid()).child("bloodList").setValue(User.getUserInstance().getBloodList());
         overview.setAdapter(adapter);
 

@@ -27,7 +27,7 @@ import java.util.Date;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GraphFragment3 extends Fragment {
+public class GraphFragment extends Fragment {
 
 
     private GraphView graph;

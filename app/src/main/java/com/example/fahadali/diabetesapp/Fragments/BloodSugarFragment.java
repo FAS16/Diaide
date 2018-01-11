@@ -16,8 +16,6 @@ import android.widget.TextView;
 import com.example.fahadali.diabetesapp.Other.App;
 import com.example.fahadali.diabetesapp.R;
 
-import org.w3c.dom.Text;
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -35,18 +33,18 @@ public class BloodSugarFragment extends Fragment implements AdapterView.OnItemSe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_blood_sugar_3, container, false);
+        view = inflater.inflate(R.layout.fragment_blood_sugar_2, container, false);
         addGraph();
 
-        filterSpinner = view.findViewById(R.id.filter_SPN);
+        filterSpinner = view.findViewById(R.id.filter_SPNR);
         filterAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.blood_sugar_filters, android.R.layout.simple_spinner_dropdown_item);
 ////        lowestBloodSugar = view.findViewById(R.id.bsLowVal_TV);
 ////        highestBloodSugar = view.findViewById(R.id.bsHighVal_TV);
 ////        lowestBloodSugar = view.findViewById(R.id.bsLowVal_TV);
 
-        go_BTN = view.findViewById(R.id.go_BTN);
-        go_BTN.setOnClickListener(this);
-//
+//        go_BTN = view.findViewById(R.id.go_BTN);
+//        go_BTN.setOnClickListener(this);
+////
         filterSpinner.setAdapter(filterAdapter);
         filterSpinner.setOnItemSelectedListener(this);
 
@@ -56,7 +54,7 @@ public class BloodSugarFragment extends Fragment implements AdapterView.OnItemSe
     public  void addGraph(){
 //    Nested fragment
         getChildFragmentManager().beginTransaction()
-                .add(R.id.container_graph, new GraphFragment3())
+                .add(R.id.graph_containerNew, new GraphFragment())
                 .commit();
 
     }
