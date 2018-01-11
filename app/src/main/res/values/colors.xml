@@ -5,17 +5,15 @@
     <color name="colorPrimary">#8e1709</color>
     <color name="colorPrimaryDark">#801408</color>
     <color name="colorSecondary">#F3F3F3</color>
-    <color name="colorAccent">#4571da</color>
+    <color name="colorAccent">#4571DA</color>
 
 
     <!--Other Colors-->
     <color name="hintColor">#808080</color>
-    <color name="grey">#c8c8c8</color>
+    <color name="grey">#C8C8C8</color>
     <color name="lightGrey">#dcdcdc</color>
     <color name="TextOnWhite">#484848</color>
     <color name="white">#F3F3F3</color>
     <color name="rippleColor">#761308</color>
     <color name="greyHighlighted">#afafaf</color>
-    <color name="notSelectedItemColor">#380a05</color>
-    <color name="red">#9b1a0b</color>
 </resources>

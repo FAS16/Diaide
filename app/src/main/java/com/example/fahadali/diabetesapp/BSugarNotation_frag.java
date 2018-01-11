@@ -1,53 +1,64 @@
+package com.example.fahadali.diabetesapp;
 
-package com.example.fahadali.diabetesapp.Activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
 import com.example.fahadali.diabetesapp.Model.BloodSugar;
 import com.example.fahadali.diabetesapp.Model.User;
-import com.example.fahadali.diabetesapp.Other.App;
-import com.example.fahadali.diabetesapp.R;
 
-public class NotationActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
 
-    private Button cancel_BTN, add_BTN;
-    private EditText firstNum_ET, secondNum_ET, thirdNum_ET, comment_ET, comma_ET;
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class BSugarNotation_frag extends Fragment implements View.OnClickListener, TextWatcher{
+    /**
+     * Variables for BSnotation fragment
+     */
+    Button cancel_BTN, add_BTN;
+    EditText firstNum_ET, secondNum_ET, thirdNum_ET, comment_ET, comma_ET;
+
 
     /**
-     * Method for letting the activity know what to do when created.
+     *
+     * @param inflater
+     * @param container
      * @param savedInstanceState
+     * @return
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bsugar_notation);
-        setTitle("Tilføj blodsukker");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rod = inflater.inflate(R.layout.fragment_bsugar_notation,container,false);
 
-        add_BTN = findViewById(R.id.done_BTN);
-        cancel_BTN = findViewById(R.id.cancel_BTN);
-        firstNum_ET = findViewById(R.id.firstNum_ET);
-        secondNum_ET = findViewById(R.id.secondNum_ET);
-        thirdNum_ET = findViewById(R.id.thirdNum_ET);
-        comma_ET = findViewById(R.id.comma_ET);
-        comment_ET = findViewById(R.id.comment_ET);
-
-
+        add_BTN = rod.findViewById(R.id.done_BTN);
         add_BTN.setText("Tilføj");
         add_BTN.setOnClickListener(this);
+        cancel_BTN = rod.findViewById(R.id.cancel_BTN);
         cancel_BTN.setText("Annuller");
         cancel_BTN.setOnClickListener(this);
+
+        firstNum_ET = rod.findViewById(R.id.firstNum_ET);
         firstNum_ET.requestFocus();
         firstNum_ET.addTextChangedListener(this);
+        secondNum_ET = rod.findViewById(R.id.secondNum_ET);
         secondNum_ET.addTextChangedListener(this);
+        thirdNum_ET = rod.findViewById(R.id.thirdNum_ET);
         thirdNum_ET.addTextChangedListener(this);
+
+        comma_ET = rod.findViewById(R.id.comma_ET);
         comma_ET.setEnabled(false);
 
+        comment_ET = rod.findViewById(R.id.comment_ET);
+
+
+        return rod;
     }
 
     /**
@@ -60,34 +71,41 @@ public class NotationActivity extends AppCompatActivity implements View.OnClickL
         if(v == add_BTN){
 
             double tempBloodSugar = Double.parseDouble(firstNum_ET.getText().toString()+secondNum_ET.getText().toString()+ "."+thirdNum_ET.getText().toString());
-            String tempComment = comment_ET.getText().toString();
+            String tempComment    = comment_ET.getText().toString();
+
             User.getUserInstance().addBloodSugarNotation(new BloodSugar(tempBloodSugar, tempComment));
-            App.shortToast(this, "Blodsukker tilføjet");
-            finish();
+
+                 getActivity().finish();
+
+
 
         }
         if(v == cancel_BTN){
-
-            finish();
-
+            getActivity().finish();
         }
 
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return super.onSupportNavigateUp();
-    }
-
-
+    /**
+     * ???????
+     * @param s
+     * @param start
+     * @param count
+     * @param after
+     */
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
 
     }
 
-
+    /**
+     * ?????????????
+     * @param s
+     * @param start
+     * @param before
+     * @param count
+     */
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         focusHandler();
@@ -95,13 +113,17 @@ public class NotationActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
+    /**
+     * ??????????
+     * @param s
+     */
     @Override
     public void afterTextChanged(Editable s) {
 
     }
 
     /**
-     * Directs the cursor to next input field, when current input field gets filled
+     * ?????????????????
      */
     public void focusHandler() {
 
@@ -121,3 +143,5 @@ public class NotationActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 }
+
+

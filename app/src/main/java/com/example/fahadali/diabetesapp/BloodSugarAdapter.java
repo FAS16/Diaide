@@ -1,4 +1,4 @@
-package com.example.fahadali.diabetesapp.Adapters;
+package com.example.fahadali.diabetesapp;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,10 +8,12 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.fahadali.diabetesapp.Model.BloodSugar;
-import com.example.fahadali.diabetesapp.R;
 
 import java.util.ArrayList;
 
+/**
+ * Created by emiljorgensen on 21/11/2017.
+ */
 
 public class BloodSugarAdapter extends ArrayAdapter<BloodSugar>{
     public BloodSugarAdapter(Context context, ArrayList<BloodSugar> users) {
@@ -36,6 +38,7 @@ public class BloodSugarAdapter extends ArrayAdapter<BloodSugar>{
         TextView date = convertView.findViewById(R.id.Date);
         TextView comment = convertView.findViewById(R.id.Comment);
         TextView bloodSugar = convertView.findViewById(R.id.Bloodsugar_lvl);
+
         date.setText(bs.getTime());
         comment.setText(bs.getComment());
         bloodSugar.setText(String.valueOf(bs.getBloodSugar()));

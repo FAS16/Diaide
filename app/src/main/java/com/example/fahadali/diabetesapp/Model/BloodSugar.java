@@ -2,75 +2,85 @@ package com.example.fahadali.diabetesapp.Model;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
 
 
 public class BloodSugar {
     /**
      * Variables for the Bloodsugar class
      */
-    private double bloodSugar;
-    private String comment;
-    private String time;
+    double bloodSugar;
+    String comment;
+    String timeString;
+    String formatted = new SimpleDateFormat("dd/MM - HH:mm").format(new Date(System.currentTimeMillis()));
 
-    //   Date currentTime = (Date) Calendar.getInstance().getTime();
+ //   Date currentTime = (Date) Calendar.getInstance().getTime();
 
 
     /**
      * Constructor for BloodSugar
-     *
      * @param bloodSugar
      * @param comment
      */
-
     public BloodSugar(double bloodSugar, String comment) {
         this.bloodSugar = bloodSugar;
         this.comment = comment;
-        time = new SimpleDateFormat("dd/MM/yy - HH:mm").format(new Date(System.currentTimeMillis()));
+        timeString = formatted;
+    }
 
+    public BloodSugar(){
 
     }
 
-    public  BloodSugar(){
-
-    }
-
+    /**
+     * Method for getting bloodsugar
+     * @return
+     */
     public double getBloodSugar() {
         return bloodSugar;
     }
 
-    public void setBloodSugar(double bloodSugar) {
-        this.bloodSugar = bloodSugar;
-    }
-
+    /**
+     * Method for getting comment
+     * @return
+     */
     public String getComment() {
-
         return comment;
     }
 
-    public void setComment(String comment) {
+    /**
+     * Method for getting Time
+     * @return
+     */
+    public String getTime() {
+        return timeString;
+    }
 
+
+    /**
+     * Method for setting bloodsugar
+     * @param bloodSugar
+     */
+
+
+    public void setBloodSugar(double bloodSugar) {
+
+        this.bloodSugar = bloodSugar;
+    }
+
+    /**
+     * Method for setting the comment
+     * @param comment
+     */
+    public void setComment(String comment) {
         this.comment = comment;
     }
 
-    public String getTime() {
-
-        return time;
+    /**
+     * Method for setting a timestamp
+     * @param time
+     */
+    public void setTimestamp(String time) {
+        this.timeString = time;
     }
-
-    public void setTime(String time) {
-
-        this.time = time;
-    }
-
-
-    public String toString(){
-
-        return ("["+bloodSugar+", "+time+"]");
-    }
-
-
-
 
 }
