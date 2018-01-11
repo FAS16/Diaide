@@ -311,9 +311,11 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
 
         }
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.navigation_container,new BloodOverviewFragment())
-                .commit();
+
+//
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.navigation_container,new BloodOverviewFragment())
+//                .commit();
 
         System.out.println("User updated - HomeMenuActivity "+ User.getUserInstance());
 

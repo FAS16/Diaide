@@ -50,7 +50,8 @@ public class GraphFragment3 extends Fragment {
         series.setDataPointsRadius(15);
 
         graph.addSeries(series);
-        graph.setTitle("Seneste målinger");
+
+        graph.setTitle("Målinger");
 //        graph.setTitleTextSize(80f);
         // set date label formatter
         graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
@@ -66,6 +67,7 @@ public class GraphFragment3 extends Fragment {
         // as we use dates as labels, the human rounding to nice readable numbers
         // is not necessary
         graph.getGridLabelRenderer().setHumanRounding(false);
+
 
         return view;
     }
