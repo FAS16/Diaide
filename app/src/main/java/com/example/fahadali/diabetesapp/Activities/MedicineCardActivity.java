@@ -3,6 +3,8 @@ package com.example.fahadali.diabetesapp.Activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.fahadali.diabetesapp.R;
+
 public class MedicineCardActivity extends AppCompatActivity {
 
     @Override
