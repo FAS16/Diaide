@@ -5,6 +5,7 @@ package com.example.fahadali.diabetesapp.Model;
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Subject;
 import com.example.fahadali.diabetesapp.Model.Reminders.Reminder;
+import com.example.fahadali.diabetesapp.Other.MedicineCard;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +23,7 @@ public class User implements Subject {
     private ArrayList<BloodSugar> bloodList = new ArrayList<>();
     private ArrayList<Reminder> reminderList = new ArrayList<>();
     private  ArrayList <Observer> observers = new ArrayList<>();
+    private ArrayList <MedicineCard> medicinecardList = new ArrayList<>();
 
     //Empty constructor for google firebase
     private User(){
@@ -35,13 +37,13 @@ public class User implements Subject {
      * @param lastName
      * @param mail
      */
-    private User(String id, String firstName, String lastName, String mail,  ArrayList<BloodSugar> bloodList){
+    private User(String id, String firstName, String lastName, String mail,  ArrayList<BloodSugar> bloodList, ArrayList<MedicineCard> medicinecardList){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = mail;
         this.bloodList = bloodList;
-
+        this.medicinecardList = medicinecardList;
 
     }
 
@@ -61,9 +63,7 @@ public class User implements Subject {
         return bloodList;
     }
 
-    public void setBloodList(ArrayList<BloodSugar> bloodList) {
-        this.bloodList = bloodList;
-    }
+    public void setBloodList(ArrayList<BloodSugar> bloodList) {this.bloodList = bloodList;    }
 
     /**
      * Method for adding bloodsugarnotation
@@ -73,6 +73,14 @@ public class User implements Subject {
 
         bloodList.add(bs);
     }
+
+    public ArrayList<MedicineCard> getMedicinecardList() { return medicinecardList;}
+    public void setMedicinecardList(MedicineCard medicinecardList){this.medicinecardList = medicinecardList;}
+
+    public void addMedicineCard(MedicineCard mc) {
+        medicinecardList.add(mc);
+    }
+
 
     /**
      * Method for getting reminderslist

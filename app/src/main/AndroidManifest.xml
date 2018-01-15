@@ -39,16 +39,9 @@
         <activity
             android:name=".Activities.SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-
-
-        <activity
-            android:name=".Fragments.BloodOverviewFragment"
-             />
-
-
-        <activity android:name=".Activities.MedicineCardActivity"></activity>
-
+        <activity android:name=".Fragments.BloodOverviewFragment" />
+        <activity android:name=".Activities.MedicineCardActivity" />
+        <activity android:name=".Activities.MedicineCardAddActivity"></activity>
     </application>
 
 </manifest>
