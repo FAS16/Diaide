@@ -16,15 +16,17 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:adjustViewBounds="true"/>
+        android:adjustViewBounds="true"
+        android:src="@drawable/final_logo"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:id="@+id/name_TV_drawer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="3dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView

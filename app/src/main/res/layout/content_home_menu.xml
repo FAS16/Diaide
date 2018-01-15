@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.fahadali.diabetesapp.Activities.HomeMenuActivity"
-    tools:showIn="@layout/app_bar_home_menu">
+    tools:showIn="@layout/app_bar_home_menu"
+    android:background="#ECECEC">
 
 
     <android.support.design.widget.BottomNavigationView

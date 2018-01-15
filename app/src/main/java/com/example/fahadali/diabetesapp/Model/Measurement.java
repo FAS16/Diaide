@@ -6,33 +6,35 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class BloodSugar {
+public class Measurement {
     /**
      * Variables for the Bloodsugar class
      */
     private double bloodSugar;
     private String comment;
     private String time;
+    private String tag;
 
     //   Date currentTime = (Date) Calendar.getInstance().getTime();
 
 
     /**
-     * Constructor for BloodSugar
+     * Constructor for Measurement
      *
      * @param bloodSugar
      * @param comment
      */
 
-    public BloodSugar(double bloodSugar, String comment) {
+    public Measurement(double bloodSugar, String comment, String tag) {
         this.bloodSugar = bloodSugar;
         this.comment = comment;
+        this.tag = tag;
         time = new SimpleDateFormat("dd/MM/yy HH:mm").format(new Date(System.currentTimeMillis()));
 
 
     }
 
-    public  BloodSugar(){
+    public Measurement(){
 
     }
 
@@ -64,6 +66,14 @@ public class BloodSugar {
         this.time = time;
     }
 
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 
     public String toString(){
 
