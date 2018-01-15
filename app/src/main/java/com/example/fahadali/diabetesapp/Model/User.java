@@ -7,7 +7,6 @@ import com.example.fahadali.diabetesapp.Model.ObserverPattern.Subject;
 import com.example.fahadali.diabetesapp.Model.Reminders.Reminder;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class User implements Subject {
 
@@ -19,7 +18,7 @@ public class User implements Subject {
     private String firstName;
     private String lastName;
     private String email;
-    private ArrayList<BloodSugar> bloodList = new ArrayList<>();
+    private ArrayList<Measurement> bloodList = new ArrayList<>();
     private ArrayList<Reminder> reminderList = new ArrayList<>();
     private  ArrayList <Observer> observers = new ArrayList<>();
 
@@ -35,7 +34,7 @@ public class User implements Subject {
      * @param lastName
      * @param mail
      */
-    private User(String id, String firstName, String lastName, String mail,  ArrayList<BloodSugar> bloodList){
+    private User(String id, String firstName, String lastName, String mail,  ArrayList<Measurement> bloodList){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -57,11 +56,16 @@ public class User implements Subject {
         return userInstance;
     }
 
-    public ArrayList<BloodSugar> getBloodList() {
+    public ArrayList<Measurement> getBloodList() {
         return bloodList;
     }
 
-    public void setBloodList(ArrayList<BloodSugar> bloodList) {
+    public int getSizeOfList(){
+
+        return bloodList.size();
+    }
+
+    public void setBloodList(ArrayList<Measurement> bloodList) {
         this.bloodList = bloodList;
     }
 
@@ -69,7 +73,7 @@ public class User implements Subject {
      * Method for adding bloodsugarnotation
      * @param bs
      */
-    public void addBloodSugarNotation(BloodSugar bs) {
+    public void addBloodSugarNotation(Measurement bs) {
 
         bloodList.add(bs);
     }
@@ -89,37 +93,6 @@ public class User implements Subject {
     public void setReminderList(ArrayList<Reminder> reminderList) {
         this.reminderList = reminderList;
     }
-//
-//    public ArrayList<String> getSortedDates(){
-//
-//        ArrayList<String> timeStrings = new ArrayList<>();
-//
-//        for (BloodSugar b: bloodList){
-//
-//            timeStrings.add(b.getTime());
-//
-//        }
-//
-//        Collections.sort(timeStrings);
-//
-//        return timeStrings;
-//
-//    }
-
-//    public ArrayList<Double> getSortedBloodSugars(){
-//
-//        ArrayList<Double> bloodSugars = new ArrayList<>();
-//
-//        for (BloodSugar b: bloodList){
-//
-//            bloodSugars.add(b.getBloodSugar());
-//
-//        }
-//
-////        Collections.sort();
-//
-//            return bloodSugars;
-//    }
 
     /**
      * Method for nullifying the User instance
@@ -202,8 +175,6 @@ public class User implements Subject {
         this.email = email;
     }
 
-
-
     /**
      * Method for setting the current user.
      * @param id
@@ -212,7 +183,7 @@ public class User implements Subject {
      * @param email
      * @param bloodList
      */
-    public void setUser(String id, String firstName, String lastName, String email, ArrayList<BloodSugar> bloodList){
+    public void setUser(String id, String firstName, String lastName, String email, ArrayList<Measurement> bloodList){
 
         this.id = id;
         this.firstName = firstName;
@@ -222,12 +193,7 @@ public class User implements Subject {
 
     }
 
-    /**
-     * Method to convert to string
-     * @return
-     */
-    public String toString()
-    {
+    public String toString() {
         return ("ID: "+id + " - NAVN: "+firstName + " - MAIL: "+email+ " - BSLIST: "+ bloodList);
     }
 

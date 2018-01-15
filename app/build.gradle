@@ -28,6 +28,7 @@ android {
 
 
 
+
 dependencies {
 
     implementation 'com.google.firebase:firebase-database:11.6.0'
@@ -44,6 +45,8 @@ dependencies {
     compile 'com.jjoe64:graphview:4.2.1'
     //AndroidMPchart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    compile 'ru.bullyboo.view:circleseekbar:1.0.3'
+    compile 'com.github.JesusM:HoloCircleSeekBar:v2.2.2'
 
     compile 'com.android.support:appcompat-v7:26.+'
 

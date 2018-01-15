@@ -4,25 +4,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.fahadali.diabetesapp.Fragments.BloodOverviewFragment">
+    tools:context="com.example.fahadali.diabetesapp.Fragments.BloodOverviewFragment"
+    tools:layout_editor_absoluteY="81dp">
 
     <ListView
         android:id="@+id/BloodSugar_LV"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:clipToPadding="false"
         android:divider="@color/grey"
         android:dividerHeight="4px"
+        android:paddingBottom="100dp"
+        android:paddingTop="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp"
+        android:text="Kommentar og tidspunkt"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--<TextView-->
+    <!--android:id="@+id/textView14"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginEnd="42dp"-->
+    <!--android:paddingBottom="8dp"-->
+    <!--android:paddingTop="8dp"-->
+    <!--android:text="tag"-->
+    <!--android:textSize="16sp"-->
+    <!--android:textStyle="bold"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/BloodSugar_LV"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/textView15"-->
+    <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+    <TextView
+        android:id="@+id/noMeasurements_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ingen målinger"
+        android:textAllCaps="false"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/BloodSugar_LV"
+        app:layout_constraintEnd_toStartOf="@+id/BloodSugar_LV"
+        app:layout_constraintStart_toEndOf="@+id/BloodSugar_LV"
+        app:layout_constraintTop_toBottomOf="@+id/BloodSugar_LV"
+        app:layout_constraintVertical_bias="0.82" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:text="mmol/l"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/BloodSugar_LV"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addBloodSugar_BTN"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
         android:clickable="true"
         android:src="@drawable/ic_add_white_24dp"
         app:backgroundTint="@color/colorPrimary"

@@ -30,7 +30,8 @@
             android:name=".Activities.HomeMenuActivity"
             android:label="@string/title_activity_home_menu"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.NotationActivity" />
+        <activity android:name=".Activities.NotationActivity"
+            android:windowSoftInputMode="adjustPan"/>
 
         <meta-data
             android:name="preloaded_fonts"
