@@ -24,6 +24,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.example.fahadali.diabetesapp.Other.App;
 import com.example.fahadali.diabetesapp.R;
+import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,6 +34,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -54,7 +57,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ProgressBar pBar;
     private CheckBox checkBox;
     private static final String TAG = "CURRENT USER";
-
+    public DatabaseReference db;
     CallbackManager callbackManager = CallbackManager.Factory.create();
 
     /**
@@ -69,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-
+        db = FirebaseDatabase.getInstance().getReference();
         if(firebaseUser != null){
 
             Intent intent = new Intent(LoginActivity.this, HomeMenuActivity.class);
@@ -92,6 +95,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onSuccess(LoginResult loginResult) {
                     Log.d(TAG, "facebook:onSuccess:" + loginResult);
                     handleFacebookAccessToken(loginResult.getAccessToken());
+
                 }
 
                 @Override
@@ -131,7 +135,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
-
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -141,7 +144,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // Sign in success
                             Log.d(TAG, "signInWithCredential:success");
                             firebaseUser = firebaseAuth.getCurrentUser();
-                                User.getUserInstance().setUser(firebaseUser.getUid(),firebaseUser.getDisplayName(),firebaseUser.getEmail(),null);
+                            String id = Profile.getCurrentProfile().getId();
+                            String firstName = Profile.getCurrentProfile().getFirstName();
+                            String lastName = Profile.getCurrentProfile().getLastName();
+                            String email = firebaseAuth.getCurrentUser().getEmail();
+                            ArrayList <BloodSugar> bloodList = User.getUserInstance().getBloodList();
+
+                            User.getUserInstance().setUser(id, firstName, lastName, email, bloodList);
+
+                            db.child("users").child(firebaseUser.getUid()).setValue(User.getUserInstance());
                                 Intent intent = new Intent(LoginActivity.this, HomeMenuActivity.class);
                                 startActivity(intent);
                                 finish();
