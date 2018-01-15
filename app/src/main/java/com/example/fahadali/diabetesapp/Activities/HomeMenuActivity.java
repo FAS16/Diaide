@@ -25,6 +25,7 @@ import com.example.fahadali.diabetesapp.Fragments.BloodSugarFragment2;
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
 import com.example.fahadali.diabetesapp.Model.User;
 import com.example.fahadali.diabetesapp.Fragments.GraphFragment;
+import com.example.fahadali.diabetesapp.Other.MedicineCard;
 import com.example.fahadali.diabetesapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -224,6 +225,8 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
         if (id == R.id.nav_homeMenu) {
             // Handle the camera action
         } else if (id == R.id.nav_medicin) {
+            Intent i = new Intent (this, MedicineCardActivity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_motivationGroup) {
 
