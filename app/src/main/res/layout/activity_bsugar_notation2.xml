@@ -1,0 +1,260 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/BSnotation"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSecondary"
+    tools:context="com.example.fahadali.diabetesapp.Activities.NotationActivity"
+    tools:layout_editor_absoluteY="81dp"
+    >
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/ic_one"
+        android:drawablePadding="10dp"
+        android:fontFamily="sans-serif"
+        android:padding="5dp"
+        android:text="Din måling"
+        android:textColor="@color/textOnWhite"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="106dp"
+        android:layout_marginStart="105dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/value_bs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="center"
+                android:text="0.0"
+                android:textColor="@color/textOnWhite"
+                android:textSize="60sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="mmol/l"
+                android:textColor="@color/textOnWhite"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+
+        <com.jesusm.holocircleseekbar.lib.HoloCircleSeekBar
+            android:id="@+id/picker"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            app:max="150"
+            app:pointer_color="@color/colorPrimary"
+            app:pointer_halo_color="@color/colorPrimaryDark"
+            app:pointer_size="15dp"
+            app:show_text="false"
+            app:text_color="@color/textOnWhite"
+            app:text_size="65sp"
+            app:wheel_active_color="@color/colorPrimaryDark"
+            app:wheel_unactive_color="@color/grey">
+
+
+        </com.jesusm.holocircleseekbar.lib.HoloCircleSeekBar>
+
+        <!--<ru.bullyboo.view.CircleSeekBar-->
+        <!--android:id="@+id/circleSeekBar"-->
+        <!--android:layout_width="220dp"-->
+        <!--android:layout_height="220dp"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:scrollbarSize="3dp"-->
+        <!--app:backgroundCircleLineColor="@color/grey"-->
+        <!--app:dotColor="@color/colorPrimary"-->
+        <!--app:dotRadius="15dp"-->
+        <!--app:progressCircleLineColor="@color/colorPrimaryDark"-->
+        <!--app:progressCircleLineWidth="5dp"-->
+        <!--app:showCounter="false">-->
+
+
+        <!--</ru.bullyboo.view.CircleSeekBar>-->
+
+
+    </RelativeLayout>
+
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/done_cancel_btns"
+        android:layout_width="384dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="13dp"
+        android:layout_marginStart="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/ic_two"
+        android:drawablePadding="10dp"
+        android:fontFamily="sans-serif"
+        android:padding="5dp"
+        android:text="Yderligere"
+        android:textColor="@color/textOnWhite"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+
+    <TextView
+        android:id="@+id/afterMeal_ICON"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/rounded_corners"
+        android:drawablePadding="3dp"
+        android:drawableTop="@drawable/ic_eaten_apple_center"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="Efter måltid"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/bedtime_ICON"
+        app:layout_constraintStart_toEndOf="@+id/beforeMeal_ICON"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/beforeMeal_ICON"
+        android:layout_width="83dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/rounded_corners"
+        android:clickable="true"
+        android:drawablePadding="3dp"
+        android:drawableTop="@drawable/ic_apple"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="Før måltid"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/afterMeal_ICON"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+
+    <TextView
+        android:id="@+id/bedtime_ICON"
+        android:layout_width="83dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="45dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/rounded_corners"
+        android:drawablePadding="3dp"
+        android:drawableTop="@drawable/ic_bed"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="Sengetid"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/afterMeal_ICON"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/comment_TextInput"
+        android:layout_width="308dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="45dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/text_input_layout"
+        android:defaultFocusHighlightEnabled="false"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:focusedByDefault="false"
+        android:hint="Kommentar"
+        android:padding="10dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="90"
+        app:hintAnimationEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/afterMeal_ICON">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/comment_ET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:lines="2"
+            android:maxLength="90"
+            android:overScrollMode="always"
+            android:scrollbars="vertical" />
+    </android.support.design.widget.TextInputLayout>
+
+
+
+
+    <!--<ImageView-->
+    <!--android:id="@+id/imageView5"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/grey"-->
+    <!--android:padding="10dp"-->
+    <!--app:srcCompat="@drawable/ic_apple"-->
+    <!--tools:layout_editor_absoluteX="171dp"-->
+    <!--tools:layout_editor_absoluteY="340dp" />-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/imageView3"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/grey"-->
+    <!--android:padding="10dp"-->
+    <!--app:srcCompat="@drawable/ic_eaten_apple_center"-->
+    <!--tools:layout_editor_absoluteX="87dp"-->
+    <!--tools:layout_editor_absoluteY="340dp" />-->
+
+
+    <!--<ImageView-->
+    <!--android:id="@+id/imageView2"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/grey"-->
+    <!--android:padding="10dp"-->
+    <!--app:srcCompat="@drawable/ic_bed"-->
+    <!--tools:layout_editor_absoluteX="255dp"-->
+    <!--tools:layout_editor_absoluteY="340dp" />-->
+
+
+</android.support.constraint.ConstraintLayout>

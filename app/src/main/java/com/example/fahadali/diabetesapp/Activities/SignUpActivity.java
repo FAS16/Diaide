@@ -19,7 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.fahadali.diabetesapp.Model.BloodSugar;
+import com.example.fahadali.diabetesapp.Model.Measurement;
 import com.example.fahadali.diabetesapp.Model.User;
 import com.example.fahadali.diabetesapp.Other.App;
 import com.example.fahadali.diabetesapp.R;
@@ -123,7 +123,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String firstName = firstName_ET.getText().toString();
         String lastName = lastName_ET.getText().toString();
         String email = firebaseUser.getEmail();
-        ArrayList <BloodSugar> bloodList = User.getUserInstance().getBloodList();
+        ArrayList <Measurement> bloodList = User.getUserInstance().getBloodList();
 
         User.getUserInstance().setUser(id, firstName, lastName, email, bloodList);
 

@@ -1,10 +1,12 @@
 package com.example.fahadali.diabetesapp.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -18,7 +20,8 @@ import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.fahadali.diabetesapp.Fragments.BloodSugarFragment;
+
+import com.example.fahadali.diabetesapp.Fragments.BloodSugarFragment2;
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
 import com.example.fahadali.diabetesapp.Model.User;
 import com.example.fahadali.diabetesapp.Fragments.GraphFragment;
@@ -38,6 +41,8 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
      * Variables for the HomeMenuActivity
      */
 
+
+    private final String TAG = "BloodSugarFragment2";
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
@@ -59,24 +64,30 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_menu);
+        Log.i(TAG, "Running onCreate in "+TAG);
         setTitle("Blodsukker");
+        User.getUserInstance().registerObserver(this);
 
         //Handling data retrieval from firebase
-
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
         if(firebaseUser!= null){
-
-
         firebaseUser.getUid();
         db_userReference = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid());
         setFirebaseListener();
 
         }
 
-        User.getUserInstance().registerObserver(this);
 
+        if(savedInstanceState == null) {
+
+            Fragment start = new BloodSugarFragment2();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.navigation_container, start)
+                    .commit();
+
+        }
 
         //instantiation of bottom menu
         BottomNavigationView navigation = findViewById(R.id.navigation);
@@ -94,6 +105,7 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //If user is not authenticated
         if(firebaseUser.isAnonymous()) {
             Menu menu = navigationView.getMenu();
             MenuItem settings = menu.findItem(R.id.nav_settings);
@@ -112,6 +124,9 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
         name_TV = navigationView.getHeaderView(0).findViewById(R.id.name_TV_drawer);
         email_TV= navigationView.getHeaderView(0).findViewById(R.id.email_TV_drawer);
 
+
+
+
     }
 
     /**
@@ -122,6 +137,18 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
         super.onDestroy();
         User.getUserInstance().removeObserver(this);
 
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+        Fragment start = new BloodSugarFragment2();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.navigation_container, start)
+                .commit();
     }
 
     /**
@@ -161,6 +188,25 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
             return true;
         }
 
+        else if(id == R.id.action_help){
+            String blood_sugar_info = "Blodsukkeret skal optimalt være: \n\n• Før måltider: mellem 4-7 mmol/l.\n\n• Efter måltider: 10 mmol/l (ca. 1,5 time efter).\n\n• Ved sengetid: omkring 6-8 mmol/l.\n\n\nDet betyder at dit blodsukker må helst ikke på noget tidspunkt af døgnet overskride 10 mmol/l, eller komme under 4 mmol/l.";
+
+            final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("Hvad bør dit blodsukkerniveau være?");
+            alertDialog.setMessage(blood_sugar_info);
+
+            alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    alertDialog.cancel();
+                }
+            });
+
+            alertDialog.show();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -196,9 +242,6 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
             }
 
         } else if (id == R.id.nav_signOut) {
-
-
-
 
             firebaseAuth.signOut();
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -239,17 +282,17 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
 
                 case R.id.navigation_bloodsugar:
                     setTitle("Blodsukker");
-                    fragment = new BloodSugarFragment();
+                    fragment = new BloodSugarFragment2();
                    break;
 
                 case R.id.navigation_reminders:
                     setTitle("Påmindelser");
-                    fragment = new GraphFragment();
+                    fragment = new Fragment();
                     break;
 
                 case R.id.navigation_overview:
                     setTitle("Overblik");
-                    fragment = new GraphFragment();
+                    fragment = new Fragment();
                     break;
             }
 
@@ -270,20 +313,21 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
         db_userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 // Create User object with DataSnapShot
+
                 User u = dataSnapshot.getValue(User.class);
                 System.out.println("SNAPSHOT: "+ u);
-                System.out.println("SINGLETON FØR HENTNING FRA FB: "+ User.getUserInstance());
+                System.out.println("SINGLETON FØR HENTNING FRA FIREBASE: "+ User.getUserInstance());
 
                 if(!firebaseUser.isAnonymous()) {
                     User.getUserInstance().setUser(u.getId(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getBloodList());
+                    User.getUserInstance().notifyAllObservers();
                 }
 
                 else {} //Husk at rette
 
                 System.out.println("SINGLETON EFTER HENTNING FRA FB: "+ User.getUserInstance());
-                User.getUserInstance().notifyAllObservers();
+
                 pBar.setVisibility(View.GONE);
 
             }
@@ -292,13 +336,11 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
             public void onCancelled(DatabaseError databaseError) {
 
 
+
             }
         });
 
     }
-
-
-
 
     @Override
     public void update() {
@@ -309,14 +351,7 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
             email_TV.setText(User.getUserInstance().getEmail());
 
         }
-
-
-//
-//        getSupportFragmentManager().beginTransaction()
-//                .replace(R.id.navigation_container,new BloodOverviewFragment())
-//                .commit();
-
-        System.out.println("User updated - HomeMenuActivity "+ User.getUserInstance());
+        System.out.println("User updated  - HomeMenuActivity "+ User.getUserInstance());
 
     }
 

@@ -25,6 +25,8 @@ public class App extends Application {
         super.onCreate();
         System.out.println("Running onCreate -  Application App");
 
+//        FirebaseAuth.getInstance().signOut();
+
         //Firebase - enbale disk persistence - caching locally
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         
@@ -33,8 +35,6 @@ public class App extends Application {
 
         appInstance = this;
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-
 
     }
 

@@ -17,7 +17,7 @@
         android:layout_marginStart="55dp"
         android:layout_weight="1"
         android:backgroundTint="@color/grey"
-        android:text="ANNULLER"
+        android:text="CANCEL"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

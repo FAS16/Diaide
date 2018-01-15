@@ -5,34 +5,54 @@
   >
 
     <TextView
-        android:id="@+id/Date"
+        android:id="@+id/comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="13dp"
-        android:text="Date"
-        android:textSize="28dp"
-        android:textStyle="bold" />
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/roboto"
+        android:text="Comment"
+        android:textColor="@color/textOnWhite"
+        android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/Comment"
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/Bloodsugar_lvl"
-        android:layout_alignStart="@+id/Date"
-        android:text="Comment"
-        android:textSize="22sp" />
+        android:layout_alignStart="@+id/comment"
+        android:layout_marginBottom="5dp"
+        android:text="Date"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/Bloodsugar_lvl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/Date"
+        android:layout_alignTop="@+id/comment"
         android:layout_marginEnd="18dp"
+        android:fontFamily="@font/roboto_light"
         android:text="10.0"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black"
         android:textSize="45sp" />
+
+
+    <ImageView
+        android:id="@+id/measurement_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/date"
+        android:layout_marginStart="18dp"
+
+        android:layout_toEndOf="@+id/date"
+        android:src="@drawable/ic_apple_black" />
+
+
+
+
+
+
 </RelativeLayout>
