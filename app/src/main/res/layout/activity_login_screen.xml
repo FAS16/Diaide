@@ -59,31 +59,28 @@
         <!---->
 
 
-
-    <Button
+    <com.facebook.login.widget.LoginButton
         android:id="@+id/loginFB_BTN"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginEnd="57dp"
-        android:layout_marginStart="57dp"
-        android:backgroundTint="#3b5998"
-        android:drawableLeft="@mipmap/fb_logo"
-        android:text="Log ind med facebook"
-        android:textColor="@color/colorSecondary"
-        android:textSize="16sp"
+        android:layout_width="255dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Test"
         app:layout_constraintBottom_toTopOf="@+id/createUser_BTN"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="0.863"
+        />
 
     <Button
         android:id="@+id/login_BTN"
         android:layout_width="270dp"
-        android:layout_height="wrap_content"
+        android:layout_height="41dp"
         android:layout_marginEnd="57dp"
         android:layout_marginStart="57dp"
         android:text="Log ind"
@@ -120,10 +117,10 @@
         android:fontFamily="sans-serif"
         android:text="eller"
         android:textColor="@color/colorSecondary"
-        app:layout_constraintBottom_toTopOf="@+id/loginFB_BTN"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="481dp" />
 
     <TextView
         android:id="@+id/notNow_TV"
@@ -171,8 +168,8 @@
     <Button
         android:id="@+id/createUser_BTN"
         android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="23dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="@color/red"
         android:drawableLeft="@drawable/ic_account_circle_white_24dp"
         android:text="Opret bruger"
@@ -180,7 +177,7 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/notNow_TV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

@@ -223,6 +223,23 @@ public class User implements Subject {
     }
 
     /**
+     * Method for setting the current user.
+     * @param id
+     * @param name
+     * @param email
+     * @param bloodList
+     */
+    public void setUser(String id, String name, String email, ArrayList<BloodSugar> bloodList){
+
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.bloodList = bloodList;
+
+    }
+
+    /**
      * Method to convert to string
      * @return
      */

@@ -14,14 +14,27 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.fahadali.diabetesapp.Model.BloodSugar;
+import com.example.fahadali.diabetesapp.Model.User;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.example.fahadali.diabetesapp.Other.App;
 import com.example.fahadali.diabetesapp.R;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
@@ -35,11 +48,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private EditText email_ET, password_ET;
-    private Button login_BTN, loginFB_BTN, createUser_BTN;
+    private Button login_BTN, createUser_BTN;
+    private LoginButton loginFB_BTN;
     private TextView notNow_TV ;
     private ProgressBar pBar;
     private CheckBox checkBox;
     private static final String TAG = "CURRENT USER";
+
+    CallbackManager callbackManager = CallbackManager.Factory.create();
 
     /**
      * Oncreate method, to tell the program what to do on create.
@@ -48,6 +64,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login_screen);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -66,7 +83,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             email_ET = findViewById(R.id.userName_ET);
             password_ET = findViewById(R.id.password_ET);
             login_BTN = findViewById(R.id.login_BTN);
+
+            //Facebook LogIn
             loginFB_BTN = findViewById(R.id.loginFB_BTN);
+            loginFB_BTN.setReadPermissions("email", "public_profile");
+            loginFB_BTN.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                    handleFacebookAccessToken(loginResult.getAccessToken());
+                }
+
+                @Override
+                public void onCancel() {
+                    Log.d(TAG, "facebook:onCancel");
+                }
+
+                @Override
+                public void onError(FacebookException error) {
+                    Log.d(TAG, "facebook:onError", error);
+                }
+            });
+
+
             createUser_BTN = findViewById(R.id.createUser_BTN);
             notNow_TV = findViewById(R.id.notNow_TV);
             pBar = findViewById(R.id.loginProgressBar);
@@ -83,6 +122,57 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             displaySavedLoginCred();
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        Log.d(TAG, "handleFacebookAccessToken:" + token);
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success
+                            Log.d(TAG, "signInWithCredential:success");
+                            firebaseUser = firebaseAuth.getCurrentUser();
+                                User.getUserInstance().setUser(firebaseUser.getUid(),firebaseUser.getDisplayName(),firebaseUser.getEmail(),null);
+                                Intent intent = new Intent(LoginActivity.this, HomeMenuActivity.class);
+                                startActivity(intent);
+                                finish();
+
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        // ...
+                    }
+                });
+    }
+
+
+//    private void createNewUser(){
+//
+//        String id = firebaseUser.getUid();
+//        String firstName = firstName_ET.getText().toString();
+//        String lastName = lastName_ET.getText().toString();
+//        String email = firebaseUser.getEmail();
+//        ArrayList<BloodSugar> bloodList = User.getUserInstance().getBloodList();
+//
+//        User.getUserInstance().setUser(id, firstName, lastName, email, bloodList);
+//
+//        db.child("users").child(firebaseUser.getUid()).setValue(User.getUserInstance());
+//    }
+
 
     /**
      * Resume method, for when the acitivity gets resumed
@@ -104,12 +194,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             signIn(email_ET.getText().toString().trim(), password_ET.getText().toString());
             setSavedLoginCred();
-
-        }
-
-        else if(v == loginFB_BTN){
-
-
 
         }
 
@@ -149,10 +233,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 if (task.isSuccessful()) {
                                     //User is now signed in
                                     firebaseUser = firebaseAuth.getCurrentUser();
+//                                    Log.i(TAG, "USER (AFTER SIGN IN): " + firebaseUser.getEmail());
                                     Intent intent = new Intent(LoginActivity.this, HomeMenuActivity.class);
                                     startActivity(intent);
                                     finish();
-                                    Log.i(TAG, "USER (AFTER SIGN IN): " + firebaseUser.getEmail());
 
                                 } else if (!task.isSuccessful()) {
 
@@ -280,7 +364,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
     }
-
 
 
     @Override
