@@ -42,9 +42,13 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
 
+
         <activity
             android:name=".Fragments.BloodOverviewFragment"
              />
+
+
+        <activity android:name=".Activities.MedicineCardActivity"></activity>
 
     </application>
 

@@ -29,11 +29,6 @@ android {
 
 
 
-
-
-
-
-
 dependencies {
 
     implementation 'com.google.firebase:firebase-database:11.6.0'
