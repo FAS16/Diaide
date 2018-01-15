@@ -36,7 +36,7 @@ public class User implements Subject {
      * @param lastName
      * @param mail
      */
-    private User(String id, String firstName, String lastName, String mail,  ArrayList<BloodSugar> bloodList, ArrayList<MedicineCard> medicinecardList){
+    private User(String id, String firstName, String lastName, String mail,  ArrayList<Measurement> bloodList, ArrayList<MedicineCard> medicinecardList){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -194,13 +194,14 @@ public class User implements Subject {
      * @param email
      * @param bloodList
      */
-    public void setUser(String id, String firstName, String lastName, String email, ArrayList<Measurement> bloodList){
+    public void setUser(String id, String firstName, String lastName, String email, ArrayList<Measurement> bloodList, ArrayList<MedicineCard> medicinecardList){
 
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.bloodList = bloodList;
+        this.medicinecardList = medicinecardList;
 
     }
 

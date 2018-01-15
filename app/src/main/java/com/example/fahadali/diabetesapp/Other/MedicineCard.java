@@ -22,9 +22,40 @@ public class MedicineCard extends ArrayList<MedicineCard> {
         this.other = other;;
         }
 
-    @Override
-    public Stream<MedicineCard> stream() {
-        return null;
+        public MedicineCard(){
+
+        }
+    public String getMedicineName() {
+        return MedicineName;
     }
+
+    public void setMedicineName(String medicineName) {
+        MedicineName = medicineName;
+    }
+
+    public String getMedicineEffect() {
+        return MedicineEffect;
+    }
+
+    public void setMedicineEffect(String medicineEffect) {
+        MedicineEffect = medicineEffect;
+    }
+
+    public String getMedicineSideEffect() {
+        return MedicineSideEffect;
+    }
+
+    public void setMedicineSideEffect(String medicineSideEffect) {
+        MedicineSideEffect = medicineSideEffect;
+    }
+
+    public String getOther() {
+        return other;
+    }
+
+    public void setOther(String other) {
+        this.other = other;
+    }
+
 }
 

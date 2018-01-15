@@ -51,12 +51,9 @@ public class MedicineCardAddActivity extends AppCompatActivity implements View.O
     @Override
     public void onClick(View v) {
         User.getUserInstance().addMedicineCard(new MedicineCard(medicineName_ET.getText().toString(), medicineEffect_ET.getText().toString(), medicineSideEffect_ET.getText().toString(), other_ET.getText().toString()));
-        System.out.println(fireBaseUser.getUid());
-        System.out.println("test");
-        System.out.println(User.getUserInstance().getMedicinecardList().get(0).MedicineEffect);
-        ref.child("users").child(fireBaseUser.getUid()).child("medicineCardList").setValue(User.getUserInstance().getMedicinecardList());
         finish();
-
     }
 
+
 }
+

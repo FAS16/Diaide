@@ -323,7 +323,7 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
                 System.out.println("SINGLETON FØR HENTNING FRA FIREBASE: "+ User.getUserInstance());
 
                 if(!firebaseUser.isAnonymous()) {
-                    User.getUserInstance().setUser(u.getId(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getBloodList());
+                    User.getUserInstance().setUser(u.getId(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getBloodList(), u.getMedicinecardList());
                     User.getUserInstance().notifyAllObservers();
                 }
 

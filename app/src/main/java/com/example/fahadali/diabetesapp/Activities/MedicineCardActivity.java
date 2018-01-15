@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.fahadali.diabetesapp.Adapters.MedicineCardAdapter;
+import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
 import com.example.fahadali.diabetesapp.Model.User;
 import com.example.fahadali.diabetesapp.Other.MedicineCard;
 import com.example.fahadali.diabetesapp.R;
@@ -18,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-public class MedicineCardActivity extends AppCompatActivity implements View.OnClickListener{
+public class MedicineCardActivity extends AppCompatActivity implements View.OnClickListener, Observer {
     private RecyclerView rv;
     private FloatingActionButton medicineCardAdd;
     private FirebaseDatabase db;
@@ -30,6 +31,7 @@ public class MedicineCardActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicine_card);
+        User.getUserInstance().registerObserver(this);
         setTitle("Medicin Kort");
         db = FirebaseDatabase.getInstance();
         fireBaseAuth = FirebaseAuth.getInstance();
@@ -48,6 +50,13 @@ public class MedicineCardActivity extends AppCompatActivity implements View.OnCl
 
         medicineCardAdd.setOnClickListener(this);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        User.getUserInstance().removeObserver(this);
+    }
+
     private void initializeData(){
         User.getUserInstance().addMedicineCard(new MedicineCard("Hexaglucon", "Virkningen indtræder i løbet af 1/2 - 1 time og varer 8-12 timer","Almindelige bivirkninger: Vægtøgning, Lavt blodsukker", "Her skrives andet"));
         User.getUserInstance().addMedicineCard(new MedicineCard("Gliclatim", "Virkningen varer ca. 24 timer","Almindelige bivirkninger: Lavt blodsukker", "Her skrives andet"));
@@ -67,7 +76,14 @@ public class MedicineCardActivity extends AppCompatActivity implements View.OnCl
     public void onResume() {
         super.onResume();
         System.out.println("testen");
+        update();
+    }
+
+    @Override
+    public void update() {
+
         ref.child("users").child(fireBaseUser.getUid()).child("medicineCardList").setValue(User.getUserInstance().getMedicinecardList());
         initializeAdapter();
+
     }
 }
