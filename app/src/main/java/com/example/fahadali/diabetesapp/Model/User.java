@@ -5,7 +5,6 @@ package com.example.fahadali.diabetesapp.Model;
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Subject;
 import com.example.fahadali.diabetesapp.Model.Reminders.Reminder;
-import com.example.fahadali.diabetesapp.Other.MedicineCard;
 
 import java.util.ArrayList;
 
@@ -36,7 +35,7 @@ public class User implements Subject {
      * @param lastName
      * @param mail
      */
-    private User(String id, String firstName, String lastName, String mail,  ArrayList<BloodSugar> bloodList, ArrayList<MedicineCard> medicinecardList){
+    private User(String id, String firstName, String lastName, String mail,  ArrayList<Measurement> bloodList, ArrayList<MedicineCard> medicinecardList){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -81,8 +80,10 @@ public class User implements Subject {
         bloodList.add(bs);
     }
 
-    public ArrayList<MedicineCard> getMedicinecardList() { return medicinecardList;}
-    public void setMedicinecardList(MedicineCard medicinecardList){this.medicinecardList = medicinecardList;}
+    public ArrayList<MedicineCard> getMedicinecardList() {
+        return medicinecardList;
+    }
+    public void setMedicinecardList(ArrayList<MedicineCard> medicinecardList){this.medicinecardList = medicinecardList;}
 
     public void addMedicineCard(MedicineCard mc) {
         medicinecardList.add(mc);
@@ -194,18 +195,19 @@ public class User implements Subject {
      * @param email
      * @param bloodList
      */
-    public void setUser(String id, String firstName, String lastName, String email, ArrayList<Measurement> bloodList){
+    public void setUser(String id, String firstName, String lastName, String email, ArrayList<Measurement> bloodList, ArrayList <MedicineCard> medicinecardList){
 
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.bloodList = bloodList;
+        this.medicinecardList = medicinecardList;
 
     }
 
     public String toString() {
-        return ("ID: "+id + " - NAVN: "+firstName + " - MAIL: "+email+ " - BSLIST: "+ bloodList);
+        return ("ID: "+id + " - NAVN: "+firstName + " - MAIL: "+email+ " - BSLIST: "+ bloodList+ "- MCLIST: " +medicinecardList);
     }
 
 

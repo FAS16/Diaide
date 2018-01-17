@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.fahadali.diabetesapp.Model.Measurement;
 import com.example.fahadali.diabetesapp.Model.User;
 import com.example.fahadali.diabetesapp.Other.App;
+import com.example.fahadali.diabetesapp.Model.MedicineCard;
 import com.example.fahadali.diabetesapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -124,8 +125,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String lastName = lastName_ET.getText().toString();
         String email = firebaseUser.getEmail();
         ArrayList <Measurement> bloodList = User.getUserInstance().getBloodList();
+        ArrayList <MedicineCard> medicineCardsList = User.getUserInstance().getMedicinecardList();
 
-        User.getUserInstance().setUser(id, firstName, lastName, email, bloodList);
+        User.getUserInstance().setUser(id, firstName, lastName, email, bloodList, medicineCardsList);
 
         db.child("users").child(firebaseUser.getUid()).setValue(User.getUserInstance());
     }

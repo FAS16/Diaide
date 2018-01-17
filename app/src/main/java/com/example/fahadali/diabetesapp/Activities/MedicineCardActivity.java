@@ -9,8 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.fahadali.diabetesapp.Adapters.MedicineCardAdapter;
+import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
 import com.example.fahadali.diabetesapp.Model.User;
-import com.example.fahadali.diabetesapp.Other.MedicineCard;
+import com.example.fahadali.diabetesapp.Model.MedicineCard;
 import com.example.fahadali.diabetesapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-public class MedicineCardActivity extends AppCompatActivity implements View.OnClickListener{
+public class MedicineCardActivity extends AppCompatActivity implements View.OnClickListener, Observer {
     private RecyclerView rv;
     private FloatingActionButton medicineCardAdd;
     private FirebaseDatabase db;
@@ -40,7 +41,7 @@ public class MedicineCardActivity extends AppCompatActivity implements View.OnCl
         rv.setLayoutManager(llm);
         rv.setHasFixedSize(true);
         medicineCardAdd = findViewById(R.id.medicincardAdd);
-
+        User.getUserInstance().registerObserver(this);
 
 
         initializeData();
@@ -49,10 +50,12 @@ public class MedicineCardActivity extends AppCompatActivity implements View.OnCl
         medicineCardAdd.setOnClickListener(this);
     }
     private void initializeData(){
-        User.getUserInstance().addMedicineCard(new MedicineCard("Hexaglucon", "Virkningen indtræder i løbet af 1/2 - 1 time og varer 8-12 timer","Almindelige bivirkninger: Vægtøgning, Lavt blodsukker", "Her skrives andet"));
-        User.getUserInstance().addMedicineCard(new MedicineCard("Gliclatim", "Virkningen varer ca. 24 timer","Almindelige bivirkninger: Lavt blodsukker", "Her skrives andet"));
-        User.getUserInstance().addMedicineCard(new MedicineCard("Minodiab", "Virkningen indtræder i løbet af 1/2 time og varer 4-6 timer","Almindelige bivirkninger: Diarré, Kvalme, Mavesmerter, Lavt blodsukker", "Her skrives andet"));
-    }
+        if(User.getUserInstance().getMedicinecardList().size() < 3) {
+            User.getUserInstance().addMedicineCard(new MedicineCard("Hexaglucon", "Virkningen indtræder i løbet af 1/2 - 1 time og varer 8-12 timer", "Almindelige bivirkninger: Vægtøgning, Lavt blodsukker", "Her skrives andet"));
+            User.getUserInstance().addMedicineCard(new MedicineCard("Gliclatim", "Virkningen varer ca. 24 timer", "Almindelige bivirkninger: Lavt blodsukker", "Her skrives andet"));
+            User.getUserInstance().addMedicineCard(new MedicineCard("Minodiab", "Virkningen indtræder i løbet af 1/2 time og varer 4-6 timer", "Almindelige bivirkninger: Diarré, Kvalme, Mavesmerter, Lavt blodsukker", "Her skrives andet"));
+        }
+        }
     private void initializeAdapter(){
         MedicineCardAdapter adapter = new MedicineCardAdapter(User.getUserInstance().getMedicinecardList());
         rv.setAdapter(adapter);
@@ -66,8 +69,18 @@ public class MedicineCardActivity extends AppCompatActivity implements View.OnCl
     }
     public void onResume() {
         super.onResume();
-        System.out.println("testen");
-        ref.child("users").child(fireBaseUser.getUid()).child("medicineCardList").setValue(User.getUserInstance().getMedicinecardList());
+        update();
+    }
+
+    public void update(){
+        ref.child("users").child(fireBaseUser.getUid()).child("medicinecardList").setValue(User.getUserInstance().getMedicinecardList());
         initializeAdapter();
     }
+    @Override
+    public void onDestroy() {
+
+        super.onDestroy();
+        User.getUserInstance().removeObserver(this);
+    }
+
 }
