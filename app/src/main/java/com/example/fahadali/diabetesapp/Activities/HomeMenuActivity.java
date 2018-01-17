@@ -25,7 +25,7 @@ import com.example.fahadali.diabetesapp.Fragments.BloodSugarFragment2;
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
 import com.example.fahadali.diabetesapp.Model.User;
 import com.example.fahadali.diabetesapp.Fragments.GraphFragment;
-import com.example.fahadali.diabetesapp.Other.MedicineCard;
+
 import com.example.fahadali.diabetesapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -45,9 +45,9 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
 
     private final String TAG = "BloodSugarFragment2";
 
-    private FirebaseAuth firebaseAuth;
-    private FirebaseUser firebaseUser;
-    private DatabaseReference db_userReference;
+    protected FirebaseAuth firebaseAuth;
+    protected FirebaseUser firebaseUser;
+    protected DatabaseReference db_userReference;
 
     //Objects in current activity
     private ProgressBar pBar;

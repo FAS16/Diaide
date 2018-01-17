@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:windowSoftInputMode="adjustPan"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context="com.example.fahadali.diabetesapp.Activities.MedicineCardAddActivity">
 
     <include
@@ -11,11 +14,11 @@
         layout="@layout/done_cancel_btns"
         android:layout_width="384dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginStart="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/createMedicin_TXT"
         android:layout_width="wrap_content"
@@ -29,96 +32,157 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/medicinName_ET"
+    <TextView
+        android:id="@+id/medicinName_TXT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:ems="10"
-        android:inputType="textPersonName"
+        android:layout_marginTop="12dp"
+        android:text="Medicin navn:"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createMedicin_TXT" />
 
     <EditText
-        android:id="@+id/medicinEffect_ET"
+        android:id="@+id/medicinName_ET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/medicinName_ET" />
-
-    <EditText
-        android:id="@+id/medicinSideEffect_ET"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/medicinEffect_ET" />
-
-    <EditText
-        android:id="@+id/other_ET"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/medicinSideEffect_ET" />
-
-    <TextView
-        android:id="@+id/medicinName_TXT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="18dp"
-        android:text="Medicin navn:"
-        app:layout_constraintBottom_toTopOf="@+id/medicinName_ET"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/medicinName_TXT" />
 
     <TextView
         android:id="@+id/medicineEffect_TXT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="18dp"
+        android:layout_marginTop="12dp"
         android:text="Medicin virkning:"
-        app:layout_constraintBottom_toTopOf="@+id/medicinEffect_ET"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/medicinName_ET" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/createMedicinEffect_ET"
+        android:layout_width="308dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="45dp"
+        android:layout_marginStart="46dp"
+        android:background="@drawable/text_input_layout"
+        android:defaultFocusHighlightEnabled="false"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:focusedByDefault="false"
+        android:hint="Kommentar"
+        android:padding="10dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="90"
+        app:hintAnimationEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/medicineEffect_TXT">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/commentNameEffect_ET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:lines="2"
+            android:maxLength="90"
+            android:overScrollMode="always"
+            android:scrollbars="vertical" />
+    </android.support.design.widget.TextInputLayout>
+    />
 
     <TextView
         android:id="@+id/medicineSideEffect_TXT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="18dp"
+        android:layout_marginTop="12dp"
         android:text="Medicin bivirknig:"
-        app:layout_constraintBottom_toTopOf="@+id/medicinSideEffect_ET"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createMedicinEffect_ET" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/createMedicinSideEffect_ET"
+        android:layout_width="308dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="45dp"
+        android:layout_marginStart="46dp"
+        android:background="@drawable/text_input_layout"
+        android:defaultFocusHighlightEnabled="false"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:focusedByDefault="false"
+        android:hint="Kommentar"
+        android:padding="10dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="90"
+        app:hintAnimationEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/medicineSideEffect_TXT">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/commentNameSideEffect_ET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:lines="2"
+            android:maxLength="90"
+            android:overScrollMode="always"
+            android:scrollbars="vertical" />
+    </android.support.design.widget.TextInputLayout>
+    />
 
     <TextView
         android:id="@+id/other_TXT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="18dp"
+        android:layout_marginTop="12dp"
         android:text="Andet:"
-        app:layout_constraintBottom_toTopOf="@+id/other_ET"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createMedicinSideEffect_ET" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/createOther_ET"
+        android:layout_width="308dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="45dp"
+        android:layout_marginStart="46dp"
+        android:background="@drawable/text_input_layout"
+        android:defaultFocusHighlightEnabled="false"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:focusedByDefault="false"
+        android:hint="Kommentar"
+        android:padding="10dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="90"
+        app:hintAnimationEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.416"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/other_TXT">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/commentNameOther_ET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:lines="2"
+            android:maxLength="90"
+            android:overScrollMode="always"
+            android:scrollbars="vertical" />
+    </android.support.design.widget.TextInputLayout>
+    />
+
 
 </android.support.constraint.ConstraintLayout>

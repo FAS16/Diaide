@@ -1,27 +1,27 @@
 package com.example.fahadali.diabetesapp.Adapters;
 
-import android.content.Intent;
-import android.net.Uri;
+
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+
 import android.widget.TextView;
 
+
 import com.example.fahadali.diabetesapp.Model.User;
-import com.example.fahadali.diabetesapp.Other.MedicineCard;
+import com.example.fahadali.diabetesapp.Model.MedicineCard;
 import com.example.fahadali.diabetesapp.R;
-import java.util.List;
+
+import java.util.ArrayList;
+
 
 /**
  * Created by aleks on 11-01-2018.
  */
 
 public class MedicineCardAdapter extends RecyclerView.Adapter<MedicineCardAdapter.CardHolder> {
-
    public static class CardHolder extends RecyclerView.ViewHolder{
         CardView cv;
         TextView medicineName_ET;
@@ -39,11 +39,11 @@ public class MedicineCardAdapter extends RecyclerView.Adapter<MedicineCardAdapte
 
         }
    }
-    public List<MedicineCard> medicinecards;
-    public MedicineCardAdapter(List<MedicineCard> medicinecards) {
-        this.medicinecards = medicinecards;
+    public ArrayList<MedicineCard> medicinecards;
+    public MedicineCardAdapter(ArrayList<MedicineCard> medicinecards) {
+        this.medicinecards  = medicinecards;
     }
-       
+
 
     @Override
     public CardHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -54,10 +54,11 @@ public class MedicineCardAdapter extends RecyclerView.Adapter<MedicineCardAdapte
 
     @Override
     public void onBindViewHolder(CardHolder holder, final int i) {
-        holder.medicineName_ET.setText(medicinecards.get(i).MedicineName);
-        holder.medicineEffect_ET.setText("Virkning: " + medicinecards.get(i).MedicineEffect);
-        holder.medicineSideEffect_ET.setText("Bivirkninger: " + medicinecards.get(i).MedicineSideEffect);
-        holder.other_ET.setText("Andet: " + medicinecards.get(i).other);
+        User.getUserInstance();
+        holder.medicineName_ET.setText(User.getUserInstance().getMedicinecardList().get(i).getMedicineName());
+        holder.medicineEffect_ET.setText("Virkning: " + User.getUserInstance().getMedicinecardList().get(i).getMedicineEffect());
+        holder.medicineSideEffect_ET.setText("Bivirkninger: " + User.getUserInstance().getMedicinecardList().get(i).getMedicineSideEffect());
+        holder.other_ET.setText("Andet: " + User.getUserInstance().getMedicinecardList().get(i).getOther());
     }
 
     @Override

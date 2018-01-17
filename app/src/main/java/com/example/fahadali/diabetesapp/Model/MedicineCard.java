@@ -1,4 +1,4 @@
-package com.example.fahadali.diabetesapp.Other;
+package com.example.fahadali.diabetesapp.Model;
 
 import android.widget.Button;
 
@@ -9,28 +9,30 @@ import java.util.stream.Stream;
  * Created by aleks on 11-01-2018.
  */
 
-public class MedicineCard extends ArrayList<MedicineCard> {
-    public String MedicineName;
-    public String MedicineEffect;
-    public String MedicineSideEffect;
-    public String other;
+public class MedicineCard {
+
+    private String MedicineName;
+    private String MedicineEffect;
+    private String MedicineSideEffect;
+    private String other;
 
     public MedicineCard(String medicineName, String medicineEffect, String medicineSideEffect, String other){
         this.MedicineName = medicineName;
         this.MedicineEffect = medicineEffect;
         this.MedicineSideEffect = medicineSideEffect;
         this.other = other;;
-        }
+    }
 
-        public MedicineCard(){
+    public MedicineCard(){
 
-        }
+    }
+
     public String getMedicineName() {
         return MedicineName;
     }
 
     public void setMedicineName(String medicineName) {
-        MedicineName = medicineName;
+        this.MedicineName = medicineName;
     }
 
     public String getMedicineEffect() {
@@ -38,7 +40,7 @@ public class MedicineCard extends ArrayList<MedicineCard> {
     }
 
     public void setMedicineEffect(String medicineEffect) {
-        MedicineEffect = medicineEffect;
+        this.MedicineEffect = medicineEffect;
     }
 
     public String getMedicineSideEffect() {
@@ -46,7 +48,7 @@ public class MedicineCard extends ArrayList<MedicineCard> {
     }
 
     public void setMedicineSideEffect(String medicineSideEffect) {
-        MedicineSideEffect = medicineSideEffect;
+        this.MedicineSideEffect = medicineSideEffect;
     }
 
     public String getOther() {
@@ -57,5 +59,9 @@ public class MedicineCard extends ArrayList<MedicineCard> {
         this.other = other;
     }
 
+    @Override
+    public String toString() {
+        return  "["+MedicineName + ", " + MedicineEffect + ", " + MedicineSideEffect + ", " + other + "]" ;
+    }
 }
 
