@@ -34,4 +34,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="facebook_app_id">153441715265775</string>
+    <string name="fb_login_protocol_scheme">fb153441715265775</string>
+
 </resources>

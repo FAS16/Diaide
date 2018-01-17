@@ -15,16 +15,24 @@
       },
       "oauth_client": [
         {
-          "client_id": "534584243365-f59c41hq6tapi9fo1fdc5f7ofjf8t8to.apps.googleusercontent.com",
+          "client_id": "534584243365-770ciugj0bv4fr1o6drd64ik2akq4q54.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.fahadali.diabetesapp",
-            "certificate_hash": "92ac5a6a61ff50d67c3e628b4462cece29f53e8e"
+            "certificate_hash": "3df6bc8b9bf446c58fd9249b5f671fb7a59404b8"
           }
         },
         {
           "client_id": "534584243365-9tfjum683vodlju3mat4ee8frsh630qr.apps.googleusercontent.com",
           "client_type": 3
+        },
+        {
+          "client_id": "534584243365-1npcpa69fb4fcp2bqr0rkndbdstj1nbn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fahadali.diabetesapp",
+            "certificate_hash": "92ac5a6a61ff50d67c3e628b4462cece29f53e8e"
+          }
         }
       ],
       "api_key": [
