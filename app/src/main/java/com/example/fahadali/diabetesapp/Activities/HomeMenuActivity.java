@@ -64,7 +64,7 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
         Log.i(TAG, "Running onCreate in "+TAG);
         setTitle("Blodsukker");
         User.getUserInstance().registerObserver(this);
-//        pBar.setVisibility(View.INVISIBLE);
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -88,6 +88,7 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
 
 
         pBar = findViewById(R.id.homeProgressBar);
+        pBar.setVisibility(View.INVISIBLE);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -118,10 +119,6 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
                 signOut.setEnabled(false);
 
             }
-
-
-
-
 
     }
 

@@ -50,6 +50,11 @@ public class BloodSugarFragment extends Fragment implements View.OnClickListener
     private ArrayList<XYvalue> xYvalues;
     private boolean showMeasurementsOfToday;
 
+
+
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_blood_sugar_2, container, false);
@@ -65,11 +70,18 @@ public class BloodSugarFragment extends Fragment implements View.OnClickListener
         if (App.isPortraitMode(getActivity())) go_BTN.setOnClickListener(this);
         filterSpinner.setAdapter(filterAdapter);
         filterSpinner.setOnItemSelectedListener(this);
+
+//        if(savedInstanceState == null){
+
         xYvalues = new ArrayList<>();
-
-
         updateUI();
 
+//        }
+
+//        else {
+//
+//            filterSpinner.setSelection(savedInstanceState.getInt("itemSelected"));
+//        }
 
         return view;
     }
@@ -95,27 +107,14 @@ public class BloodSugarFragment extends Fragment implements View.OnClickListener
     }
 
 
-    public void graphView(){
-        ;
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
-        graph.addSeries(series);
-    }
-
-
     public void initGraph(){
         graph = view.findViewById(R.id.graph);
-//        graph.removeAllSeries();
+        graph.removeAllSeries();
 
         series = new LineGraphSeries<>();
 
-//        if(showMeasurementsOfToday) initXyValuesOfToday();
-//        else initAllXyValues();
+        if(showMeasurementsOfToday) initXyValuesOfToday();
+        else initAllXyValues();
 
         if(xYvalues.size() != 0){
 
@@ -183,7 +182,7 @@ public class BloodSugarFragment extends Fragment implements View.OnClickListener
 
             if(subject.equals(today)){
 
-                Log.d(TAG, "Subject: "+subject +" -  Today: "+today);
+                Log.d(TAG, "Subject: "+subject +" - Today: "+today);
 
                 xYvalues.add(new XYvalue(parseDate(m.getTime()), m.getBloodSugar()));
             }
@@ -271,6 +270,7 @@ public class BloodSugarFragment extends Fragment implements View.OnClickListener
         }
         else initAllXyValues();
 
+
         initGraph();
 
         if (!User.getUserInstance().getMeasurements().isEmpty()) {
@@ -302,7 +302,6 @@ public class BloodSugarFragment extends Fragment implements View.OnClickListener
 
     }
 
-
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -313,12 +312,12 @@ public class BloodSugarFragment extends Fragment implements View.OnClickListener
 
         Log.i(TAG, "Observer update running");
 
-//        if (User.getUserInstance().getMeasurements().size() != 0) {
-//            highestBloodSugar.setText("" + series.getHighestValueY());
-//            lowestBloodSugar.setText("" + series.getLowestValueY());
-//            int size = User.getUserInstance().getSizeOfList();
-//            latestBloodSugar.setText("" + User.getUserInstance().getMeasurements().get(size - 1).getBloodSugar());
-//        }
+                updateUI();
+
+
+
+
     }
 }
+
 

@@ -223,8 +223,6 @@ public class AddReminderActivity extends AppCompatActivity implements View.OnCli
         alarmDate.setTimeInMillis(System.currentTimeMillis());
         alarmDate.set(mYear, mMonth, mDayOfMonth,mHour,mMinute);
 
-        App.shortToast(this, alarmDate.toString());
-
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmReciever.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT); //Could be zero - update so that the Alarms can be edited
