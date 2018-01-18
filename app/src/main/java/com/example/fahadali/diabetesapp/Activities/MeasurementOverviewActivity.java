@@ -172,7 +172,7 @@ public class MeasurementOverviewActivity extends AppCompatActivity implements Vi
 
 
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setMessage("Vil du slette denne måling?");
+        alertDialog.setMessage("Vil du slette denne måling? ");
 
 
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Annuller", new DialogInterface.OnClickListener() {
