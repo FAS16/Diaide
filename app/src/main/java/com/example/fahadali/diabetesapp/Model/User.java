@@ -194,15 +194,15 @@ public class User implements Subject {
      * @param firstName
      * @param lastName
      * @param email
-     * @param bloodList
+     * @param measurements
      */
-    public void setUser(String id, String firstName, String lastName, String email, ArrayList<Measurement> bloodList, ArrayList <MedicineCard> medicinecardList){
+    public void setUser(String id, String firstName, String lastName, String email, ArrayList<Measurement> measurements, ArrayList <MedicineCard> medicinecardList){
 
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.measurements = bloodList;
+        this.measurements = measurements;
         this.medicinecardList = medicinecardList;
 
     }
