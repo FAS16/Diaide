@@ -27,6 +27,8 @@ import com.example.fahadali.diabetesapp.Fragments.ReminderFragment;
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
 import com.example.fahadali.diabetesapp.Model.User;
 import com.example.fahadali.diabetesapp.Other.App;
+import com.example.fahadali.diabetesapp.Fragments.GraphFragment;
+
 import com.example.fahadali.diabetesapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,6 +50,8 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private DatabaseReference db_userReference;
+
+    //Objects in current activity
     private ProgressBar pBar;
     private TextView name_TV, email_TV;
     private Toolbar toolbar;
@@ -226,15 +230,16 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
         if (id == R.id.nav_homeMenu) {
 
         }
+            // Handle the camera action
+         else if (id == R.id.nav_medicin) {
+            Intent i = new Intent (this, MedicineCardActivity.class);
+            startActivity(i);
 
-        else if (id == R.id.nav_medicin) {
+        } else if (id == R.id.nav_motivationGroup) {
+            Intent i = new Intent (this, MapsActivity.class);
+            startActivity(i);
 
         }
-
-        else if (id == R.id.nav_motivationGroup) {
-
-        }
-
         else if (id == R.id.nav_tips) {
 
         }
@@ -319,8 +324,10 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
                 Log.i(TAG,"SINGLETON BEFORE DATA RETRIEVAL FROM FIREBASE: "+ User.getUserInstance());
 
                 if(!firebaseUser.isAnonymous()) {
+
                     Log.i(TAG,"not anonymous user");
-                    User.getUserInstance().setUser(u.getId(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getMeasurements());
+                    User.getUserInstance().setUser(u.getId(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getBloodList(), u.getMedicinecardList());
+
                     User.getUserInstance().notifyAllObservers();
                 }
 
