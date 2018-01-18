@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DiabetesApp.iml" filepath="$PROJECT_DIR$/DiabetesApp.iml" />
+      <module fileurl="file://C:\Users\aleks\Documents\GitHub\Diaide\DiabetesApp.iml" filepath="C:\Users\aleks\Documents\GitHub\Diaide\DiabetesApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Diaide.iml" filepath="$PROJECT_DIR$/Diaide.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

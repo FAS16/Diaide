@@ -31,15 +31,15 @@
             android:layout_marginEnd="4dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:backgroundTint="@color/ap_white"
+
             android:ems="10"
             android:hint="Postnummer"
             android:inputType="textPersonName"
-            android:textColor="@color/ap_black"
+
             app:layout_constraintEnd_toStartOf="@+id/Search"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:backgroundTint="@color/ap_gray" />
+/>
 
         <Button
             android:id="@+id/Search"

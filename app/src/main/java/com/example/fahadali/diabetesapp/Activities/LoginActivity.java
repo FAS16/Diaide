@@ -190,7 +190,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 notNow_TV.setTypeface(Typeface.DEFAULT_BOLD);
                 signInAnonymously();
                }
-            }
+
               else if (v == forgotLogin_TV){
             System.out.println("Forgot Password TV Knap virker");
             forgotLogin();
@@ -217,7 +217,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             String firstName = Profile.getCurrentProfile().getFirstName();
                             String lastName = Profile.getCurrentProfile().getLastName();
                             String email = firebaseAuth.getCurrentUser().getEmail();
-                            ArrayList <Measurement> bloodList = User.getUserInstance().getBloodList();
+                            ArrayList <Measurement> bloodList = User.getUserInstance().getMeasurements();
                             ArrayList <MedicineCard> medicineCardsList = User.getUserInstance().getMedicinecardList();
 
                             User.getUserInstance().setUser(id, firstName, lastName, email, bloodList, medicineCardsList);

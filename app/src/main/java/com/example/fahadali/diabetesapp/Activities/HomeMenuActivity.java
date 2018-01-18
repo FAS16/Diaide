@@ -27,7 +27,6 @@ import com.example.fahadali.diabetesapp.Fragments.ReminderFragment;
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
 import com.example.fahadali.diabetesapp.Model.User;
 import com.example.fahadali.diabetesapp.Other.App;
-import com.example.fahadali.diabetesapp.Fragments.GraphFragment;
 
 import com.example.fahadali.diabetesapp.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -326,7 +325,7 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
                 if(!firebaseUser.isAnonymous()) {
 
                     Log.i(TAG,"not anonymous user");
-                    User.getUserInstance().setUser(u.getId(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getBloodList(), u.getMedicinecardList());
+                    User.getUserInstance().setUser(u.getId(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getMeasurements(), u.getMedicinecardList());
 
                     User.getUserInstance().notifyAllObservers();
                 }
