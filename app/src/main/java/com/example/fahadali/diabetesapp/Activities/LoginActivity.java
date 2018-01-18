@@ -1,5 +1,9 @@
 package com.example.fahadali.diabetesapp.Activities;
 
+
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -54,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseUser firebaseUser;
     private EditText email_ET, password_ET;
     private Button login_BTN, loginFB_BTN, createUser_BTN;
-    private TextView notNow_TV ;
+    private TextView notNow_TV, forgotLogin_TV;
     private ProgressBar pBar;
     private CheckBox checkBox;
     public DatabaseReference db;
@@ -87,6 +91,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             email_ET = findViewById(R.id.userName_ET);
             password_ET = findViewById(R.id.password_ET);
+            forgotLogin_TV = findViewById(R.id.forgotLogin_TW);
             login_BTN = findViewById(R.id.login_BTN);
             //Facebook LogIn
             loginFB_BTN = findViewById(R.id.loginFB_BTN);
@@ -115,6 +120,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             email_ET.requestFocus();
             login_BTN.setOnClickListener(this);
+            forgotLogin_TV.setOnClickListener(this);
             loginFB_BTN.setOnClickListener(this);
             createUser_BTN.setOnClickListener(this);
             notNow_TV.setOnClickListener(this);
@@ -172,6 +178,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             signInAnonymously();
 
 
+        }
+        else if (v == forgotLogin_TV){
+            System.out.println("Forgot Password TV Knap virker");
+            forgotLogin();
         }
 
     }
@@ -279,28 +289,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
      }
 
-
+/*
     public void forgottenPassword(View v) {
-//
-//            userMail = email_ET.getText().toString();
-//            FirebaseAuth.getInstance().sendPasswordResetEmail(userMail)
-//                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            if (task.isSuccessful()) {
-//                                Log.d("Glemt kode: ", "Email sent.");
-//                                App.shortToast(LoginActivity.this, "Email sendt");
-//                            }
-//                            else if(email_ET == null){
-//                                App.shortToast(LoginActivity.this, "Indtast email");
-//                            }
-//                            else{
-//                                App.shortToast(LoginActivity.this, "Email findes ikke");
-//                            }
-//                        }
-//                    });
+            userMail = email_ET.getText().toString();
+            FirebaseAuth.getInstance().sendPasswordResetEmail(userMail)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("Glemt kode: ", "Email sent.");
+                                App.shortToast(LoginActivity.this, "Email sendt");
+                            }
+                            else if(email_ET == null){
+                                App.shortToast(LoginActivity.this, "Indtast email");
+                            }
+                            else{
+                                App.shortToast(LoginActivity.this, "Email findes ikke");
+                            }
+                        }
+                    });
         }
-
+*/
 
 
 
@@ -409,6 +418,47 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
              }
 
        }
+
+    private AlertDialog forgotLogin(){
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(LoginActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.forgot_login, null);
+        final EditText mEmail = mView.findViewById(R.id.email_dialog);
+
+        mBuilder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                final String userMail = mEmail.getText().toString();
+                FirebaseAuth.getInstance().sendPasswordResetEmail(userMail)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d("Glemt kode: ", "Email sent.");
+                                    App.shortToast(LoginActivity.this, "Email sendt");
+                                }
+                                else if(email_ET == null){
+                                    App.shortToast(LoginActivity.this, "Indtast email");
+                                }
+                                else{
+                                    App.shortToast(LoginActivity.this, "Email findes ikke");
+                                }
+                            }
+                        });
+            }
+        });
+
+        mBuilder.setNegativeButton("Annuller", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        mBuilder.setView(mView).show();
+        final AlertDialog dialog = mBuilder.create();
+        return dialog;
+    }
 
 }
 
