@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <RadioGroup
+        android:id="@+id/rg_prio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <RadioButton
+            android:id="@+id/none_prio"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Ingen"/>
+
+        <RadioButton
+            android:id="@+id/low_prio"
+            android:background="#67c2bf00"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Lav"/>
+
+        <RadioButton
+            android:id="@+id/medium_prio"
+            android:background="#9ac26400"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Mellem"/>
+
+        <RadioButton
+            android:id="@+id/high_prio"
+            android:background="#86c20000"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Høj"/>
+
+
+
+
+    </RadioGroup>
+
+</LinearLayout>

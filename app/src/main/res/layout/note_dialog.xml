@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center">
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/note_reminder"
+        android:layout_width="250dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/text_input_layout"
+        android:defaultFocusHighlightEnabled="false"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:focusedByDefault="false"
+        android:hint="Note"
+        android:padding="10dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="90"
+        app:hintAnimationEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/afterMeal_ICON">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/comment_ET"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@android:color/transparent"
+            android:gravity="top"
+            android:lines="2"
+            android:maxLength="90"
+            android:overScrollMode="always"
+            android:scrollbars="vertical" />
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>

@@ -27,4 +27,5 @@
     <color name="cardBackgColor">#ECECEC</color>
     <color name="black">#000000</color>
     <color name="snowWhite">#FFFFFF</color>
+    <color name="doneGreen">#6AC259</color>
 </resources>

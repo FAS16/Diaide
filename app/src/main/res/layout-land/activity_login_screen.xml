@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.example.fahadali.diabetesapp.Activities.LoginActivity"
+    tools:layout_editor_absoluteY="25dp"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/loginLogo_IV"
+            android:layout_width="350dp"
+            android:layout_height="75dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/final_logo"
+            tools:layout_editor_absoluteX="166dp" />
+
+        <ProgressBar
+
+            android:layout_gravity="center"
+            android:id="@+id/loginProgressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="317dp"
+            tools:layout_editor_absoluteY="62dp" />
+
+        <EditText
+            android:layout_margin="8dp"
+            android:layout_gravity="center"
+            android:id="@+id/userName_ET"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/grey"
+            android:drawableLeft="@drawable/ic_email_black_24dp"
+            android:drawablePadding="7dp"
+            android:ems="10"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/colorSecondary"
+            android:textColorHint="@color/hintColor"
+            android:textSize="16sp"
+            tools:layout_editor_absoluteX="141dp"
+            tools:layout_editor_absoluteY="65dp" />
+
+
+        <EditText
+            android:layout_margin="8dp"
+            android:layout_gravity="center"
+            android:id="@+id/password_ET"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/grey"
+            android:drawableLeft="@drawable/ic_lock_white_12dp"
+            android:drawablePadding="7dp"
+            android:ems="10"
+            android:hint="Adgangskode"
+            android:inputType="textPassword"
+            android:textColor="@color/colorSecondary"
+            android:textColorHint="@color/hintColor"
+            android:textSize="16sp"
+            tools:layout_editor_absoluteX="141dp"
+            tools:layout_editor_absoluteY="107dp" />
+
+        <CheckBox
+            android:layout_margin="8dp"
+            android:layout_gravity="center"
+            android:id="@+id/login_checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/colorSecondary"
+            android:checked="false"
+            android:text="Husk login"
+            android:textColor="@color/colorSecondary"
+            tools:layout_editor_absoluteX="548dp"
+            tools:layout_editor_absoluteY="168dp" />
+
+        <Button
+            android:layout_margin="8dp"
+            android:layout_gravity="center"
+            android:id="@+id/login_BTN"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="Log ind"
+            android:textColor="@color/textOnWhite"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="139dp"
+            tools:layout_editor_absoluteY="150dp" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:fontFamily="sans-serif"
+            android:text="eller"
+            android:textColor="@color/colorSecondary"
+            tools:layout_editor_absoluteX="329dp"
+            tools:layout_editor_absoluteY="198dp" />
+
+
+        <Button
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:layout_gravity="center"
+            android:id="@+id/loginFB_BTN"
+            android:layout_width="400dp"
+            android:layout_height="48dp"
+            android:backgroundTint="#3b5998"
+            android:drawableLeft="@drawable/ic_faceb"
+            android:text="Log ind med facebook"
+            android:textColor="@color/colorSecondary"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="135dp"
+            tools:layout_editor_absoluteY="217dp" />
+
+        <Button
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="center"
+            android:id="@+id/createUser_BTN"
+            android:layout_width="400dp"
+            android:layout_height="48dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:drawableLeft="@drawable/ic_account_circle_white_24dp"
+            android:text="Opret bruger"
+            android:textColor="@color/colorSecondary"
+            android:textSize="14sp"
+            android:textAlignment="center"
+            tools:layout_editor_absoluteX="358dp"
+            tools:layout_editor_absoluteY="217dp" />
+
+
+        <TextView
+            android:layout_margin="8dp"
+            android:layout_gravity="center"
+            android:id="@+id/notNow_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spring over"
+            android:textColor="@color/colorSecondary"
+            tools:layout_editor_absoluteX="598dp"
+            tools:layout_editor_absoluteY="352dp"
+            android:paddingBottom="16dp"
+            />
+
+    </LinearLayout>
+
+
+
+
+</ScrollView>

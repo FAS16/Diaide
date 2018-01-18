@@ -71,7 +71,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         password_ET = findViewById(R.id.createPassword_ET);
         pBar = findViewById(R.id.signProgressBar);
 
-
         signUp_BTN = findViewById(R.id.signUp_BTN);
         signUp_BTN.setOnClickListener(this);
         backToLogin_TV = findViewById(R.id.backToLogin_TV);
@@ -89,9 +88,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in and update UI accordingly.
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-       // updateUI(currentUser);
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if(App.dialogIsVisible) App.showNeutralDialog("Ingen internetforbindelse", "Tilslut til internettet, og prøv igen.",this);
     }
 
 
@@ -107,12 +110,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             finish();
         }
 
-        if(view == signUp_BTN){
-
+        if(view == signUp_BTN && App.isOnline()){
             if(firebaseUser == null) createUserAccount(email_ET.getText().toString(), password_ET.getText().toString());
             else if(firebaseUser.isAnonymous()) convertAnonymousUser(email_ET.getText().toString(), password_ET.getText().toString());
-
         }
+
+        else App.showNeutralDialog("Ingen internetforbindelse", "Tilslut til internettet, og prøv igen.",this);
     }
 
     /**
@@ -124,8 +127,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String firstName = firstName_ET.getText().toString();
         String lastName = lastName_ET.getText().toString();
         String email = firebaseUser.getEmail();
-        ArrayList <Measurement> bloodList = User.getUserInstance().getBloodList();
+
+        ArrayList <Measurement> bloodList = User.getUserInstance().getMeasurements();
         ArrayList <MedicineCard> medicineCardsList = User.getUserInstance().getMedicinecardList();
+
 
         User.getUserInstance().setUser(id, firstName, lastName, email, bloodList, medicineCardsList);
 
@@ -200,7 +205,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void sendEmailVerification() {
 
 
-        // Send verification email
+        // Send verification email //Not used
          FirebaseUser user = firebaseAuth.getCurrentUser();
 
         if(user != null){

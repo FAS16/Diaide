@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+    <CheckBox
+        android:id="@+id/mon_rep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Mandag"/>
+
+    <CheckBox
+        android:id="@+id/tue_rep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Tirsdag"/>
+
+    <CheckBox
+        android:id="@+id/wed_rep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Onsdag"/>
+
+    <CheckBox
+        android:id="@+id/thu_rep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Torsdag"/>
+
+    <CheckBox
+        android:id="@+id/fri_rep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Fredag"/>
+
+    <CheckBox
+        android:id="@+id/sat_rep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Lørdag"/>
+
+    <CheckBox
+        android:id="@+id/sun_rep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Søndag"/>
+
+</LinearLayout>

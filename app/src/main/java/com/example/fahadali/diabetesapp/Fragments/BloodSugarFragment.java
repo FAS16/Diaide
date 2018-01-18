@@ -4,8 +4,8 @@ package com.example.fahadali.diabetesapp.Fragments;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +15,14 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.fahadali.diabetesapp.Activities.MeasurementOverviewActivity;
 import com.example.fahadali.diabetesapp.Model.Measurement;
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
 import com.example.fahadali.diabetesapp.Model.User;
+import com.example.fahadali.diabetesapp.Model.XYvalue;
 import com.example.fahadali.diabetesapp.Other.App;
 import com.example.fahadali.diabetesapp.R;
+import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
@@ -33,26 +36,28 @@ import java.util.Date;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BloodSugarFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener, Observer {
+public class BloodSugarFragment extends Fragment implements View.OnClickListener, Observer, AdapterView.OnItemSelectedListener {
 
-
-    private final Handler mHandler = new Handler();
-    private Runnable mTimer1;
-    private Runnable mTimer2;
-
-    private View view;
-    private GraphView graph;
-    private LineGraphSeries<DataPoint> series;
-    private DataPoint[] dataPoints;
-
+    private final String TAG = "BloodSugarFragment";
     private Spinner filterSpinner;
-    private ArrayAdapter <CharSequence> filterAdapter;
+    private ArrayAdapter<CharSequence> filterAdapter;
     private TextView lowestBloodSugar, highestBloodSugar, latestBloodSugar;
     private Button go_BTN;
+    private View view;
+
+    private LineGraphSeries<DataPoint> series;
+    private GraphView graph;
+    private ArrayList<XYvalue> xYvalues;
+    private boolean showMeasurementsOfToday;
+
+
+
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         view = inflater.inflate(R.layout.fragment_blood_sugar_2, container, false);
         User.getUserInstance().registerObserver(this);
 
@@ -61,29 +66,19 @@ public class BloodSugarFragment extends Fragment implements AdapterView.OnItemSe
         highestBloodSugar = view.findViewById(R.id.highestBS_TV);
         lowestBloodSugar = view.findViewById(R.id.lowestBS_TV);
         latestBloodSugar = view.findViewById(R.id.latestBS_TV);
-
         go_BTN = view.findViewById(R.id.go_BTN);
-        go_BTN.setOnClickListener(this);
 
+        if (App.isPortraitMode(getActivity())) go_BTN.setOnClickListener(this);
         filterSpinner.setAdapter(filterAdapter);
-//        filterSpinner.setSelection(0);
         filterSpinner.setOnItemSelectedListener(this);
 
 
-
-
-        if(User.getUserInstance().getId() != null){
-
-            updateUI(dataPointsOfTheDay());
-
-        }
+        xYvalues = new ArrayList<>();
+        updateUI();
 
 
         return view;
     }
-
-
-
 
     @Override
     public void onDestroyView() {
@@ -91,208 +86,105 @@ public class BloodSugarFragment extends Fragment implements AdapterView.OnItemSe
         User.getUserInstance().removeObserver(this);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
 
 
     @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-        String itemSelected = adapterView.getItemAtPosition(i).toString();
-
-        if(itemSelected.equals("I dag")){
-
-            App.shortToast(getActivity(),"I dag");
-
-
-//            series.resetData(dataPointsOfTheDay());
-            graph.removeAllSeries();
-            updateUI(dataPointsOfTheDay());
-
-
-        }
-
-        else if(itemSelected.equals("Seneste 7 dage")){
-
-            App.shortToast(getActivity(),"Seneste 7 dage");
-
-
-
-        }
-
-        else if(itemSelected.equals("Seneste 30 dage")){
-
-            App.shortToast(getActivity(),"Seneste 30 dage");
-
-        }
-
-        else if(itemSelected.equals("Intet filter")){
-
-            graph.removeAllSeries();
-            updateUI(allDataPoints());
-
-
-        }
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.getInt("itemSelected", filterSpinner.getSelectedItemPosition());
 
     }
 
 
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-
-
-
-    @Override
-    public void onClick(View v) {
-
-
-        if (v == go_BTN) {
-
-            Intent i = new Intent(getContext(), BloodOverviewFragment.class);
-            startActivity(i);
-
-
-
-        }
-
-    }
-
-
-    public void createGraph( DataPoint[] points) {
-
-
-//                allDataPoints();
-                graph = view.findViewById(R.id.graph);
-                series = new LineGraphSeries<>(points);
-                series.setAnimated(true);
-                series.setDrawDataPoints(true);
-                series.setDataPointsRadius(15);
-                series.setColor(Color.BLACK);
-
-
-                graph.addSeries(series);
-                graph.setTitle("Målinger");
-//        graph.setTitleTextSize(80f);
-                // set date label formatter
-                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
-                graph.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
-//         set manual x bounds to have nice steps
-//        graph.getViewport().setMinX(User.getUserInstance().getBloodList().get(0).getBloodSugar());
-//        graph.getViewport().setMaxX(User.getUserInstance().getBloodList().get(User.getUserInstance().getBloodList().size()-1).getBloodSugar());
-                graph.getViewport().setXAxisBoundsManual(true);
-
-                graph.getViewport().setMinY(0);
-                graph.getViewport().setMaxY(20);
-                graph.getViewport().setYAxisBoundsManual(true);
-                // as we use dates as labels, the human rounding to nice readable numbers
-                // is not necessary
-                graph.getGridLabelRenderer().setHumanRounding(false);
-
-    }
-
-
-
-
-//    public void createGraph() {
-//
-//        graph = view.findViewById(R.id.graph);
-//        allDataPoints();
-//        series = new LineGraphSeries<>(dataPoints);
-//        series.setAnimated(true);
-//        series.setDrawDataPoints(true);
-//        series.setDataPointsRadius(15);
-//
-//        graph.addSeries(series);
-//        graph.setTitle("Målinger");    //        graph.setTitleTextSize(80f);
-//
-//        // set date label formatter
-//        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
-//        graph.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
-////         set manual x bounds to have nice steps
-////        graph.getViewport().setMinX(User.getUserInstance().getBloodList().get(0).getBloodSugar());
-////        graph.getViewport().setMaxX(User.getUserInstance().getBloodList().get(User.getUserInstance().getBloodList().size()-1).getBloodSugar());
-//        graph.getViewport().setXAxisBoundsManual(true);
-//
-//        graph.getViewport().setMinY(0);
-//        graph.getViewport().setMaxY(20);
-//        graph.getViewport().setYAxisBoundsManual(true);
-//        // as we use dates as labels, the human rounding to nice readable numbers
-//        // is not necessary
-//        graph.getGridLabelRenderer().setHumanRounding(false);
-//
-//
-//    }
-
-    public DataPoint[] allDataPoints() {
-
+    public void initGraph(){
+        graph = view.findViewById(R.id.graph);
         graph.removeAllSeries();
-        User user = User.getUserInstance();
-        int size = user.getBloodList().size();
-        dataPoints = new DataPoint[size];
 
-        for (int i = 0; i < size; i++) {
+        series = new LineGraphSeries<>();
 
-            dataPoints[i] = new DataPoint(parseDate(user.getBloodList().get(i).getTime()), user.getBloodList().get(i).getBloodSugar());
+        if(showMeasurementsOfToday) initXyValuesOfToday();
+        else initAllXyValues();
+
+        if(xYvalues.size() != 0){
+
+            createGraph();
 
         }
 
-        return dataPoints;
+    }
+
+    private void createGraph() {
+
+
+        sortXyArrayByY();
+
+        for(int i = 0; i < xYvalues.size(); i++){
+
+            Date x = xYvalues.get(i).getX();
+            double y = xYvalues.get(i).getY();
+            series.appendData(new DataPoint(x,y), true, 100);
+            Log.d(TAG, xYvalues.get(i).getX().toString()+" - "+ xYvalues.get(i).getY());
+        }
+
+        series.setAnimated(true);
+        series.setDrawDataPoints(true);
+        series.setDataPointsRadius(10);
+        series.setColor(Color.BLACK);
+
+        graph.setTitle("Målinger");
+        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
+        graph.getGridLabelRenderer().setNumHorizontalLabels(3);
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setMinX(xYvalues.get(0).getX().getTime());
+        graph.getViewport().setMaxX(xYvalues.get(xYvalues.size()-1).getX().getTime());
+        graph.getGridLabelRenderer().setNumVerticalLabels(4);
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setMinY(0);
+        graph.getViewport().setMaxY(15);
+        graph.getGridLabelRenderer().setHumanRounding(false);
+
+        graph.addSeries(series);
 
     }
 
 
-    public DataPoint[] dataPointsOfTheDay() {
+    public void initAllXyValues(){
 
+        xYvalues.clear();
+        for(Measurement m: User.getUserInstance().getMeasurements()){
 
+            xYvalues.add(new XYvalue(parseDate(m.getTime()), m.getBloodSugar()));
 
-        ArrayList<Measurement> tempList = new ArrayList<>();
+        }
 
+    }
+
+    public void initXyValuesOfToday(){
+
+        xYvalues.clear();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
         String today = sdf.format(new Date(System.currentTimeMillis()));
 
-        User user = User.getUserInstance();
-        int size = user.getBloodList().size();
-        int specificSize = 0;
+        for(Measurement m: User.getUserInstance().getMeasurements()){
 
-        for (int i = 0; i < size; i++) {
+            String subject = sdf.format(parseDate(m.getTime()));
 
-            String subject = sdf.format(parseDate(User.getUserInstance().getBloodList().get(i).getTime()));
+            if(subject.equals(today)){
 
-            if (subject.equals(today)) {
+                Log.d(TAG, "Subject: "+subject +" - Today: "+today);
 
-                tempList.add(User.getUserInstance().getBloodList().get(i));
-
+                xYvalues.add(new XYvalue(parseDate(m.getTime()), m.getBloodSugar()));
             }
 
-        }
 
-        specificSize = tempList.size();
-        dataPoints = null;
-        dataPoints = new DataPoint[specificSize];
-
-        for (int i = 0; i < specificSize; i++) {
-
-//            String subject = sdf.format(parseDate(tempList.get(i).getTime()));
-
-//            if (subject.equals(today)) {
-
-                dataPoints[i] = new DataPoint(parseDate(tempList.get(i).getTime()), user.getBloodList().get(i).getBloodSugar());
-
-
-//            }
 
         }
-
-        return dataPoints;
-    }
-
-
-    public void showSevenDaysDataPoints(){
-
-    }
-
-    public void showThirtyDaysDataPoints(){
 
     }
 
@@ -311,19 +203,97 @@ public class BloodSugarFragment extends Fragment implements AdapterView.OnItemSe
         return date;
     }
 
+    public void sortXyArrayByX(){
 
-    public void updateUI(DataPoint[] points) {
+        if(xYvalues.size() > 1){
 
+            XYvalue temp;
+            for(int j = 0; j < xYvalues.size() -1; j++){
 
+                for(int i = 0; i < xYvalues.size() -1; i++){
+                    if( xYvalues.get(i).getY() > xYvalues.get(i+1).getY()){
 
-        createGraph(points);
+                        temp = xYvalues.get(i);
+                        xYvalues.set(i, xYvalues.get(i+1));
+                        xYvalues.set(i+1, temp);
 
-        if(!User.getUserInstance().getBloodList().isEmpty()){
+                    }
+                }
+            }
+        }
+    }
+
+    public void sortXyArrayByY(){
+
+        if(xYvalues.size() > 1){
+
+            XYvalue temp;
+            for(int j = 0; j < xYvalues.size() -1; j++){
+
+                for(int i = 0; i < xYvalues.size() -1; i++){
+                    if( xYvalues.get(i).getX().after(xYvalues.get(i+1).getX())){
+
+                        temp = xYvalues.get(i);
+                        xYvalues.set(i, xYvalues.get(i+1));
+                        xYvalues.set(i+1, temp);
+
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        if (view == go_BTN) {
+
+            Intent i = new Intent(getContext(), MeasurementOverviewActivity.class);
+            startActivity(i);
+
+        }
+
+    }
+
+    public void updateUI() {
+
+        if(showMeasurementsOfToday) {
+            initXyValuesOfToday();
+            graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(null, null));
+            graph.getViewport().setXAxisBoundsManual(true);
+
+        }
+        else initAllXyValues();
+
+        if(filterSpinner.getSelectedItemPosition() == 0) initAllXyValues();
+        else initXyValuesOfToday();
+
+        initGraph();
+
+        if (!User.getUserInstance().getMeasurements().isEmpty()) {
 
             highestBloodSugar.setText("" + series.getHighestValueY());
             lowestBloodSugar.setText("" + series.getLowestValueY());
             int size = User.getUserInstance().getSizeOfList();
-            latestBloodSugar.setText("" + User.getUserInstance().getBloodList().get(size - 1).getBloodSugar());
+            latestBloodSugar.setText("" + User.getUserInstance().getMeasurements().get(size - 1).getBloodSugar());
+
+        }
+    }
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
+
+
+        if(pos == 0){
+//            showMeasurementsOfToday = false;
+            updateUI();
+
+        }
+
+        else if(pos == 1){
+            showMeasurementsOfToday = true;
+            updateUI();
 
         }
 
@@ -331,11 +301,443 @@ public class BloodSugarFragment extends Fragment implements AdapterView.OnItemSe
 
 
     @Override
-    public void update() {
-
-                updateUI(dataPointsOfTheDay());
-
-        System.out.println("User changed - Running update in  BloodSugarFragment - USER: "+User.getUserInstance());
+    public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
+    @Override
+    public void update() {
+
+        Log.i(TAG, "Observer update running");
+
+            initAllXyValues();
+
+            DataPoint[] dataPoints = new DataPoint[xYvalues.size()];
+            for(int i = 0; i < xYvalues.size(); i++){
+
+                dataPoints[i] = new DataPoint(xYvalues.get(i).getX().getTime(), xYvalues.get(i).getY());
+
+            }
+
+            series.resetData(dataPoints);
+
+//                updateUI();
+            }
+
+
+
+
 }
+
+
+
+
+
+
+
+
+//package com.example.fahadali.diabetesapp.Fragments;
+//
+//
+//import android.content.Intent;
+//import android.graphics.Color;
+//import android.os.Bundle;
+//import android.support.v4.app.Fragment;
+//import android.support.v7.widget.CardView;
+//import android.util.Log;
+//import android.view.LayoutInflater;
+//import android.view.View;
+//import android.view.ViewGroup;
+//import android.widget.AdapterView;
+//import android.widget.ArrayAdapter;
+//import android.widget.Button;
+//import android.widget.Spinner;
+//import android.widget.TextView;
+//
+//import com.example.fahadali.diabetesapp.Activities.MeasurementOverviewActivity;
+//import com.example.fahadali.diabetesapp.Model.Measurement;
+//import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
+//import com.example.fahadali.diabetesapp.Model.User;
+//import com.example.fahadali.diabetesapp.Model.XYvalue;
+//import com.example.fahadali.diabetesapp.Other.App;
+//import com.example.fahadali.diabetesapp.R;
+//import com.jjoe64.graphview.DefaultLabelFormatter;
+//import com.jjoe64.graphview.GraphView;
+//import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
+//import com.jjoe64.graphview.series.DataPoint;
+//import com.jjoe64.graphview.series.LineGraphSeries;
+//
+//import java.text.ParseException;
+//import java.text.SimpleDateFormat;
+//import java.util.ArrayList;
+//import java.util.Date;
+//
+///**
+// * A simple {@link Fragment} subclass.
+// */
+//public class BloodSugarFragment extends Fragment implements View.OnClickListener, Observer, AdapterView.OnItemSelectedListener {
+//
+//
+//    private final String TAG = "BloodSugarFragment2";
+//    private LineGraphSeries<DataPoint> series;
+//    private GraphView graph;
+//    private ArrayList<XYvalue> xYvalues;
+//    private Spinner filterSpinner;
+//    private ArrayAdapter<CharSequence> filterAdapter;
+//    private TextView lowestBloodSugar, highestBloodSugar, latestBloodSugar;
+//    private Button go_BTN;
+//    private View view;
+//    private CardView card;
+//    private boolean showMeasurementsOfToday;
+//
+//
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        view = inflater.inflate(R.layout.fragment_blood_sugar_2, container, false);
+//        User.getUserInstance().registerObserver(this);
+//
+//        Log.i(TAG, "Running onCreate");
+//
+//        filterSpinner = view.findViewById(R.id.filter_SPNR);
+//        filterAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.blood_sugar_filters, android.R.layout.simple_spinner_dropdown_item);
+//        highestBloodSugar = view.findViewById(R.id.highestBS_TV);
+//        lowestBloodSugar = view.findViewById(R.id.lowestBS_TV);
+//        latestBloodSugar = view.findViewById(R.id.latestBS_TV);
+//        go_BTN = view.findViewById(R.id.go_BTN);
+//        card = view.findViewById(R.id.graph_containerNew);
+//
+//        if (App.isPortraitMode(getActivity())) go_BTN.setOnClickListener(this);
+//        filterSpinner.setAdapter(filterAdapter);
+//        filterSpinner.setOnItemSelectedListener(this);
+//
+//        xYvalues = new ArrayList<>();
+//        initAllXyValues();
+//        series = new LineGraphSeries<>();
+//        series.setAnimated(true);
+//        series.setDrawDataPoints(true);
+//        series.setDataPointsRadius(15);
+//        series.setColor(Color.BLACK);
+//
+//        graph = view.findViewById(R.id.graph);
+//        graph.addSeries(series);
+//
+//        if (User.getUserInstance().getMeasurements().size() > 0) {
+//            graph.setTitle("Målinger");
+//            graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
+//            graph.getGridLabelRenderer().setNumHorizontalLabels(3);
+//            graph.getViewport().setXAxisBoundsManual(true);
+//
+//            graph.getViewport().setMinX(xYvalues.get(0).getX().getTime());
+//            graph.getViewport().setMaxX(xYvalues.get(xYvalues.size() - 1).getX().getTime());
+//
+//            graph.getGridLabelRenderer().setNumVerticalLabels(4);
+//            graph.getViewport().setYAxisBoundsManual(true);
+//            graph.getViewport().setMinY(0);
+//            graph.getViewport().setMaxY(15);
+//            graph.getGridLabelRenderer().setHumanRounding(false);
+//
+//            updateUI();
+//
+//        }
+//
+//
+//        //        updateUI();
+//
+//        return view;
+//    }
+//
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        User.getUserInstance().removeObserver(this);
+//    }
+//
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+////        updateUI();
+//
+//    }
+//
+//
+//    public void initAllXyValues() {
+//
+//        xYvalues.clear();
+//        for (Measurement m : User.getUserInstance().getMeasurements()) {
+//
+//            xYvalues.add(new XYvalue(parseDate(m.getTime()), m.getBloodSugar()));
+//
+//        }
+//
+//    }
+//
+//
+//    public void initGraph() {
+//        graph = view.findViewById(R.id.graph);
+//        graph.removeAllSeries();
+//        card.refreshDrawableState();
+//        series = new LineGraphSeries<>();
+////        initAllXyValues();
+//
+//        if (xYvalues.size() != 0) {
+//
+//            createGraph();
+//
+//        }
+//
+//    }
+//
+//    private void createGraph() {
+//
+//
+//        sortXyArrayByY();
+//
+//        for (int i = 0; i < xYvalues.size(); i++) {
+//
+//            Date x = xYvalues.get(i).getX();
+//            double y = xYvalues.get(i).getY();
+//            series.appendData(new DataPoint(x, y), true, 100);
+//            Log.d(TAG, xYvalues.get(i).getX().toString() + " - " + xYvalues.get(i).getY());
+//        }
+//
+//        series.setAnimated(true);
+//        series.setDrawDataPoints(true);
+//        series.setDataPointsRadius(15);
+//        series.setColor(Color.BLACK);
+//
+//        graph.setTitle("Målinger");
+//        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
+//        graph.getGridLabelRenderer().setNumHorizontalLabels(3);
+//        graph.getViewport().setXAxisBoundsManual(true);
+//        graph.getViewport().setMinX(xYvalues.get(0).getX().getTime());
+//        graph.getViewport().setMaxX(xYvalues.get(xYvalues.size() - 1).getX().getTime());
+//        graph.getGridLabelRenderer().setNumVerticalLabels(4);
+//        graph.getViewport().setYAxisBoundsManual(true);
+//        graph.getViewport().setMinY(0);
+//        graph.getViewport().setMaxY(15);
+//        graph.getGridLabelRenderer().setHumanRounding(false);
+//
+//        graph.addSeries(series);
+//
+//    }
+//
+//
+//    public void initXyValuesOfToday() {
+//
+//        xYvalues.clear();
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+//        String today = sdf.format(new Date(System.currentTimeMillis()));
+//
+//        for (Measurement m : User.getUserInstance().getMeasurements()) {
+//
+//            String subject = sdf.format(parseDate(m.getTime()));
+//
+//            if (subject.equals(today)) {
+//
+//                xYvalues.add(new XYvalue(parseDate(m.getTime()), m.getBloodSugar()));
+//            }
+//
+//
+//        }
+//
+//    }
+//
+//
+//    public Date parseDate(String dateString) {
+//
+//        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy HH:mm");
+//        Date date = null;
+//
+//        try {
+//            date = format.parse(dateString);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return date;
+//    }
+//
+//    public void sortXyArrayByX() {
+//
+//        if (xYvalues.size() > 1) {
+//
+//            XYvalue temp;
+//            for (int j = 0; j < xYvalues.size() - 1; j++) {
+//
+//                for (int i = 0; i < xYvalues.size() - 1; i++) {
+//                    if (xYvalues.get(i).getY() > xYvalues.get(i + 1).getY()) {
+//
+//                        temp = xYvalues.get(i);
+//                        xYvalues.set(i, xYvalues.get(i + 1));
+//                        xYvalues.set(i + 1, temp);
+//
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    public void sortXyArrayByY() {
+//
+//        if (xYvalues.size() > 1) {
+//
+//            XYvalue temp;
+//            for (int j = 0; j < xYvalues.size() - 1; j++) {
+//
+//                for (int i = 0; i < xYvalues.size() - 1; i++) {
+//                    if (xYvalues.get(i).getX().after(xYvalues.get(i + 1).getX())) {
+//
+//                        temp = xYvalues.get(i);
+//                        xYvalues.set(i, xYvalues.get(i + 1));
+//                        xYvalues.set(i + 1, temp);
+//
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    @Override
+//    public void onClick(View view) {
+//
+//        if (view == go_BTN) {
+//
+//            Intent i = new Intent(getContext(), MeasurementOverviewActivity.class);
+//            startActivity(i);
+//
+//        }
+//
+//    }
+//
+////    public void updateUI() {
+//
+//
+////        if(showMeasurementsOfToday) {
+////
+////            showMeasurementsOfToday = false;
+////            initAllXyValues();
+////            DataPoint[] dataPoints = new DataPoint[xYvalues.size()];
+////            for(int i = 0; i < xYvalues.size(); i++) {
+////
+////                dataPoints[i] = new DataPoint(xYvalues.get(i).getX().getTime(), xYvalues.get(i).getY());
+////            }
+////            series.resetData(dataPoints);
+//////            initXyValuesOfToday();
+//////            graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(null, null));
+//////            graph.getViewport().setXAxisBoundsManual(true);
+////
+////        }
+////        else {
+////            initAllXyValues();
+////            DataPoint[] dataPoints = new DataPoint[xYvalues.size()];
+////            for(int i = 0; i < xYvalues.size(); i++) {
+////
+////                dataPoints[i] = new DataPoint(xYvalues.get(i).getX().getTime(), xYvalues.get(i).getY());
+////            }
+////            series.resetData(dataPoints);
+////        }
+////
+//////        if(filterSpinner.getSelectedItemPosition() == 0) initAllXyValues();
+//////        else initXyValuesOfToday();
+////
+//////        initGraph();
+////
+////        if (!User.getUserInstance().getMeasurements().isEmpty()) {
+////
+////            highestBloodSugar.setText("" + series.getHighestValueY());
+////            lowestBloodSugar.setText("" + series.getLowestValueY());
+////            int size = User.getUserInstance().getSizeOfList();
+////            latestBloodSugar.setText("" + User.getUserInstance().getMeasurements().get(size - 1).getBloodSugar());
+////
+////        }
+//
+////    }
+//
+//
+//    @Override
+//    public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
+//
+//
+//        if (pos == 0) {
+//
+//            showMeasurementsOfToday = false;
+//            initAllXyValues();
+//            DataPoint[] dataPoints = new DataPoint[xYvalues.size()];
+//            for (int i = 0; i < xYvalues.size(); i++) {
+//
+//                dataPoints[i] = new DataPoint(xYvalues.get(i).getX().getTime(), xYvalues.get(i).getY());
+//            }
+//            series.resetData(dataPoints);
+////            updateUI();
+//
+//        } else if (pos == 1) {
+//
+//            showMeasurementsOfToday = true;
+////            updateUI();
+//
+//            initXyValuesOfToday();
+//            DataPoint[] dataPoints = new DataPoint[xYvalues.size()];
+//            for (int i = 0; i < xYvalues.size(); i++) {
+//
+//                dataPoints[i] = new DataPoint(xYvalues.get(i).getX().getTime(), xYvalues.get(i).getY());
+//            }
+//            series.resetData(dataPoints);
+////            updateUI();
+//
+//        }
+//
+//        updateUI();
+//
+//    }
+//
+//    @Override
+//    public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//    }
+//
+//
+//    public void updateUI() {
+//
+//        if (!User.getUserInstance().getMeasurements().isEmpty()) {
+//
+//            highestBloodSugar.setText("" + series.getHighestValueY());
+//            lowestBloodSugar.setText("" + series.getLowestValueY());
+//            int size = User.getUserInstance().getSizeOfList();
+//            latestBloodSugar.setText("" + User.getUserInstance().getMeasurements().get(size - 1).getBloodSugar());
+//
+//        }
+//
+//    }
+//
+//    @Override
+//    public void update() {
+//
+//        Log.i(TAG, "Observer update running");
+//
+//
+////        updateUI();
+//
+//        initAllXyValues();
+////        if (User.getUserInstance().getMeasurements().size() > 0) {
+////            graph.getGridLabelRenderer().setNumHorizontalLabels(3);
+////            graph.getViewport().setXAxisBoundsManual(true);
+////            graph.getViewport().setMinX(xYvalues.get(0).getX().getTime());
+////            graph.getViewport().setMaxX(xYvalues.get(xYvalues.size() - 1).getX().getTime());
+////
+////
+////
+////        }
+//        DataPoint[] dataPoints = new DataPoint[xYvalues.size()];
+//        for (int i = 0; i < xYvalues.size(); i++) {
+//
+//            dataPoints[i] = new DataPoint(xYvalues.get(i).getX().getTime(), xYvalues.get(i).getY());
+//        }
+//        series.resetData(dataPoints);
+//            updateUI();
+//
+//    }
+//
+//}
+//
+//
+//

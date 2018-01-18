@@ -1,5 +1,7 @@
 package com.example.fahadali.diabetesapp.Activities;
 
+import android.app.ProgressDialog;
+
 
 
 import android.app.AlertDialog;
@@ -61,9 +63,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView notNow_TV, forgotLogin_TV;
     private ProgressBar pBar;
     private CheckBox checkBox;
+
     public DatabaseReference db;
-    private static final String TAG = "CURRENT USER";
+     private static final String TAG = "LoginActivity";
     CallbackManager callbackManager = CallbackManager.Factory.create();
+
 
     /**
      * Oncreate method, to tell the program what to do on create.
@@ -146,19 +150,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         notNow_TV.setTypeface(Typeface.DEFAULT);
     }
 
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if(App.dialogIsVisible) App.showNeutralDialog("Ingen internetforbindelse", "Tilslut til internettet, og prøv igen.",this);
+    }
+
     /**
      * Method for handling what happens when you click in the activity
      * @param v
      */
     @Override
     public void onClick(View v) {
-        if (v == login_BTN) {
 
-            signIn(email_ET.getText().toString().trim(), password_ET.getText().toString());
-            setSavedLoginCred();
-
+        if( v == createUser_BTN){
+            Intent intent = new Intent(this, SignUpActivity.class);
+            startActivity(intent);
         }
 
+
+        else if(App.isOnline()) {
+
+            if (v == login_BTN) {
+
+                signIn(email_ET.getText().toString().trim(), password_ET.getText().toString());
+                setSavedLoginCred();
+
+            } 
         else if(v == loginFB_BTN){
             LoginManager.getInstance().logInWithReadPermissions(
                     this,
@@ -166,23 +185,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             );
         }
 
-        else if( v == createUser_BTN){
 
-            Intent intent = new Intent(this, SignUpActivity.class);
-            startActivity(intent);
-        }
-
-        else if (v == notNow_TV) {
-
-            notNow_TV.setTypeface(Typeface.DEFAULT_BOLD);
-            signInAnonymously();
-
-
-        }
-        else if (v == forgotLogin_TV){
+            } else if (v == notNow_TV) {
+                notNow_TV.setTypeface(Typeface.DEFAULT_BOLD);
+                signInAnonymously();
+               }
+            }
+              else if (v == forgotLogin_TV){
             System.out.println("Forgot Password TV Knap virker");
             forgotLogin();
         }
+        else {
+            App.showNeutralDialog("Ingen internetforbindelse", "Tilslut til internettet, og prøv igen.",this);
+        }
+
 
     }
 
@@ -263,6 +279,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         });
              }
 
+
+
      private void signInAnonymously(){
          firebaseAuth.signInAnonymously()
                  .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -278,7 +296,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                          } else {
                              // If sign in fails, display a message to the user.
-                             Log.w(TAG, "signInAnonymously:failure", task.getException());
+                             Log.d(TAG, "signInAnonymously:failure", task.getException());
                              App.shortToast(LoginActivity.this, "Fejl, bruger ikke oprettet. \nTjek din internetforbindelse og prøv igen.");
 
                          }
@@ -288,6 +306,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                  });
 
      }
+
 
 /*
     public void forgottenPassword(View v) {

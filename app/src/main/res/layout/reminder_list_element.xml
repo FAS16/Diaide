@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/reminder_IV"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:src="@drawable/ic_notification"/>
+
+            <TextView
+                android:id="@+id/note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/reminder_IV"
+                android:text="Note"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/date_rem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/note"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/reminder_IV"
+                android:drawableLeft="@drawable/ic_today"
+                android:drawablePadding="5dp"
+                android:text="Dato"
+                android:textSize="12sp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+
+            <TextView
+                android:id="@+id/time_rem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/note"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/date_rem"
+                android:drawableLeft="@drawable/ic_access_time_small"
+                android:drawablePadding="5dp"
+                android:text="time"
+                android:textSize="12sp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+            <TextView
+                android:id="@+id/repeat_rem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/note"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/time_rem"
+                android:drawableLeft="@drawable/ic_repeat_small"
+                android:drawablePadding="5dp"
+                android:text="repeat"
+                android:textSize="12sp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+
+            <TextView
+            android:id="@+id/priority_rem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/note"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/repeat_rem"
+            android:drawableLeft="@drawable/ic_priority"
+            android:drawablePadding="1dp"
+            android:text="priority"
+            android:textSize="12sp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+
+        <ImageButton
+            android:id="@+id/menu_card_view_rem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="?attr/selectableItemBackground"
+            android:backgroundTint="@color/textOnWhite"
+            android:src="@drawable/ic_more_vert_24dp" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
+
+</LinearLayout>

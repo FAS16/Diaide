@@ -3,6 +3,7 @@
     package="com.example.fahadali.diabetesapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SET_ALARM" />
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -14,7 +15,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/dia_logo"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
@@ -34,8 +35,9 @@
             android:name=".Activities.HomeMenuActivity"
             android:label="@string/title_activity_home_menu"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.NotationActivity"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".Activities.AddMeasurementActivity"
+            android:windowSoftInputMode="adjustPan" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -44,6 +46,15 @@
         <activity
             android:name=".Activities.SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".Activities.MeasurementOverviewActivity" />
+        <activity android:name=".Activities.AddReminderActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <receiver android:name=".Alarm.AlarmReciever"
+                    android:enabled="true"
+                    android:exported="true"/>
+
         <activity android:name=".Fragments.BloodOverviewFragment" />
         <activity android:name=".Activities.MedicineCardActivity" />
         <activity android:name=".Activities.MapsActivity" />
@@ -69,8 +80,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBgWgvrfvkvKqdy3bLQzIPXnd7bG_3gd6c"/>
-
-
 
     </application>
 
