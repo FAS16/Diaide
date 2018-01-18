@@ -17,6 +17,10 @@
         android:roundIcon="@mipmap/dia_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity
             android:name=".Activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -42,6 +46,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Fragments.BloodOverviewFragment" />
         <activity android:name=".Activities.MedicineCardActivity" />
+        <activity android:name=".Activities.MapsActivity" />
         <activity android:name=".Activities.MedicineCardAddActivity"></activity>
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
@@ -61,6 +66,9 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBgWgvrfvkvKqdy3bLQzIPXnd7bG_3gd6c"/>
 
 
 

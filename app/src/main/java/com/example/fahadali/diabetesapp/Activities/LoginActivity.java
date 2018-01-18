@@ -75,9 +75,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         db = FirebaseDatabase.getInstance().getReference();
         if(firebaseUser != null){
 
+
             Intent intent = new Intent(LoginActivity.this, HomeMenuActivity.class);
             startActivity(intent);
             finish();
+
 
         }
 
@@ -171,6 +173,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
         }
+
     }
 
     private void fbLogin(AccessToken token){

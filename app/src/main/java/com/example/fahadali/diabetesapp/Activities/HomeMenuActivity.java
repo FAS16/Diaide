@@ -229,6 +229,8 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
             startActivity(i);
 
         } else if (id == R.id.nav_motivationGroup) {
+            Intent i = new Intent (this, MapsActivity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_tips) {
 
