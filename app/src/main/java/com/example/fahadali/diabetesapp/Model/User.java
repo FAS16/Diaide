@@ -4,7 +4,6 @@ package com.example.fahadali.diabetesapp.Model;
 
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Subject;
-import com.example.fahadali.diabetesapp.Model.Reminders.Reminder;
 
 import java.util.ArrayList;
 
@@ -18,8 +17,8 @@ public class User implements Subject {
     private String firstName;
     private String lastName;
     private String email;
-    private ArrayList<Measurement> bloodList = new ArrayList<>();
-    private ArrayList<Reminder> reminderList = new ArrayList<>();
+    private ArrayList<Measurement> measurements = new ArrayList<>();
+    private ArrayList<Reminder> reminders = new ArrayList<>();
     private  ArrayList <Observer> observers = new ArrayList<>();
 
     //Empty constructor for google firebase
@@ -34,12 +33,12 @@ public class User implements Subject {
      * @param lastName
      * @param mail
      */
-    private User(String id, String firstName, String lastName, String mail,  ArrayList<Measurement> bloodList){
+    private User(String id, String firstName, String lastName, String mail,  ArrayList<Measurement> measurements){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = mail;
-        this.bloodList = bloodList;
+        this.measurements = measurements;
 
 
     }
@@ -56,17 +55,17 @@ public class User implements Subject {
         return userInstance;
     }
 
-    public ArrayList<Measurement> getBloodList() {
-        return bloodList;
+    public ArrayList<Measurement> getMeasurements() {
+        return measurements;
     }
 
     public int getSizeOfList(){
 
-        return bloodList.size();
+        return measurements.size();
     }
 
-    public void setBloodList(ArrayList<Measurement> bloodList) {
-        this.bloodList = bloodList;
+    public void setMeasurements(ArrayList<Measurement> measurements) {
+        this.measurements = measurements;
     }
 
     /**
@@ -75,23 +74,23 @@ public class User implements Subject {
      */
     public void addBloodSugarNotation(Measurement bs) {
 
-        bloodList.add(bs);
+        measurements.add(bs);
     }
 
     /**
      * Method for getting reminderslist
      * @return
      */
-    public ArrayList<Reminder> getReminderList() {
-        return reminderList;
+    public ArrayList<Reminder> getReminders() {
+        return reminders;
     }
 
     /**
      * Method for setting reminderslist
-     * @param reminderList
+     * @param reminders
      */
-    public void setReminderList(ArrayList<Reminder> reminderList) {
-        this.reminderList = reminderList;
+    public void setReminders(ArrayList<Reminder> reminders) {
+        this.reminders = reminders;
     }
 
     /**
@@ -189,12 +188,12 @@ public class User implements Subject {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.bloodList = bloodList;
+        this.measurements = bloodList;
 
     }
 
     public String toString() {
-        return ("ID: "+id + " - NAVN: "+firstName + " - MAIL: "+email+ " - BSLIST: "+ bloodList);
+        return ("ID: "+id + " - NAVN: "+firstName + " - MAIL: "+email+ " - BSLIST: "+ measurements);
     }
 
 

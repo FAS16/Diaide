@@ -1,4 +1,4 @@
-package com.example.fahadali.diabetesapp.Fragments;
+package com.example.fahadali.diabetesapp.not_used_yet;
 
 
 import android.os.Bundle;
@@ -93,8 +93,8 @@ public class GraphFragment extends Fragment implements Observer {
         graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
         graph.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
 //         set manual x bounds to have nice steps
-//        graph.getViewport().setMinX(User.getUserInstance().getBloodList().get(0).getBloodSugar());
-//        graph.getViewport().setMaxX(User.getUserInstance().getBloodList().get(User.getUserInstance().getBloodList().size()-1).getBloodSugar());
+//        graph.getViewport().setMinX(User.getUserInstance().getMeasurements().get(0).getBloodSugar());
+//        graph.getViewport().setMaxX(User.getUserInstance().getMeasurements().get(User.getUserInstance().getMeasurements().size()-1).getBloodSugar());
         graph.getViewport().setXAxisBoundsManual(true);
 
         graph.getViewport().setMinY(0);
@@ -111,12 +111,12 @@ public class GraphFragment extends Fragment implements Observer {
     public void fillDatapoints() {
 
         User user = User.getUserInstance();
-        int size = user.getBloodList().size();
+        int size = user.getMeasurements().size();
         dataPoints = new DataPoint[size];
 
         for (int i = 0; i < size; i++) {
 
-            dataPoints[i] = new DataPoint(parseDate(user.getBloodList().get(i).getTime()), user.getBloodList().get(i).getBloodSugar());
+            dataPoints[i] = new DataPoint(parseDate(user.getMeasurements().get(i).getTime()), user.getMeasurements().get(i).getBloodSugar());
 
         }
 
@@ -133,16 +133,16 @@ public class GraphFragment extends Fragment implements Observer {
         String today = sdf.format(new Date(System.currentTimeMillis()));
 
         User user = User.getUserInstance();
-        int size = user.getBloodList().size();
+        int size = user.getMeasurements().size();
         int specificSize = 0;
 
         for (int i = 0; i < size; i++) {
 
-            String subject = sdf.format(parseDate(User.getUserInstance().getBloodList().get(i).getTime()));
+            String subject = sdf.format(parseDate(User.getUserInstance().getMeasurements().get(i).getTime()));
 
             if (subject.equals(today)) {
 
-                tempList.add(User.getUserInstance().getBloodList().get(i));
+                tempList.add(User.getUserInstance().getMeasurements().get(i));
 
 
             }
@@ -160,7 +160,7 @@ public class GraphFragment extends Fragment implements Observer {
 
             if (subject.equals(today)) {
 
-                dataPoints[i] = new DataPoint(parseDate(user.getBloodList().get(i).getTime()), user.getBloodList().get(i).getBloodSugar());
+                dataPoints[i] = new DataPoint(parseDate(user.getMeasurements().get(i).getTime()), user.getMeasurements().get(i).getBloodSugar());
 
 
             }

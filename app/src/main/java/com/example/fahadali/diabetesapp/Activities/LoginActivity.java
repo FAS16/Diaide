@@ -1,5 +1,6 @@
 package com.example.fahadali.diabetesapp.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -39,7 +40,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView notNow_TV ;
     private ProgressBar pBar;
     private CheckBox checkBox;
-    private static final String TAG = "CURRENT USER";
+    private static final String TAG = "LoginActivity";
 
     /**
      * Oncreate method, to tell the program what to do on create.
@@ -94,38 +95,51 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         notNow_TV.setTypeface(Typeface.DEFAULT);
     }
 
+
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putBoolean("dialogIsVisible", networkDialogShown);
+//    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if(App.dialogIsVisible) App.showNeutralDialog("Ingen internetforbindelse", "Tilslut til internettet, og prøv igen.",this);
+    }
+
     /**
      * Method for handling what happens when you click in the activity
      * @param v
      */
     @Override
     public void onClick(View v) {
-        if (v == login_BTN) {
 
-            signIn(email_ET.getText().toString().trim(), password_ET.getText().toString());
-            setSavedLoginCred();
-
-        }
-
-        else if(v == loginFB_BTN){
-
-
-
-        }
-
-        else if( v == createUser_BTN){
-
+        if( v == createUser_BTN){
             Intent intent = new Intent(this, SignUpActivity.class);
             startActivity(intent);
         }
 
-        else if (v == notNow_TV) {
+        else if(App.isOnline()) {
 
-            notNow_TV.setTypeface(Typeface.DEFAULT_BOLD);
-            signInAnonymously();
+            if (v == login_BTN) {
 
+                signIn(email_ET.getText().toString().trim(), password_ET.getText().toString());
+                setSavedLoginCred();
 
+            } else if (v == loginFB_BTN) {
+                //Facebook loging
+
+            } else if (v == notNow_TV) {
+                notNow_TV.setTypeface(Typeface.DEFAULT_BOLD);
+                signInAnonymously();
+               }
+            }
+
+        else {
+            App.showNeutralDialog("Ingen internetforbindelse", "Tilslut til internettet, og prøv igen.",this);
         }
+
     }
 
 
@@ -183,7 +197,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                          } else {
                              // If sign in fails, display a message to the user.
-                             Log.w(TAG, "signInAnonymously:failure", task.getException());
+                             Log.d(TAG, "signInAnonymously:failure", task.getException());
                              App.shortToast(LoginActivity.this, "Fejl, bruger ikke oprettet. \nTjek din internetforbindelse og prøv igen.");
 
                          }

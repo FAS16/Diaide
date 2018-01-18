@@ -3,6 +3,7 @@ package com.example.fahadali.diabetesapp.Activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -21,10 +22,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
-import com.example.fahadali.diabetesapp.Fragments.BloodSugarFragment2;
+import com.example.fahadali.diabetesapp.Fragments.BloodSugarFragment;
+import com.example.fahadali.diabetesapp.Fragments.ReminderFragment;
 import com.example.fahadali.diabetesapp.Model.ObserverPattern.Observer;
 import com.example.fahadali.diabetesapp.Model.User;
-import com.example.fahadali.diabetesapp.Fragments.GraphFragment;
+import com.example.fahadali.diabetesapp.Other.App;
 import com.example.fahadali.diabetesapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,15 +37,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class HomeMenuActivity extends AppCompatActivity implements Observer, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+public class HomeMenuActivity extends AppCompatActivity implements Observer, NavigationView.OnNavigationItemSelectedListener {
 
     /**
      * Variables for the HomeMenuActivity
      */
 
 
-    private final String TAG = "BloodSugarFragment2";
-
+    private final String TAG = "HomeMenuActivity";
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private DatabaseReference db_userReference;
@@ -53,7 +54,7 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
 
     //Objects in side drawer
     private TextView name_TV, email_TV;
-
+    private Toolbar toolbar;
 
 
     /**
@@ -68,65 +69,66 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
         setTitle("Blodsukker");
         User.getUserInstance().registerObserver(this);
 
-        //Handling data retrieval from firebase
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-
-        if(firebaseUser!= null){
-        firebaseUser.getUid();
-        db_userReference = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid());
-        setFirebaseListener();
-
-        }
-
-
-        if(savedInstanceState == null) {
-
-            Fragment start = new BloodSugarFragment2();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.navigation_container, start)
-                    .commit();
-
-        }
-
-        //instantiation of bottom menu
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        //instantiation of toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        pBar = findViewById(R.id.homeProgressBar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //instantiation of drawer/side menu
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        name_TV = navigationView.getHeaderView(0).findViewById(R.id.name_TV_drawer);
+        email_TV= navigationView.getHeaderView(0).findViewById(R.id.email_TV_drawer);
 
-        //If user is not authenticated
+        if(App.isPortraitMode(this)){ //No bottom menu in landscape
+            BottomNavigationView navigation = findViewById(R.id.navigation);
+            navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        }
+
+        else if(App.isLandscapeMode(this)) {
+            getSupportActionBar().hide();
+
+        }
+
+
+
         if(firebaseUser.isAnonymous()) {
             Menu menu = navigationView.getMenu();
             MenuItem settings = menu.findItem(R.id.nav_settings);
             settings.setTitle("Opret bruger");
-
             MenuItem signOut = menu.findItem(R.id.nav_signOut);
             signOut.setVisible(false);
             signOut.setEnabled(false);
+
         }
 
+        if(savedInstanceState == null) {
 
-        //Objects in current activity
-        pBar = findViewById(R.id.homeProgressBar);
+            //Handling data retrieval from firebase
+            if(firebaseUser != null){
+                firebaseUser.getUid();
+                db_userReference = FirebaseDatabase.getInstance().getReference()
+                        .child("users").child(firebaseUser.getUid());
+                setFirebaseListener();
+            }
 
-        //Objects in side drawer
-        name_TV = navigationView.getHeaderView(0).findViewById(R.id.name_TV_drawer);
-        email_TV= navigationView.getHeaderView(0).findViewById(R.id.email_TV_drawer);
+            Fragment start = new BloodSugarFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.navigation_container, start)
+                    .commit();
+
+        }
+
+    }
 
 
-
-
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
     }
 
     /**
@@ -144,12 +146,13 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
     protected void onResume() {
         super.onResume();
 
+//        Fragment start = new BloodSugarFragment();
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.navigation_container, start)
+//                .commit();
 
-        Fragment start = new BloodSugarFragment2();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.navigation_container, start)
-                .commit();
     }
+
 
     /**
      * What to do when the back button is pressed.
@@ -157,12 +160,11 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+        if (drawer.isDrawerOpen(GravityCompat.START)) drawer.closeDrawer(GravityCompat.START);
+        else super.onBackPressed();
+
     }
+
 
     /**
      * Method for creating the optionsmenu oncreate
@@ -174,7 +176,9 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home_menu, menu);
         return true;
+
     }
+
 
     /**
      * Method for handle action bar item clicks.
@@ -184,17 +188,19 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
         if (id == R.id.action_settings) {
             return true;
         }
 
         else if(id == R.id.action_help){
-            String blood_sugar_info = "Blodsukkeret skal optimalt være: \n\n• Før måltider: mellem 4-7 mmol/l.\n\n• Efter måltider: 10 mmol/l (ca. 1,5 time efter).\n\n• Ved sengetid: omkring 6-8 mmol/l.\n\n\nDet betyder at dit blodsukker må helst ikke på noget tidspunkt af døgnet overskride 10 mmol/l, eller komme under 4 mmol/l.";
+            String blood_sugar_info = "Blodsukkeret skal optimalt være: \n\n• Før måltider: mellem 4-7 mmol/l." +
+                                      "\n\n• Efter måltider: 10 mmol/l (ca. 1,5 time efter).\n\n• Ved sengetid: omkring 6-8 mmol/l." +
+                                      "\n\n\nDet betyder at dit blodsukker må helst ikke på noget tidspunkt af døgnet overskride 10 mmol/l, eller komme under 4 mmol/l.";
 
             final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
             alertDialog.setTitle("Hvad bør dit blodsukkerniveau være?");
             alertDialog.setMessage(blood_sugar_info);
-
             alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -210,6 +216,7 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
         return super.onOptionsItemSelected(item);
     }
 
+
     /**
      * Method for navigating view item clicks
      * @param item
@@ -220,55 +227,50 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-
         if (id == R.id.nav_homeMenu) {
-            // Handle the camera action
-        } else if (id == R.id.nav_medicin) {
 
-        } else if (id == R.id.nav_motivationGroup) {
+        }
 
-        } else if (id == R.id.nav_tips) {
+        else if (id == R.id.nav_medicin) {
 
-        } else if (id == R.id.nav_print) {
+        }
 
-        }else if (id == R.id.nav_settings) {
+        else if (id == R.id.nav_motivationGroup) {
+
+        }
+
+        else if (id == R.id.nav_tips) {
+
+        }
+
+        else if (id == R.id.nav_print) {
+
+        }
+
+        else if (id == R.id.nav_settings) {
 
             if(firebaseUser.isAnonymous()){
-
                 Intent i = new Intent (this, SignUpActivity.class);
                 startActivity(i);
                 finish();
-
             }
+        }
 
-        } else if (id == R.id.nav_signOut) {
-
+        else if (id == R.id.nav_signOut) {
             firebaseAuth.signOut();
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
             Log.i("CURRENT USER: ", "After sign out: "+firebaseUser); //Should be null
-
             User.getUserInstance().nullifyUser();
-            System.out.println("SNAPSHOT2: "+ User.getUserInstance()); //Should be null
+            Log.i(TAG,"SNAPSHOT2: "+ User.getUserInstance()); //Should be null
 
             Intent i = new Intent (this, LoginActivity.class);
             startActivity(i);
             finish();
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    /**
-     * Handles click events
-     * @param v
-     */
-    @Override
-    public void onClick(View v) {
-
-
     }
 
     public BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -282,16 +284,16 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
 
                 case R.id.navigation_bloodsugar:
                     setTitle("Blodsukker");
-                    fragment = new BloodSugarFragment2();
-                   break;
+                    fragment = new BloodSugarFragment();
+                    break;
 
                 case R.id.navigation_reminders:
                     setTitle("Påmindelser");
-                    fragment = new Fragment();
+                    fragment = new ReminderFragment();
                     break;
 
                 case R.id.navigation_overview:
-                    setTitle("Overblik");
+                    setTitle("Kalender");
                     fragment = new Fragment();
                     break;
             }
@@ -299,9 +301,11 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.navigation_container,fragment)
                     .commit();
+
             return true;
         }
     };
+
 
     /**
      * Method for listening to changes to the database, and update if changes occur.
@@ -309,49 +313,44 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
     private void setFirebaseListener(){
 
 
-        System.out.println("Link to current user: " + FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid()).toString()); //Prints link to the current user
+        Log.i("Link to current user: ", FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid()).toString());
         db_userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Create User object with DataSnapShot
-
                 User u = dataSnapshot.getValue(User.class);
-                System.out.println("SNAPSHOT: "+ u);
-                System.out.println("SINGLETON FØR HENTNING FRA FIREBASE: "+ User.getUserInstance());
+                Log.i(TAG,"DATASNAPSHOT: "+ u);
+                Log.i(TAG,"SINGLETON BEFORE DATA RETRIEVAL FROM FIREBASE: "+ User.getUserInstance());
 
                 if(!firebaseUser.isAnonymous()) {
-                    User.getUserInstance().setUser(u.getId(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getBloodList());
+                    Log.i(TAG,"not anonymous user");
+                    User.getUserInstance().setUser(u.getId(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getMeasurements());
                     User.getUserInstance().notifyAllObservers();
                 }
 
                 else {} //Husk at rette
 
-                System.out.println("SINGLETON EFTER HENTNING FRA FB: "+ User.getUserInstance());
-
+                Log.i(TAG,"SINGLETON AFTER DATA RETRIEVAL FROM FIREBASE: "+ User.getUserInstance());
                 pBar.setVisibility(View.GONE);
 
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-
-
-            }
+            public void onCancelled(DatabaseError databaseError) { }
         });
 
     }
+
 
     @Override
     public void update() {
 
         if(!firebaseUser.isAnonymous()){
-
             name_TV.setText(User.getUserInstance().getFirstName()+" "+User.getUserInstance().getLastName());
             email_TV.setText(User.getUserInstance().getEmail());
-
         }
-        System.out.println("User updated  - HomeMenuActivity "+ User.getUserInstance());
+
+        Log.d(TAG, "Observer update finished: "+ User.getUserInstance());
 
     }
 

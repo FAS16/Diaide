@@ -61,7 +61,7 @@
         android:layout_marginEnd="57dp"
         android:layout_marginStart="57dp"
         android:backgroundTint="#3b5998"
-        android:drawableLeft="@mipmap/fb_logo"
+        android:drawableLeft="@drawable/fb_logo"
         android:text="Log ind med facebook"
         android:textColor="@color/colorSecondary"
         android:textSize="16sp"

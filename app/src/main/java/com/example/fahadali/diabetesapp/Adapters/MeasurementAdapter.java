@@ -2,7 +2,6 @@ package com.example.fahadali.diabetesapp.Adapters;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.media.Image;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,7 @@ import com.example.fahadali.diabetesapp.R;
 import java.util.ArrayList;
 
 
-public class BloodSugarAdapter extends ArrayAdapter<Measurement>{
+public class MeasurementAdapter extends ArrayAdapter<Measurement>{
     private TextView date;
     private TextView comment;
     private TextView bloodSugar;
@@ -25,7 +24,7 @@ public class BloodSugarAdapter extends ArrayAdapter<Measurement>{
     private Measurement bs;
 
 
-    public BloodSugarAdapter(Context context, ArrayList<Measurement> users) {
+    public MeasurementAdapter(Context context, ArrayList<Measurement> users) {
         super(context,0,users);
 
     }
@@ -36,7 +35,7 @@ public class BloodSugarAdapter extends ArrayAdapter<Measurement>{
         bs = getItem(position);
 
         if(convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.bloodsugar_list_item,parent,false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.measurement_list_item,parent,false);
         }
 
 
@@ -49,16 +48,6 @@ public class BloodSugarAdapter extends ArrayAdapter<Measurement>{
          bloodSugar.setText(String.valueOf(bs.getBloodSugar()));
          setComment();
          setImage();
-
-
-
-
-
-
-
-
-
-
 
         return convertView;
     }

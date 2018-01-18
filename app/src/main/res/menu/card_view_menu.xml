@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/done_reminder_menuitem"
+        android:orderInCategory="100"
+        android:title="Færdig" />
+
+    <item
+        android:id="@+id/edit_reminder_menuitem"
+        android:orderInCategory="101"
+        android:title="Rediger"></item>
+
+
+    <item
+        android:id="@+id/delete_reminder_menuitem"
+        android:orderInCategory="102"
+        android:title="Slet"></item>
+
+</menu>

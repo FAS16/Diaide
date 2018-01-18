@@ -93,6 +93,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
        // updateUI(currentUser);
     }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if(App.dialogIsVisible) App.showNeutralDialog("Ingen internetforbindelse", "Tilslut til internettet, og prøv igen.",this);
+    }
+
 
     /**
      * Method for handling what happens when you click in the activity
@@ -106,12 +112,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             finish();
         }
 
-        if(view == signUp_BTN){
+        if(view == signUp_BTN && App.isOnline()){
 
             if(firebaseUser == null) createUserAccount(email_ET.getText().toString(), password_ET.getText().toString());
             else if(firebaseUser.isAnonymous()) convertAnonymousUser(email_ET.getText().toString(), password_ET.getText().toString());
-
         }
+
+        else App.showNeutralDialog("Ingen internetforbindelse", "Tilslut til internettet, og prøv igen.",this);
     }
 
     /**
@@ -123,7 +130,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String firstName = firstName_ET.getText().toString();
         String lastName = lastName_ET.getText().toString();
         String email = firebaseUser.getEmail();
-        ArrayList <Measurement> bloodList = User.getUserInstance().getBloodList();
+        ArrayList <Measurement> bloodList = User.getUserInstance().getMeasurements();
 
         User.getUserInstance().setUser(id, firstName, lastName, email, bloodList);
 

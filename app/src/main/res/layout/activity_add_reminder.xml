@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSecondary"
+    tools:context="com.example.fahadali.diabetesapp.Activities.AddReminderActivity">
+
+    <!--<com.rilixtech.materialfancybutton.MaterialFancyButton-->
+        <!--android:id="@+id/type_BTN"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:layout_width="248dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingBottom="8dp"-->
+        <!--android:paddingLeft="40dp"-->
+        <!--android:paddingRight="58dp"-->
+        <!--android:paddingTop="8dp"-->
+        <!--android:textSize="22sp"-->
+        <!--fancy:mfb_borderColor="#FFFFFF"-->
+        <!--fancy:mfb_borderWidth="1dp"-->
+        <!--fancy:mfb_defaultColor="@color/colorPrimary"-->
+        <!--fancy:mfb_focusColor="@color/colorPrimaryDark"-->
+        <!--fancy:mfb_iconPosition="left"-->
+        <!--fancy:mfb_icon="@string/cmdi_calendar"-->
+        <!--fancy:mfb_fontIconSize="20dp"-->
+        <!--fancy:mfb_radius="30dp"-->
+        <!--fancy:mfb_iconPaddingRight="14dp"-->
+        <!--fancy:mfb_iconPaddingTop="1dp"-->
+        <!--fancy:mfb_text="TYPE"-->
+        <!--fancy:mfb_textGravity="center"-->
+        <!--fancy:mfb_textFont="Roboto-Regular.ttf"-->
+        <!--android:layout_marginTop="40dp"/>-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/type_BTN"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:fontFamily="sans-serif"-->
+        <!--android:text="14/01/2018" />-->
+
+
+    <!--<com.rilixtech.materialfancybutton.MaterialFancyButton-->
+        <!--android:id="@+id/date_BTN"-->
+        <!--android:layout_below="@+id/type_BTN"-->
+        <!--android:layout_width="247dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="0dp"-->
+        <!--android:paddingBottom="8dp"-->
+        <!--android:paddingLeft="40dp"-->
+        <!--android:paddingRight="58dp"-->
+        <!--android:paddingTop="8dp"-->
+        <!--android:textSize="22sp"-->
+        <!--fancy:mfb_borderColor="#FFFFFF"-->
+        <!--fancy:mfb_borderWidth="1dp"-->
+        <!--fancy:mfb_defaultColor="@color/colorPrimary"-->
+        <!--fancy:mfb_focusColor="@color/colorPrimaryDark"-->
+        <!--fancy:mfb_iconPosition="left"-->
+        <!--fancy:mfb_icon="@string/cmdi_calendar"-->
+        <!--fancy:mfb_fontIconSize="20dp"-->
+        <!--fancy:mfb_radius="30dp"-->
+        <!--fancy:mfb_iconPaddingRight="14dp"-->
+        <!--fancy:mfb_iconPaddingTop="1dp"-->
+        <!--fancy:mfb_text="PRIORITET"-->
+        <!--fancy:mfb_textGravity="center"-->
+        <!--fancy:mfb_textFont="Roboto-Regular.ttf"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:layout_marginTop="40dp"/>-->
+
+
+    <!--<com.rilixtech.materialfancybutton.MaterialFancyButton-->
+    <!--android:id="@+id/time_BTN"-->
+    <!--android:layout_below="@+id/date_BTN"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingBottom="8dp"-->
+    <!--android:paddingLeft="40dp"-->
+    <!--android:paddingRight="58dp"-->
+    <!--android:paddingTop="8dp"-->
+    <!--android:textSize="22sp"-->
+    <!--fancy:mfb_borderColor="#FFFFFF"-->
+    <!--fancy:mfb_borderWidth="1dp"-->
+    <!--fancy:mfb_defaultColor="@color/colorPrimary"-->
+    <!--fancy:mfb_focusColor="@color/colorPrimaryDark"-->
+    <!--fancy:mfb_iconPosition="left"-->
+    <!--fancy:mfb_icon="@string/cmdi_calendar"-->
+    <!--fancy:mfb_fontIconSize="20dp"-->
+    <!--fancy:mfb_radius="30dp"-->
+    <!--fancy:mfb_iconPaddingRight="14dp"-->
+    <!--fancy:mfb_iconPaddingTop="1dp"-->
+    <!--fancy:mfb_text="PRIORITET "-->
+    <!--fancy:mfb_textGravity="center"-->
+    <!--fancy:mfb_textFont="Roboto-Regular.ttf"-->
+    <!--android:layout_marginTop="40dp"/>-->
+
+
+    <RelativeLayout
+        android:id="@+id/date_rel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="16dp"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/exclamation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_date"
+            android:background="@android:color/transparent">
+        </ImageView>
+
+
+        <TextView
+            android:id="@+id/date_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dato"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/exclamation"
+            android:layout_marginTop="4dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="16/01/2018"
+            android:textSize="16sp"
+            android:layout_marginLeft="4dp"
+            android:layout_below="@id/date_header"
+            android:layout_toRightOf="@+id/exclamation"/>
+
+
+    </RelativeLayout>
+
+
+    <!--// #Lilla: D066FA - lyseBlå: #00A8FF - rød: #FF605F - blå #7986CB - mørkelilla #7C4DFF - grøn: #96D100-->
+    <RelativeLayout
+        android:id="@+id/type_rel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="11dp"
+        android:layout_marginTop="50dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/exclamation1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_label"></ImageView>
+
+
+        <TextView
+            android:id="@+id/date_header2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/exclamation1"
+            android:text="Type"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/date_header2"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@+id/exclamation1"
+            android:text="Fodterapeut"
+            android:textSize="16sp" />
+
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/time_rel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date_rel"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="16dp"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/exclamation2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_access_time"
+            android:background="@android:color/transparent">
+        </ImageView>
+
+
+        <TextView
+            android:id="@+id/date_header3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tid"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/exclamation2"
+            android:layout_marginTop="4dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="16/01/2018"
+            android:textSize="16sp"
+            android:layout_marginLeft="4dp"
+            android:layout_below="@id/date_header3"
+            android:layout_toRightOf="@+id/exclamation2"/>
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/note_rel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date_rel"
+        android:layout_marginTop="80dp"
+        android:layout_marginRight="11dp"
+        android:layout_alignParentRight="true"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/exclamation3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            android:background="@android:color/transparent">
+        </ImageView>
+
+
+        <TextView
+            android:id="@+id/date_header4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Note"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/exclamation3"
+            android:layout_marginTop="4dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:text="Ikke tilføjet"
+            android:textSize="16sp"
+            android:layout_marginLeft="4dp"
+            android:layout_below="@id/date_header4"
+            android:layout_toRightOf="@+id/exclamation3"/>
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/repeat_rel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/time_rel"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="80dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/exclamation4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_repeat"></ImageView>
+
+
+        <TextView
+            android:id="@+id/date_header5"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/exclamation4"
+            android:text="Gentag"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/date_header5"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@+id/exclamation4"
+            android:text="En gang"
+            android:textSize="16sp" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/prio_rel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/note_rel"
+        android:layout_marginRight="11dp"
+        android:layout_marginTop="80dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/exclamation7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_error_outline"></ImageView>
+
+
+        <TextView
+            android:id="@+id/date_header7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/exclamation7"
+            android:text="Prioritet"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/date_header7"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@+id/exclamation7"
+            android:text="Lav"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:clickable="true"-->
+        <!--android:background="?attr/selectableItemBackground"-->
+        <!--android:focusable="true">-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:clickable="true"-->
+        <!--android:background="?attr/selectableItemBackground"-->
+        <!--android:focusable="true">-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:background="?attr/selectableItemBackground"-->
+        <!--android:clickable="true"-->
+        <!--android:focusable="true"-->
+        <!--tools:layout_editor_absoluteX="211dp"-->
+        <!--tools:layout_editor_absoluteY="279dp"></LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:background="?attr/selectableItemBackground"-->
+        <!--android:clickable="true"-->
+        <!--android:focusable="true"-->
+        <!--tools:layout_editor_absoluteX="0dp"-->
+        <!--tools:layout_editor_absoluteY="253dp"></LinearLayout>-->
+
+
+    <ImageButton
+        android:id="@+id/done_BTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/colorSecondary"
+
+        android:src="@drawable/ic_checked" />
+
+
+    <!--<include-->
+        <!--android:id="@+id/include"-->
+        <!--layout="@layout/done_cancel_btns"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--android:layout_marginBottom="20dp"/>-->
+
+
+</RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/colorPrimary"-->
+    <!--android:orientation="vertical"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent">-->
+    <!---->
+    <!---->
+    <!--<TimePicker-->
+    <!--android:id="@+id/time_picker_rem"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"></TimePicker>-->
+
+
+    <!---->
+
+    <!--</LinearLayout>-->

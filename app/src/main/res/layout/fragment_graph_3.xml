@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:weightSum="10"
-    tools:context="com.example.fahadali.diabetesapp.Fragments.GraphFragment">
+    tools:context="com.example.fahadali.diabetesapp.not_used_yet.GraphFragment">
 
     <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
