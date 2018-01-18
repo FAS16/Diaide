@@ -117,12 +117,18 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
 
 
         Reminder reminder = reminderList.get(position);
-        holder.note_TV.setText(reminder.getNote());
+        if(reminder.getType().equals("Anden") || reminder.getType().equals("") || reminder.getType() == null){
+            holder.note_TV.setText(reminder.getNote());
+        }
+        else{
+            holder.note_TV.setText(reminder.getType());
+        }
         holder.date_TV.setText(reminder.getDate());
         holder.time_TV.setText(reminder.getTime());
         holder.repeat_TV.setText(reminder.getRepeat());
         if(reminder.getPriority() != null){
             holder.priority_TV.setText(reminder.getPriority());
+
         }
 
     }

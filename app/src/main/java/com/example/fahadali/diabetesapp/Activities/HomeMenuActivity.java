@@ -71,7 +71,27 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+
+        if(savedInstanceState == null) {
+
+            //Handling data retrieval from firebase
+            if (firebaseUser != null) {
+                firebaseUser.getUid();
+                db_userReference = FirebaseDatabase.getInstance().getReference()
+                        .child("users").child(firebaseUser.getUid());
+                setFirebaseListener();
+            }
+
+            Fragment start = new BloodSugarFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.navigation_container, start)
+                    .commit();
+
+        }
+
+
         pBar = findViewById(R.id.homeProgressBar);
+        pBar.setVisibility(View.INVISIBLE);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -93,34 +113,15 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
 
         }
 
+            if(firebaseUser.isAnonymous()) {
+                Menu menu = navigationView.getMenu();
+                MenuItem settings = menu.findItem(R.id.nav_settings);
+                settings.setTitle("Opret bruger");
+                MenuItem signOut = menu.findItem(R.id.nav_signOut);
+                signOut.setVisible(false);
+                signOut.setEnabled(false);
 
-
-        if(firebaseUser.isAnonymous()) {
-            Menu menu = navigationView.getMenu();
-            MenuItem settings = menu.findItem(R.id.nav_settings);
-            settings.setTitle("Opret bruger");
-            MenuItem signOut = menu.findItem(R.id.nav_signOut);
-            signOut.setVisible(false);
-            signOut.setEnabled(false);
-
-        }
-
-        if(savedInstanceState == null) {
-
-            //Handling data retrieval from firebase
-            if(firebaseUser != null){
-                firebaseUser.getUid();
-                db_userReference = FirebaseDatabase.getInstance().getReference()
-                        .child("users").child(firebaseUser.getUid());
-                setFirebaseListener();
             }
-
-            Fragment start = new BloodSugarFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.navigation_container, start)
-                    .commit();
-
-        }
 
     }
 
