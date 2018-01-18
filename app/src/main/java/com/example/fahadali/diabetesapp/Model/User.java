@@ -20,6 +20,7 @@ public class User implements Subject {
     private ArrayList<Measurement> measurements = new ArrayList<>();
     private ArrayList<Reminder> reminders = new ArrayList<>();
     private  ArrayList <Observer> observers = new ArrayList<>();
+    private ArrayList <MedicineCard> medicinecardList = new ArrayList<>();
 
     //Empty constructor for google firebase
     private User(){
@@ -33,12 +34,14 @@ public class User implements Subject {
      * @param lastName
      * @param mail
      */
-    private User(String id, String firstName, String lastName, String mail,  ArrayList<Measurement> measurements){
+
+    private User(String id, String firstName, String lastName, String mail,  ArrayList<Measurement> measurements, ArrayList<MedicineCard> medicinecardList){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = mail;
         this.measurements = measurements;
+        this.medicinecardList = medicinecardList;
 
 
     }
@@ -68,6 +71,7 @@ public class User implements Subject {
         this.measurements = measurements;
     }
 
+
     /**
      * Method for adding bloodsugarnotation
      * @param bs
@@ -76,6 +80,16 @@ public class User implements Subject {
 
         measurements.add(bs);
     }
+
+    public ArrayList<MedicineCard> getMedicinecardList() {
+        return medicinecardList;
+    }
+    public void setMedicinecardList(ArrayList<MedicineCard> medicinecardList){this.medicinecardList = medicinecardList;}
+
+    public void addMedicineCard(MedicineCard mc) {
+        medicinecardList.add(mc);
+    }
+
 
     /**
      * Method for getting reminderslist
@@ -180,20 +194,21 @@ public class User implements Subject {
      * @param firstName
      * @param lastName
      * @param email
-     * @param bloodList
+     * @param measurements
      */
-    public void setUser(String id, String firstName, String lastName, String email, ArrayList<Measurement> bloodList){
+    public void setUser(String id, String firstName, String lastName, String email, ArrayList<Measurement> measurements, ArrayList <MedicineCard> medicinecardList){
 
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.measurements = bloodList;
+        this.measurements = measurements;
+        this.medicinecardList = medicinecardList;
 
     }
 
     public String toString() {
-        return ("ID: "+id + " - NAVN: "+firstName + " - MAIL: "+email+ " - BSLIST: "+ measurements);
+        return ("ID: "+id + " - NAVN: "+firstName + " - MAIL: "+email+ " - BSLIST: "+ measurements+ "- MCLIST: " +medicinecardList);
     }
 
 

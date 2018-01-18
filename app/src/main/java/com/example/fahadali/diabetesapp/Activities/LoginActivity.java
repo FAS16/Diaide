@@ -1,6 +1,11 @@
 package com.example.fahadali.diabetesapp.Activities;
 
 import android.app.ProgressDialog;
+
+
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -15,14 +20,32 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.fahadali.diabetesapp.Model.Measurement;
+import com.example.fahadali.diabetesapp.Model.MedicineCard;
+import com.example.fahadali.diabetesapp.Model.User;
 import com.example.fahadali.diabetesapp.Other.App;
 import com.example.fahadali.diabetesapp.R;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.Profile;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
@@ -37,10 +60,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseUser firebaseUser;
     private EditText email_ET, password_ET;
     private Button login_BTN, loginFB_BTN, createUser_BTN;
-    private TextView notNow_TV ;
+    private TextView notNow_TV, forgotLogin_TV;
     private ProgressBar pBar;
     private CheckBox checkBox;
-    private static final String TAG = "LoginActivity";
+
+    public DatabaseReference db;
+     private static final String TAG = "LoginActivity";
+    CallbackManager callbackManager = CallbackManager.Factory.create();
+
 
     /**
      * Oncreate method, to tell the program what to do on create.
@@ -53,12 +80,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-
+        db = FirebaseDatabase.getInstance().getReference();
         if(firebaseUser != null){
+
 
             Intent intent = new Intent(LoginActivity.this, HomeMenuActivity.class);
             startActivity(intent);
             finish();
+
 
         }
 
@@ -66,8 +95,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             email_ET = findViewById(R.id.userName_ET);
             password_ET = findViewById(R.id.password_ET);
+            forgotLogin_TV = findViewById(R.id.forgotLogin_TW);
             login_BTN = findViewById(R.id.login_BTN);
+            //Facebook LogIn
             loginFB_BTN = findViewById(R.id.loginFB_BTN);
+            LoginManager.getInstance().registerCallback(callbackManager,
+                    new FacebookCallback<LoginResult>() {
+                        @Override
+                        public void onSuccess(LoginResult loginResult) {
+                            fbLogin(loginResult.getAccessToken());
+                        }
+
+                        @Override
+                        public void onCancel() {
+                            // App code
+                        }
+
+                        @Override
+                        public void onError(FacebookException exception) {
+                            // App code
+                        }
+                    });
+
             createUser_BTN = findViewById(R.id.createUser_BTN);
             notNow_TV = findViewById(R.id.notNow_TV);
             pBar = findViewById(R.id.loginProgressBar);
@@ -75,6 +124,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             email_ET.requestFocus();
             login_BTN.setOnClickListener(this);
+            forgotLogin_TV.setOnClickListener(this);
             loginFB_BTN.setOnClickListener(this);
             createUser_BTN.setOnClickListener(this);
             notNow_TV.setOnClickListener(this);
@@ -85,6 +135,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
     /**
      * Resume method, for when the acitivity gets resumed
      */
@@ -114,6 +169,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(intent);
         }
 
+
         else if(App.isOnline()) {
 
             if (v == login_BTN) {
@@ -121,21 +177,68 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 signIn(email_ET.getText().toString().trim(), password_ET.getText().toString());
                 setSavedLoginCred();
 
-            } else if (v == loginFB_BTN) {
-                //Facebook loging
+            } 
+        else if(v == loginFB_BTN){
+            LoginManager.getInstance().logInWithReadPermissions(
+                    this,
+                    Arrays.asList("email", "public_profile")
+            );
+        }
+
 
             } else if (v == notNow_TV) {
                 notNow_TV.setTypeface(Typeface.DEFAULT_BOLD);
                 signInAnonymously();
                }
-            }
 
+              else if (v == forgotLogin_TV){
+            System.out.println("Forgot Password TV Knap virker");
+            forgotLogin();
+        }
         else {
             App.showNeutralDialog("Ingen internetforbindelse", "Tilslut til internettet, og prøv igen.",this);
         }
 
+
     }
 
+    private void fbLogin(AccessToken token){
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success
+                            Log.d(TAG, "signInWithCredential:success");
+                            firebaseUser = firebaseAuth.getCurrentUser();
+                            String id = Profile.getCurrentProfile().getId();
+                            String firstName = Profile.getCurrentProfile().getFirstName();
+                            String lastName = Profile.getCurrentProfile().getLastName();
+                            String email = firebaseAuth.getCurrentUser().getEmail();
+                            ArrayList <Measurement> bloodList = User.getUserInstance().getMeasurements();
+                            ArrayList <MedicineCard> medicineCardsList = User.getUserInstance().getMedicinecardList();
+
+                            User.getUserInstance().setUser(id, firstName, lastName, email, bloodList, medicineCardsList);
+
+                            db.child("users").child(firebaseUser.getUid()).setValue(User.getUserInstance());
+                            Intent intent = new Intent(LoginActivity.this, HomeMenuActivity.class);
+                            startActivity(intent);
+                            finish();
+
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        // ...
+                    }
+                });
+    }
 
     /**
      * Method for handling the sign in process, with firebaseAuth
@@ -203,6 +306,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                  });
 
      }
+
+
+/*
+    public void forgottenPassword(View v) {
+            userMail = email_ET.getText().toString();
+            FirebaseAuth.getInstance().sendPasswordResetEmail(userMail)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("Glemt kode: ", "Email sent.");
+                                App.shortToast(LoginActivity.this, "Email sendt");
+                            }
+                            else if(email_ET == null){
+                                App.shortToast(LoginActivity.this, "Indtast email");
+                            }
+                            else{
+                                App.shortToast(LoginActivity.this, "Email findes ikke");
+                            }
+                        }
+                    });
+        }
+*/
 
 
 
@@ -311,6 +437,47 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
              }
 
        }
+
+    private AlertDialog forgotLogin(){
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(LoginActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.forgot_login, null);
+        final EditText mEmail = mView.findViewById(R.id.email_dialog);
+
+        mBuilder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                final String userMail = mEmail.getText().toString();
+                FirebaseAuth.getInstance().sendPasswordResetEmail(userMail)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d("Glemt kode: ", "Email sent.");
+                                    App.shortToast(LoginActivity.this, "Email sendt");
+                                }
+                                else if(email_ET == null){
+                                    App.shortToast(LoginActivity.this, "Indtast email");
+                                }
+                                else{
+                                    App.shortToast(LoginActivity.this, "Email findes ikke");
+                                }
+                            }
+                        });
+            }
+        });
+
+        mBuilder.setNegativeButton("Annuller", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        mBuilder.setView(mView).show();
+        final AlertDialog dialog = mBuilder.create();
+        return dialog;
+    }
 
 }
 
