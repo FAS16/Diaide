@@ -183,7 +183,7 @@ public class BloodSugarFragment extends Fragment implements View.OnClickListener
 
             if(subject.equals(today)){
 
-                Log.d(TAG, "Subject: "+subject +" - Today: "+today);
+                Log.d(TAG, "Subject: "+subject +" -  Today: "+today);
 
                 xYvalues.add(new XYvalue(parseDate(m.getTime()), m.getBloodSugar()));
             }
