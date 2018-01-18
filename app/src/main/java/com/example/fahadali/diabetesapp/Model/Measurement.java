@@ -8,7 +8,8 @@ import java.util.Collections;
 
 public class Measurement {
     /**
-     * Variables for the Bloodsugar class
+     *
+     * Variables for the Blood sugar class
      */
     private double bloodSugar;
     private String comment;

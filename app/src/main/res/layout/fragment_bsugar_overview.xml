@@ -19,14 +19,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toBottomOf="@+id/comment_time_header" />
 
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/comment_time_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="13dp"
+        android:fontFamily="@font/roboto"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
         android:text="Kommentar og tidspunkt"
@@ -61,13 +62,14 @@
         app:layout_constraintEnd_toStartOf="@+id/BloodSugar_LV"
         app:layout_constraintStart_toEndOf="@+id/BloodSugar_LV"
         app:layout_constraintTop_toBottomOf="@+id/BloodSugar_LV"
-        app:layout_constraintVertical_bias="0.521" />
+        app:layout_constraintVertical_bias="0.724" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/mmoll_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
+        android:fontFamily="@font/roboto"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
         android:text="mmol/l"

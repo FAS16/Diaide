@@ -70,7 +70,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         password_ET = findViewById(R.id.createPassword_ET);
         pBar = findViewById(R.id.signProgressBar);
 
-
         signUp_BTN = findViewById(R.id.signUp_BTN);
         signUp_BTN.setOnClickListener(this);
         backToLogin_TV = findViewById(R.id.backToLogin_TV);
@@ -88,9 +87,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in and update UI accordingly.
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-       // updateUI(currentUser);
+
     }
 
     @Override
@@ -113,7 +110,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         if(view == signUp_BTN && App.isOnline()){
-
             if(firebaseUser == null) createUserAccount(email_ET.getText().toString(), password_ET.getText().toString());
             else if(firebaseUser.isAnonymous()) convertAnonymousUser(email_ET.getText().toString(), password_ET.getText().toString());
         }
@@ -205,7 +201,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void sendEmailVerification() {
 
 
-        // Send verification email
+        // Send verification email //Not used
          FirebaseUser user = firebaseAuth.getCurrentUser();
 
         if(user != null){

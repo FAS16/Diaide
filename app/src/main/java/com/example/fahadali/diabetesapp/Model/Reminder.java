@@ -3,6 +3,7 @@ package com.example.fahadali.diabetesapp.Model;
 
 public class Reminder {
 
+    private int id;
     private String type;
     private String date;
     private String time;
@@ -11,8 +12,9 @@ public class Reminder {
     private String priority;
 
 
-    public Reminder(String type, String date, String time, String note, String repeat, String priority){
+    public Reminder(int id, String type, String date, String time, String note, String repeat, String priority){
 
+        this.id = id;
         this.type = type;
         this.date = date;
         this.time = time;
@@ -20,6 +22,26 @@ public class Reminder {
         this.repeat = repeat;
         this.priority = priority;
 
+    }
+
+    public  Reminder(){
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getDate() {
@@ -61,6 +83,8 @@ public class Reminder {
     public void setPriority(String priority) {
         this.priority = priority;
     }
+
+
 }
 
 

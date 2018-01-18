@@ -84,7 +84,7 @@ public class MeasurementAdapter extends ArrayAdapter<Measurement>{
 
         if(bs.getComment().equals("N/A")) {
              comment.setTextColor(Color.LTGRAY);
-             comment.setText("Ingen kommentar");
+             comment.setText(" —");
         }
 
     }

@@ -48,11 +48,7 @@ public class HomeMenuActivity extends AppCompatActivity implements Observer, Nav
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private DatabaseReference db_userReference;
-
-    //Objects in current activity
     private ProgressBar pBar;
-
-    //Objects in side drawer
     private TextView name_TV, email_TV;
     private Toolbar toolbar;
 

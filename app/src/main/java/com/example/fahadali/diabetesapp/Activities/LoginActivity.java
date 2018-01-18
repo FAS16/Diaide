@@ -96,12 +96,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putBoolean("dialogIsVisible", networkDialogShown);
-//    }
-
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -182,6 +176,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         });
              }
 
+
+
      private void signInAnonymously(){
          firebaseAuth.signInAnonymously()
                  .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -207,29 +203,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                  });
 
      }
-
-
-    public void forgottenPassword(View v) {
-//
-//            userMail = email_ET.getText().toString();
-//            FirebaseAuth.getInstance().sendPasswordResetEmail(userMail)
-//                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            if (task.isSuccessful()) {
-//                                Log.d("Glemt kode: ", "Email sent.");
-//                                App.shortToast(LoginActivity.this, "Email sendt");
-//                            }
-//                            else if(email_ET == null){
-//                                App.shortToast(LoginActivity.this, "Indtast email");
-//                            }
-//                            else{
-//                                App.shortToast(LoginActivity.this, "Email findes ikke");
-//                            }
-//                        }
-//                    });
-        }
-
 
 
 

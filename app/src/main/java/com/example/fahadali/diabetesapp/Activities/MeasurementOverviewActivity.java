@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -40,6 +41,7 @@ public class MeasurementOverviewActivity extends AppCompatActivity implements Vi
     private ListView overview;
     private TextView noMeasurements_TV;
     private boolean editMode;
+    private TextView header1, header2;
 
 
 
@@ -50,8 +52,14 @@ public class MeasurementOverviewActivity extends AppCompatActivity implements Vi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.fragment_bsugar_overview);
 
+        header1 = findViewById(R.id.mmoll_header);
+        header2 = findViewById(R.id.comment_time_header);
         noMeasurements_TV = findViewById(R.id.noMeasurements_TV);
-        if(!User.getUserInstance().getMeasurements().isEmpty()) noMeasurements_TV.setVisibility(View.INVISIBLE);
+        if(!User.getUserInstance().getMeasurements().isEmpty()) {
+            noMeasurements_TV.setVisibility(View.INVISIBLE);
+            header1.setVisibility(View.VISIBLE);
+            header2.setVisibility(View.VISIBLE);
+        }
         editMode = false;
         addBloodSugar_BTN = findViewById(R.id.addMeasurement_BTN);
         addBloodSugar_BTN.setOnClickListener(this);
@@ -66,7 +74,7 @@ public class MeasurementOverviewActivity extends AppCompatActivity implements Vi
         overview.setOnItemClickListener(this);
         overview.setOnItemLongClickListener(this);
 
-        update();
+         update();
         User.getUserInstance().registerObserver(this);
 
     }
@@ -95,7 +103,11 @@ public class MeasurementOverviewActivity extends AppCompatActivity implements Vi
         super.onResume();
         update();
         editMode = false;
-        if(!User.getUserInstance().getMeasurements().isEmpty()) noMeasurements_TV.setVisibility(View.INVISIBLE);
+        if(!User.getUserInstance().getMeasurements().isEmpty()) {
+            noMeasurements_TV.setVisibility(View.INVISIBLE);
+            header1.setVisibility(View.VISIBLE);
+            header2.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -141,7 +153,11 @@ public class MeasurementOverviewActivity extends AppCompatActivity implements Vi
         overview = findViewById(R.id.BloodSugar_LV);
         ref.child("users").child(fireBaseUser.getUid()).child("measurements").setValue(User.getUserInstance().getMeasurements());
         overview.setAdapter(adapter);
-        if(User.getUserInstance().getMeasurements().isEmpty()) noMeasurements_TV.setVisibility(View.VISIBLE);
+        if(User.getUserInstance().getMeasurements().isEmpty()) {
+            noMeasurements_TV.setVisibility(View.VISIBLE);
+            header1.setVisibility(View.INVISIBLE);
+            header2.setVisibility(View.INVISIBLE);
+        }
 
     }
 

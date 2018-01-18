@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/contentX"
     android:background="@color/colorSecondary"
     tools:context="com.example.fahadali.diabetesapp.Activities.AddReminderActivity">
 
@@ -107,7 +108,8 @@
         android:focusable="true">
 
         <ImageView
-            android:id="@+id/exclamation"
+
+            android:id="@+id/dateIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_date"
@@ -121,26 +123,25 @@
             android:layout_height="wrap_content"
             android:text="Dato"
             android:layout_marginLeft="4dp"
-            android:layout_toRightOf="@id/exclamation"
+            android:layout_toRightOf="@id/dateIcon"
             android:layout_marginTop="4dp"
             android:textStyle="bold"
             android:textSize="16sp"
             />
 
         <TextView
+            android:id="@+id/chosenDate"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="16/01/2018"
+            android:text=" —"
             android:textSize="16sp"
             android:layout_marginLeft="4dp"
             android:layout_below="@id/date_header"
-            android:layout_toRightOf="@+id/exclamation"/>
+            android:layout_toRightOf="@+id/dateIcon"/>
 
 
     </RelativeLayout>
 
-
-    <!--// #Lilla: D066FA - lyseBlå: #00A8FF - rød: #FF605F - blå #7986CB - mørkelilla #7C4DFF - grøn: #96D100-->
     <RelativeLayout
         android:id="@+id/type_rel"
         android:layout_width="wrap_content"
@@ -153,7 +154,7 @@
         android:focusable="true">
 
         <ImageView
-            android:id="@+id/exclamation1"
+            android:id="@+id/typeIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -166,18 +167,19 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="4dp"
-            android:layout_toRightOf="@id/exclamation1"
+            android:layout_toRightOf="@id/typeIcon"
             android:text="Type"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/chosenType"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/date_header2"
             android:layout_marginLeft="4dp"
-            android:layout_toRightOf="@+id/exclamation1"
-            android:text="Fodterapeut"
+            android:layout_toRightOf="@+id/typeIcon"
+            android:text=" —"
             android:textSize="16sp" />
 
 
@@ -197,7 +199,7 @@
         android:focusable="true">
 
         <ImageView
-            android:id="@+id/exclamation2"
+            android:id="@+id/timeIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_access_time"
@@ -211,20 +213,21 @@
             android:layout_height="wrap_content"
             android:text="Tid"
             android:layout_marginLeft="4dp"
-            android:layout_toRightOf="@id/exclamation2"
+            android:layout_toRightOf="@id/timeIcon"
             android:layout_marginTop="4dp"
             android:textStyle="bold"
             android:textSize="16sp"
             />
 
         <TextView
+            android:id="@+id/chosenTime"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="16/01/2018"
+            android:text=" —"
             android:textSize="16sp"
             android:layout_marginLeft="4dp"
             android:layout_below="@id/date_header3"
-            android:layout_toRightOf="@+id/exclamation2"/>
+            android:layout_toRightOf="@+id/timeIcon"/>
 
 
     </RelativeLayout>
@@ -243,7 +246,7 @@
         android:focusable="true">
 
         <ImageView
-            android:id="@+id/exclamation3"
+            android:id="@+id/noteIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_edit"
@@ -257,20 +260,21 @@
             android:layout_height="wrap_content"
             android:text="Note"
             android:layout_marginLeft="4dp"
-            android:layout_toRightOf="@id/exclamation3"
+            android:layout_toRightOf="@id/noteIcon"
             android:layout_marginTop="4dp"
             android:textStyle="bold"
             android:textSize="16sp"
             />
 
         <TextView
+            android:id="@+id/chosenNote"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:text="Ikke tilføjet"
             android:textSize="16sp"
             android:layout_marginLeft="4dp"
             android:layout_below="@id/date_header4"
-            android:layout_toRightOf="@+id/exclamation3"/>
+            android:layout_toRightOf="@+id/noteIcon"/>
 
 
     </RelativeLayout>
@@ -288,7 +292,7 @@
         android:focusable="true">
 
         <ImageView
-            android:id="@+id/exclamation4"
+            android:id="@+id/repeatIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -301,17 +305,18 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="4dp"
-            android:layout_toRightOf="@id/exclamation4"
+            android:layout_toRightOf="@id/repeatIcon"
             android:text="Gentag"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/chosenRepeat"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/date_header5"
             android:layout_marginLeft="4dp"
-            android:layout_toRightOf="@+id/exclamation4"
+            android:layout_toRightOf="@+id/repeatIcon"
             android:text="En gang"
             android:textSize="16sp" />
 
@@ -332,7 +337,7 @@
         android:focusable="true">
 
         <ImageView
-            android:id="@+id/exclamation7"
+            android:id="@+id/prioIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -345,55 +350,23 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="4dp"
-            android:layout_toRightOf="@id/exclamation7"
+            android:layout_toRightOf="@id/prioIcon"
             android:text="Prioritet"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/chosenPrio"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/date_header7"
             android:layout_marginLeft="4dp"
-            android:layout_toRightOf="@+id/exclamation7"
-            android:text="Lav"
+            android:layout_toRightOf="@+id/prioIcon"
+            android:text=" —"
             android:textSize="16sp" />
 
     </RelativeLayout>
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="200dp"-->
-        <!--android:layout_height="200dp"-->
-        <!--android:clickable="true"-->
-        <!--android:background="?attr/selectableItemBackground"-->
-        <!--android:focusable="true">-->
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="200dp"-->
-        <!--android:layout_height="200dp"-->
-        <!--android:clickable="true"-->
-        <!--android:background="?attr/selectableItemBackground"-->
-        <!--android:focusable="true">-->
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="200dp"-->
-        <!--android:layout_height="200dp"-->
-        <!--android:background="?attr/selectableItemBackground"-->
-        <!--android:clickable="true"-->
-        <!--android:focusable="true"-->
-        <!--tools:layout_editor_absoluteX="211dp"-->
-        <!--tools:layout_editor_absoluteY="279dp"></LinearLayout>-->
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="200dp"-->
-        <!--android:layout_height="200dp"-->
-        <!--android:background="?attr/selectableItemBackground"-->
-        <!--android:clickable="true"-->
-        <!--android:focusable="true"-->
-        <!--tools:layout_editor_absoluteX="0dp"-->
-        <!--tools:layout_editor_absoluteY="253dp"></LinearLayout>-->
 
 
     <ImageButton
@@ -404,58 +377,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp"
         android:backgroundTint="@color/colorSecondary"
-
         android:src="@drawable/ic_checked" />
 
 
-    <!--<include-->
-        <!--android:id="@+id/include"-->
-        <!--layout="@layout/done_cancel_btns"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="100dp"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--android:layout_marginBottom="20dp"/>-->
 
 
 </RelativeLayout>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:background="@color/colorPrimary"-->
-    <!--android:orientation="vertical"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent">-->
-    <!---->
-    <!---->
-    <!--<TimePicker-->
-    <!--android:id="@+id/time_picker_rem"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"></TimePicker>-->
-
-
-    <!---->
-
-    <!--</LinearLayout>-->
